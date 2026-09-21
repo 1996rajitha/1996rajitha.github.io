@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rajitha Herath — Underwater robotics, mechatronics &amp; teaching tools</title>
+<meta name="description" content="Rajitha Herath (H.M.R.L.B Herath) — mechatronics engineer, lecturer at General Sir John Kotelawala Defence University, researcher in bio-inspired underwater robotics, and builder of offline browser-based engineering teaching tools.">
+<meta name="author" content="H.M.R.L.B Herath">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Rajitha Herath — Underwater robotics &amp; mechatronics">
+<meta property="og:description" content="Bio-inspired underwater robots, CFD-based hydrodynamic analysis, and browser-based engineering simulators you can run right now.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2308201F'/%3E%3Cpath d='M3 20c4-6 8-6 12 0s8 6 14 0' stroke='%23E9A13B' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  color-scheme:dark;
+  --abyss:#08201F;
+  --deep:#0E3634;
+  --screen:#061B1A;
+  --rule:#1C4744;
+  --wire:#2E7F76;
+  --foam:#E8EFEA;
+  --haze:#93ABA5;
+  --sodium:#E9A13B;
+  --measure:64ch;
+  --rail:11rem;
+  --gap:3.5rem;
+  --pad:clamp(1.5rem,6vw,6rem);
+  --shell:78rem;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  margin:0;
+  color:var(--foam);
+  background:var(--abyss);
+  background-image:linear-gradient(180deg,#08201F 0%,#09242200 22%),radial-gradient(120% 60% at 50% 100%,#0C2C2A 0%,#08201F 70%);
+  background-attachment:fixed;
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:clamp(1rem,0.55vw + 0.92rem,1.08rem);
+  line-height:1.68;
+  font-optical-sizing:auto;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+a{color:var(--foam);text-decoration:none;border-bottom:1px solid var(--rule);transition:border-color .18s,color .18s}
+a:hover{color:var(--sodium);border-bottom-color:var(--sodium)}
+a:focus-visible{outline:2px solid var(--sodium);outline-offset:3px;border-radius:2px}
+.sans{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif}
+.sub{color:var(--haze)}
+
+.skip{position:absolute;left:-9999px;top:0;padding:.6rem 1rem;background:var(--sodium);color:var(--abyss);z-index:60}
+.skip:focus{left:.5rem;top:.5rem}
+
+/* ---------------- nav ---------------- */
+.bar{
+  position:fixed;inset:0 0 auto 0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.85rem var(--pad);
+  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.86rem;
+  border-bottom:1px solid transparent;
+  transition:background .3s,border-color .3s;
+}
+.bar.stuck{background:rgba(8,32,31,.86);backdrop-filter:blur(12px);border-bottom-color:var(--rule)}
+.bar a{border:0}
+.bar__me{font-weight:600;opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s}
+.bar.stuck .bar__me{opacity:1;transform:none}
+.bar__links{display:flex;gap:1.4rem;color:var(--haze)}
+.bar__links a{color:inherit}
+.bar__links a:hover{color:var(--sodium)}
+@media (max-width:700px){.bar__links{display:none}.bar__me{opacity:1;transform:none}}
+
+/* ---------------- hero ---------------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+#flow{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero__veil{position:absolute;inset:0;
+  background:linear-gradient(100deg,var(--abyss) 8%,rgba(8,32,31,.72) 42%,rgba(8,32,31,.12) 78%),
+             linear-gradient(to top,var(--abyss) 2%,transparent 34%)}
+.hero__inner{position:relative;width:100%;padding:0 var(--pad) clamp(3rem,7vh,5.5rem)}
+
+.name{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-weight:700;
+  font-size:clamp(3.1rem,10.5vw,8.4rem);line-height:.88;letter-spacing:-.035em;margin:0;
+  font-variation-settings:"wdth" 92}
+.name span{display:block}
+.name .family{color:var(--sodium)}
+.legal{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.82rem;
+  color:var(--haze);letter-spacing:.06em;margin:1.15rem 0 0}
+.pitch{max-width:47ch;margin:1.5rem 0 0;font-size:clamp(1.08rem,1vw + .92rem,1.32rem);line-height:1.55}
+.reach{display:flex;flex-wrap:wrap;gap:0 1.6rem;margin:2rem 0 0;padding:0;list-style:none;
+  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.92rem}
+.reach li{padding:.25rem 0}
+.reach a{border-bottom-color:rgba(147,171,165,.45)}
+
+/* ---------------- section shell ---------------- */
+main{padding:clamp(4rem,10vh,7rem) var(--pad) 0}
+
+.band{display:grid;grid-template-columns:var(--rail) minmax(0,1fr);gap:var(--gap);
+  padding:clamp(2.6rem,5vh,3.6rem) 0;border-top:1px solid var(--rule);max-width:var(--shell)}
+.band:first-of-type{border-top:0;padding-top:0}
+.band > h2{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.92rem;
+  font-weight:500;color:var(--haze);margin:.35rem 0 0;position:sticky;top:4.2rem;align-self:start}
+.body{max-width:var(--measure)}
+.body > :first-child{margin-top:0}
+.body > :last-child{margin-bottom:0}
+.lede{font-size:clamp(1.18rem,.62vw + 1.04rem,1.36rem);line-height:1.54;letter-spacing:-.006em}
+.colhead{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.95rem;font-weight:600;
+  margin:0 0 1.1rem;color:var(--foam)}
+.duo{display:grid;grid-template-columns:1.15fr .85fr;gap:3.4rem}
+.band--duo .body{max-width:none}
+@media (max-width:820px){.duo{grid-template-columns:1fr;gap:2.4rem}}
+
+.band--wide{grid-template-columns:1fr;gap:1.6rem;max-width:var(--shell)}
+.band--wide > h2{position:static}
+.band--wide .body{max-width:none}
+
+@media (max-width:860px){
+  .band{grid-template-columns:1fr;gap:1rem}
+  .band > h2{position:static;color:var(--sodium)}
+}
+
+/* ---------------- entries ---------------- */
+.entry{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:1.6rem;padding:1.5rem 0;
+  border-top:1px solid rgba(28,71,68,.55)}
+.entry:first-child{border-top:0;padding-top:0}
+.when{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.86rem;color:var(--haze);
+  padding-top:.35rem;font-variant-numeric:lining-nums tabular-nums}
+.what h3{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:1.12rem;font-weight:600;
+  letter-spacing:-.01em;margin:0;line-height:1.3}
+.where{color:var(--haze);margin:.25rem 0 0;font-size:.98rem}
+.what p{margin:.6rem 0 0}
+.what ul{margin:.7rem 0 0;padding-left:1.05rem}
+.what li{margin:.3rem 0;padding-left:.15rem}
+.what li::marker{color:var(--sodium)}
+@media (max-width:560px){.entry{grid-template-columns:1fr;gap:.35rem}.when{padding-top:0}}
+
+/* ---------------- the lab ---------------- */
+.lab-intro{max-width:60ch;margin:0 0 2.4rem}
+
+.stage{position:relative;z-index:2;margin:0 0 2.6rem;border:1px solid var(--rule);background:var(--screen)}
+.stage__screen{position:relative;aspect-ratio:16/9;min-height:300px;overflow:hidden;display:block}
+.stage__screen svg,.stage__screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.stage__glare{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(170deg,rgba(232,239,234,.07),transparent 42%)}
+.boot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;
+  display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;
+  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:1rem;font-weight:600;
+  padding:.85rem 1.5rem;border:0;background:var(--sodium);color:var(--abyss);
+  box-shadow:0 0 0 10px rgba(8,32,31,.5);transition:background .18s,transform .18s}
+.boot:hover{background:var(--foam);transform:translate(-50%,-50%) scale(1.03)}
+.boot:focus-visible{outline:2px solid var(--foam);outline-offset:4px}
+.boot i{width:.55rem;height:.55rem;border-radius:50%;background:var(--abyss);display:block}
+.stage figcaption{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;justify-content:space-between;
+  padding:.9rem 1.1rem;border-top:1px solid var(--rule);color:var(--haze);
+  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.88rem}
+.stage figcaption b{color:var(--foam);font-weight:600}
+
+.rack{display:grid;grid-template-columns:repeat(auto-fit,minmax(19rem,1fr));gap:1.4rem}
+.tool{display:flex;flex-direction:column;border:1px solid var(--rule);background:var(--deep)}
+.tool__screen{position:relative;aspect-ratio:16/10;background:var(--screen);overflow:hidden;
+  border-bottom:1px solid var(--rule)}
+.tool__screen svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.tool__text{padding:1.15rem 1.25rem 1.35rem}
+.tool__text h3{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:1.08rem;
+  font-weight:600;margin:0;letter-spacing:-.01em}
+.tool__text p{margin:.55rem 0 0;font-size:.97rem;line-height:1.6}
+.state{display:inline-flex;align-items:center;gap:.45rem;margin:0 0 .55rem;
+  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.78rem;color:var(--haze)}
+.state i{width:.45rem;height:.45rem;border-radius:50%;background:var(--sodium);display:block}
+.state.wip i{background:var(--wire)}
+.tool__open{margin-top:1rem;display:inline-block;
+  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.92rem;font-weight:600;
+  border-bottom:1px solid var(--sodium);color:var(--sodium)}
+.tool__open:hover{color:var(--foam);border-bottom-color:var(--foam)}
+
+/* ---------------- publications ---------------- */
+.cite{padding:1.4rem 0;border-top:1px solid rgba(28,71,68,.55)}
+.cite:first-child{border-top:0;padding-top:0}
+.cite p{margin:0}
+.cite .title{font-style:italic}
+.cite .venue{color:var(--haze);display:block;margin-top:.35rem;font-size:.97rem}
+
+.pull{background:var(--deep);border-left:3px solid var(--sodium);padding:1.25rem 1.5rem;margin:1.8rem 0 0}
+.pull p{margin:0}
+.pull .k{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.8rem;color:var(--haze);
+  display:block;margin-bottom:.35rem}
+
+/* ---------------- skills ---------------- */
+.kit{margin:0;display:grid;gap:1.15rem}
+.kit div{display:grid;grid-template-columns:minmax(6.5rem,8.5rem) minmax(0,1fr);gap:1.1rem}
+.kit dt{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.92rem;color:var(--sodium);font-weight:500}
+.kit dd{margin:0}
+@media (max-width:560px){.kit div{grid-template-columns:1fr;gap:.15rem}}
+
+.plain{margin:0;padding-left:1.05rem}
+.plain li{margin:.55rem 0;padding-left:.2rem}
+.plain li::marker{color:var(--sodium)}
+
+/* ---------------- contact ---------------- */
+.meet{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:2rem;align-items:start}
+.portrait{width:100%;aspect-ratio:1;object-fit:cover;background:var(--deep);
+  filter:grayscale(1) contrast(1.06);mix-blend-mode:luminosity;opacity:.92}
+@media (max-width:560px){.meet{grid-template-columns:1fr;gap:1.4rem}.portrait{max-width:9.5rem}}
+.contact-grid{display:flex;flex-wrap:wrap;gap:.9rem 2.4rem;margin:1.6rem 0 0;padding:0;list-style:none;
+  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:1rem}
+.cta{display:inline-block;margin-top:1.8rem;padding:.7rem 1.4rem;background:var(--sodium);color:var(--abyss);
+  border:0;font-weight:600;font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.95rem}
+.cta:hover{background:var(--foam);color:var(--abyss)}
+
+footer{max-width:var(--shell);margin-top:clamp(3rem,8vh,5rem);padding:1.6rem var(--pad) 3rem;
+  border-top:1px solid var(--rule);color:var(--haze);font-size:.88rem;
+  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif}
+footer p{margin:0}
+
+/* ---------------- surface texture ---------------- */
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+::selection{background:var(--sodium);color:var(--abyss)}
+
+/* ---------------- tool cards: power on under the pointer or keyboard focus ---------------- */
+.tool{transition:border-color .25s,transform .25s}
+.tool:hover,.tool:focus-within{border-color:var(--wire);transform:translateY(-3px)}
+.tool__screen svg{opacity:.82;transition:opacity .25s}
+.tool:hover .tool__screen svg,.tool:focus-within .tool__screen svg{opacity:1}
+.tool__screen::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(233,161,59,.14),transparent);
+  transform:translateY(-110%);transition:transform .75s ease}
+.tool:hover .tool__screen::after,.tool:focus-within .tool__screen::after{transform:translateY(110%)}
+.stage__screen svg{transition:opacity .3s}
+.stage:hover .stage__screen svg{opacity:.9}
+
+/* ---------------- scroll-linked: reading progress, and the hero sinking away ---------------- */
+@keyframes progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes lift{to{transform:translateY(-46px);opacity:.1}}
+@keyframes sink{to{opacity:.2;transform:scale(1.07)}}
+
+@supports (animation-timeline: scroll()){
+  @media (prefers-reduced-motion:no-preference){
+    .bar{position:fixed}
+    .bar::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+      background:var(--sodium);transform:scaleX(0);transform-origin:0 50%;
+      animation:progress linear;animation-timeline:scroll(root block)}
+    .hero__inner{animation:lift linear both;animation-timeline:view(block);animation-range:exit}
+    #flow{animation:sink linear both;animation-timeline:view(block);animation-range:exit}
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .tool,.tool__screen::after,.tool__screen svg{transition:none}
+}
+
+/* ---------------- print ---------------- */
+@media print{
+  :root{--foam:#111;--haze:#555;--rule:#ccc;--sodium:#111;--deep:#f4f4f4}
+  body{background:#fff;color:#111;font-size:10.5pt}
+  .bar,#flow,.hero__veil,.cta,.stage,.tool__screen,.boot,.grain{display:none}
+  .hero{min-height:auto}.hero__inner{padding:0}
+  .name{font-size:28pt;color:#111}.name .family{color:#111}.name span{display:inline}
+  .band{border-color:#ccc;break-inside:avoid}
+  .tool{border-color:#ccc;break-inside:avoid}
+  .pull{background:#f4f4f4;border-left-color:#111}
+  a{color:#111;border:0}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="bar" id="bar" aria-label="Sections">
+  <a class="bar__me" href="#top">Rajitha Herath</a>
+  <div class="bar__links">
+    <a href="#research">Research</a>
+    <a href="#lab">The lab</a>
+    <a href="#publications">Publications</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="flow" aria-hidden="true"></canvas>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <h1 class="name"><span class="given">Rajitha</span><span class="family">Herath</span></h1>
+    <p class="legal">H.M.R.L.B Herath</p>
+    <p class="pitch">I build robots that swim, I study the water they push against, and I write the software my students learn on. Mechatronics engineer, lecturer, researcher in bio-inspired underwater robotics.</p>
+    <ul class="reach">
+      <li><a href="#lab">Run my teaching simulators</a></li>
+      <li><a href="mailto:herathrajitha@gmail.com">herathrajitha@gmail.com</a></li>
+      <li><a href="https://orcid.org/0009-0008-5221-2415" rel="me">ORCID</a></li>
+      <li><a href="https://www.linkedin.com/in/rajitha-herath-24b166207" rel="me">LinkedIn</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="band" id="research">
+    <h2>Research</h2>
+    <div class="body">
+      <p class="lede">My MPhil work produced a multi-modal underwater robot — a bio-inspired, multi-arm vehicle whose mechanism switches between propulsion modes without surfacing. I designed the mechanism, simulated the flow around it in ANSYS Fluent with dynamic mesh motion, and validated the predictions in tank experiments.</p>
+      <p>The question underneath it is a simple one: how does a body change shape to move efficiently through water, and can a single machine carry more than one way of swimming? That sits where mechanism design, hydrodynamics and control meet, and it is where I want to keep working — undulatory and multi-modal propulsion, hydrodynamic characterisation, and the marine energy systems that run on the same physics.</p>
+      <div class="pull">
+        <p><span class="k">MPhil thesis, 2025</span>Numerical simulation and experimental research on the hydrodynamic characteristics of multi-modal underwater robots.<br><span class="sub">Shandong University of Science and Technology, Qingdao. Supervised by Assoc. Prof. Zhang Minghui (张明辉).</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--wide" id="lab">
+    <h2>The lab</h2>
+    <div class="body">
+      <p class="lab-intro lede">Every tool below is a single HTML file that runs with no install and no internet, because that is what a Sri Lankan engineering lab can actually rely on. They are open in the browser you are reading this in — click and use them.</p>
+
+      <figure class="stage">
+        <div class="stage__screen" id="stage-8085">
+          <svg viewBox="0 0 640 360" role="img" aria-label="Preview of the 8085 simulator: registers, a data bus and a memory map">
+            <rect width="640" height="360" fill="var(--screen)"/>
+            <g stroke="var(--rule)" stroke-width="1">
+              <line x1="0" y1="52" x2="640" y2="52"/><line x1="392" y1="52" x2="392" y2="360"/>
+            </g>
+            <g fill="var(--haze)" font-family="Bricolage Grotesque, Arial" font-size="13">
+              <text x="24" y="33">Registers</text><text x="416" y="33">Memory</text>
+            </g>
+            <g font-family="Bricolage Grotesque, Arial" font-size="14">
+              <g fill="var(--haze)" font-size="11">
+                <text x="26" y="88">A</text><text x="106" y="88">B</text><text x="186" y="88">C</text><text x="266" y="88">D</text>
+              </g>
+              <g>
+                <rect x="24" y="94" width="62" height="34" fill="none" stroke="var(--sodium)"/>
+                <rect x="104" y="94" width="62" height="34" fill="none" stroke="var(--rule)"/>
+                <rect x="184" y="94" width="62" height="34" fill="none" stroke="var(--rule)"/>
+                <rect x="264" y="94" width="62" height="34" fill="none" stroke="var(--rule)"/>
+              </g>
+              <g fill="var(--foam)">
+                <text x="40" y="117">3A</text><text x="120" y="117">00</text><text x="200" y="117">FF</text><text x="280" y="117">1C</text>
+              </g>
+            </g>
+            <g>
+              <line x1="24" y1="176" x2="356" y2="176" stroke="var(--wire)" stroke-width="2"/>
+              <line x1="24" y1="192" x2="356" y2="192" stroke="var(--wire)" stroke-width="2" opacity=".5"/>
+              <rect x="150" y="166" width="42" height="20" fill="var(--sodium)"/>
+              <text x="157" y="181" font-family="Bricolage Grotesque, Arial" font-size="12" fill="var(--abyss)">C3</text>
+              <text x="24" y="218" font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">data bus · T3</text>
+            </g>
+            <g font-family="Bricolage Grotesque, Arial" font-size="12">
+              <text x="24" y="262" fill="var(--haze)">MVI A, 3AH</text>
+              <text x="24" y="286" fill="var(--foam)">OUT 01H</text>
+              <text x="24" y="310" fill="var(--haze)">JMP 2000H</text>
+              <rect x="16" y="274" width="3" height="16" fill="var(--sodium)"/>
+            </g>
+            <g font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">
+              <g stroke="var(--rule)" fill="none">
+                <rect x="416" y="72" width="44" height="26"/><rect x="468" y="72" width="44" height="26"/>
+                <rect x="520" y="72" width="44" height="26"/><rect x="572" y="72" width="44" height="26"/>
+                <rect x="416" y="106" width="44" height="26"/><rect x="520" y="106" width="44" height="26"/>
+                <rect x="572" y="106" width="44" height="26"/>
+                <rect x="416" y="140" width="44" height="26"/><rect x="468" y="140" width="44" height="26"/>
+                <rect x="520" y="140" width="44" height="26"/><rect x="572" y="140" width="44" height="26"/>
+              </g>
+              <rect x="468" y="106" width="44" height="26" fill="var(--sodium)" opacity=".85"/>
+              <text x="428" y="90">00</text><text x="480" y="90">3E</text><text x="532" y="90">3A</text><text x="584" y="90">D3</text>
+              <text x="428" y="124">01</text><text x="480" y="124" fill="var(--abyss)">C3</text><text x="532" y="124">00</text><text x="584" y="124">20</text>
+              <text x="428" y="158">FF</text><text x="480" y="158">00</text><text x="532" y="158">00</text><text x="584" y="158">00</text>
+              <text x="416" y="196">2000H — 200AH</text>
+            </g>
+          </svg>
+          <div class="stage__glare" aria-hidden="true"></div>
+          <button class="boot" type="button" data-src="lab/8085/" data-label="the 8085 simulator"><i aria-hidden="true"></i>Run the 8085 simulator</button>
+        </div>
+        <figcaption>
+          <span><b>KDU-8085</b> — used in the microprocessor module at KDU</span>
+          <span><a href="lab/8085/" target="_blank" rel="noopener">Open full screen</a></span>
+        </figcaption>
+      </figure>
+
+      <div class="rack">
+
+        <article class="tool">
+          <div class="tool__screen">
+            <svg viewBox="0 0 400 250" role="img" aria-label="Preview of the NUCLEO board simulator with pin headers, an LED and wiring">
+              <rect width="400" height="250" fill="var(--screen)"/>
+              <rect x="96" y="40" width="208" height="170" rx="6" fill="var(--deep)" stroke="var(--wire)"/>
+              <g fill="var(--rule)">
+                <rect x="108" y="52" width="10" height="10"/><rect x="108" y="70" width="10" height="10"/>
+                <rect x="108" y="88" width="10" height="10"/><rect x="108" y="106" width="10" height="10"/>
+                <rect x="108" y="124" width="10" height="10"/><rect x="108" y="142" width="10" height="10"/>
+                <rect x="282" y="52" width="10" height="10"/><rect x="282" y="70" width="10" height="10"/>
+                <rect x="282" y="88" width="10" height="10"/><rect x="282" y="106" width="10" height="10"/>
+                <rect x="282" y="124" width="10" height="10"/><rect x="282" y="142" width="10" height="10"/>
+              </g>
+              <rect x="282" y="88" width="10" height="10" fill="var(--sodium)"/>
+              <rect x="164" y="96" width="72" height="62" fill="var(--screen)" stroke="var(--wire)"/>
+              <text x="176" y="132" font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">F411RE</text>
+              <circle cx="200" cy="184" r="7" fill="var(--sodium)"/>
+              <circle cx="200" cy="184" r="15" fill="var(--sodium)" opacity=".16"/>
+              <path d="M292 93 C 336 93, 346 150, 352 196" stroke="var(--sodium)" stroke-width="2" fill="none"/>
+              <path d="M108 129 C 60 129, 52 180, 48 204" stroke="var(--wire)" stroke-width="2" fill="none"/>
+              <circle cx="352" cy="200" r="5" fill="none" stroke="var(--sodium)" stroke-width="2"/>
+              <rect x="34" y="204" width="28" height="12" fill="none" stroke="var(--wire)" stroke-width="2"/>
+              <text x="20" y="34" font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">PA5 · PWM · TIM2</text>
+            </svg>
+          </div>
+          <div class="tool__text">
+            <p class="state wip"><i aria-hidden="true"></i>In development</p>
+            <h3>NUCLEO-F411RE bench</h3>
+            <p>A Wokwi-style STM32 simulator that mirrors the CubeMX and CubeIDE workflow, so pin configuration feels like the real thing. Students drag in LEDs, resistors, sensors and motors, wire them up, and watch PWM change how a motor responds. It is heading towards a full line-following robot they can build and drive on screen.</p>
+            <a class="tool__open" href="lab/nucleo/" target="_blank" rel="noopener">Open the bench</a>
+          </div>
+        </article>
+
+        <article class="tool">
+          <div class="tool__screen">
+            <svg viewBox="0 0 400 250" role="img" aria-label="Preview of the PCB learning platform showing copper routing, pads and a rule violation">
+              <rect width="400" height="250" fill="var(--screen)"/>
+              <g stroke="var(--rule)" stroke-width=".5" opacity=".55">
+                <path d="M0 50h400M0 100h400M0 150h400M0 200h400M50 0v250M100 0v250M150 0v250M200 0v250M250 0v250M300 0v250M350 0v250"/>
+              </g>
+              <g stroke="var(--wire)" stroke-width="3" fill="none" stroke-linecap="square">
+                <path d="M60 190 L60 140 L110 90 L190 90"/>
+                <path d="M60 210 L140 210 L190 160 L300 160"/>
+                <path d="M240 90 L290 90 L330 130 L330 200"/>
+              </g>
+              <g stroke="var(--sodium)" stroke-width="3" fill="none">
+                <path d="M190 122 L230 122 L250 142"/>
+              </g>
+              <g fill="var(--screen)" stroke="var(--wire)" stroke-width="3">
+                <circle cx="60" cy="190" r="7"/><circle cx="330" cy="200" r="7"/><circle cx="300" cy="160" r="7"/>
+              </g>
+              <rect x="190" y="74" width="50" height="64" fill="var(--deep)" stroke="var(--wire)"/>
+              <g fill="var(--wire)">
+                <rect x="182" y="84" width="8" height="6"/><rect x="182" y="102" width="8" height="6"/><rect x="182" y="120" width="8" height="6"/>
+                <rect x="240" y="84" width="8" height="6"/><rect x="240" y="102" width="8" height="6"/><rect x="240" y="120" width="8" height="6"/>
+              </g>
+              <circle cx="250" cy="142" r="13" fill="none" stroke="var(--sodium)" stroke-width="2"/>
+              <text x="20" y="32" font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--sodium)">DRC · clearance 0.15 mm</text>
+            </svg>
+          </div>
+          <div class="tool__text">
+            <p class="state wip"><i aria-hidden="true"></i>In development</p>
+            <h3>PCB Academy</h3>
+            <p>A teaching environment rather than another PCB editor. It walks students through schematic capture, nets, footprints, placement, routing, design rule checks and what the manufacturer actually needs — as transferable skill, so the knowledge carries into KiCad, Altium or Cadence instead of into one tool's buttons. Guided missions, scored.</p>
+            <a class="tool__open" href="lab/pcb/" target="_blank" rel="noopener">Open the platform</a>
+          </div>
+        </article>
+
+        <article class="tool">
+          <div class="tool__screen">
+            <svg viewBox="0 0 400 250" role="img" aria-label="Preview of StudioPad Pro showing a piano roll and an audio waveform">
+              <rect width="400" height="250" fill="var(--screen)"/>
+              <g stroke="var(--rule)" stroke-width=".5">
+                <path d="M0 40h400M0 68h400M0 96h400M0 124h400M0 152h400"/>
+              </g>
+              <g fill="var(--wire)">
+                <rect x="40" y="46" width="70" height="16" rx="2"/><rect x="130" y="74" width="46" height="16" rx="2"/>
+                <rect x="196" y="46" width="34" height="16" rx="2"/><rect x="250" y="102" width="86" height="16" rx="2"/>
+                <rect x="88" y="130" width="52" height="16" rx="2"/>
+              </g>
+              <g fill="var(--sodium)">
+                <rect x="160" y="102" width="70" height="16" rx="2"/><rect x="300" y="46" width="44" height="16" rx="2"/>
+              </g>
+              <line x1="230" y1="34" x2="230" y2="160" stroke="var(--foam)" stroke-width="1.5" opacity=".8"/>
+              <g stroke="var(--haze)" stroke-width="2" stroke-linecap="round">
+                <path d="M40 206v14M52 198v30M64 188v50M76 202v22M88 180v66M100 196v34M112 186v54M124 204v18M136 192v42M148 200v26M160 182v62M172 198v30M184 206v14M196 194v38M208 200v26"/>
+              </g>
+              <g stroke="var(--sodium)" stroke-width="2" stroke-linecap="round">
+                <path d="M220 190v46M232 176v74M244 194v38M256 184v58M268 200v26M280 190v46M292 198v30"/>
+              </g>
+              <text x="20" y="26" font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">hum → melody · YIN</text>
+            </svg>
+          </div>
+          <div class="tool__text">
+            <p class="state"><i aria-hidden="true"></i>Released</p>
+            <h3>StudioPad Pro</h3>
+            <p>A digital audio workstation that runs in a browser tab. Real sampled instruments, a vocal recorder with overdub and noise reduction, a song wizard, and a module that turns a hummed melody into notes using a YIN pitch tracker. It ships as an offline package. The signal processing here is the same thinking I use on sensor data.</p>
+            <a class="tool__open" href="lab/studiopad/" target="_blank" rel="noopener">Open the studio</a>
+          </div>
+        </article>
+
+        <article class="tool">
+          <div class="tool__screen">
+            <svg viewBox="0 0 400 250" role="img" aria-label="Preview of the 8085 design brief challenges showing a timed sensor scenario and a score">
+              <rect width="400" height="250" fill="var(--screen)"/>
+              <text x="24" y="42" font-family="Bricolage Grotesque, Arial" font-size="13" fill="var(--foam)">Brief 04 · tank level control</text>
+              <g stroke="var(--rule)"><line x1="24" y1="56" x2="376" y2="56"/></g>
+              <g font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">
+                <text x="24" y="82">sensor in</text><text x="24" y="188">valve out</text>
+              </g>
+              <path d="M96 96 L140 96 L140 74 L212 74 L212 110 L268 110 L268 88 L344 88"
+                    stroke="var(--wire)" stroke-width="2" fill="none"/>
+              <path d="M96 182 L168 182 L168 160 L240 160 L240 182 L344 182"
+                    stroke="var(--sodium)" stroke-width="2" fill="none"/>
+              <g stroke="var(--rule)" stroke-width=".5" opacity=".7">
+                <path d="M96 128h280M96 216h280"/>
+              </g>
+              <g font-family="Bricolage Grotesque, Arial" font-size="11">
+                <rect x="24" y="210" width="86" height="24" fill="var(--sodium)"/>
+                <text x="36" y="227" fill="var(--abyss)">PASS 9/10</text>
+                <text x="128" y="227" fill="var(--haze)">graded on behaviour, not source</text>
+              </g>
+            </svg>
+          </div>
+          <div class="tool__text">
+            <p class="state"><i aria-hidden="true"></i>In use at KDU</p>
+            <h3>Design briefs, marked automatically</h3>
+            <p>Inside KDU-8085 sits the part I am proudest of. Students get a real control problem with a memory map, a specification and a marking scheme. Their whole program is then run against timed sensor scenarios and graded on how it behaves, not on how its source looks — so there is one honest answer to "does it work", and they get it in seconds.</p>
+            <a class="tool__open" href="lab/8085/" target="_blank" rel="noopener">Try a brief</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="publications">
+    <h2>Publications</h2>
+    <div class="body">
+      <div class="cite">
+        <p>Zhang Minghui &amp; Herath Rajitha Lakmal Bandara (2024). <span class="title">Research on motion mechanism of a snake-like robot in water environment.</span>
+        <span class="venue">3rd International Symposium on Control Engineering and Robotics, Changsha, China, 13 August 2024. ACM Digital Library. <a href="https://doi.org/10.1145/3679409.3679497">10.1145/3679409.3679497</a></span></p>
+      </div>
+      <div class="cite">
+        <p>Herath Rajitha Lakmal Bandara (2025). <span class="title">Numerical simulation and experimental research on the hydrodynamic characteristics of multi-modal underwater robots.</span>
+        <span class="venue">MPhil thesis, Shandong University of Science and Technology, Qingdao, China.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="teaching">
+    <h2>Teaching &amp; positions</h2>
+    <div class="body">
+      <div class="entry">
+        <p class="when">2026 —</p>
+        <div class="what">
+          <h3>Lecturer, and level coordinator</h3>
+          <p class="where">General Sir John Kotelawala Defence University, Ratmalana</p>
+          <ul>
+            <li>Teach embedded systems, microprocessor architecture and mechatronic design.</li>
+            <li>Write the laboratory sheets, assignments and marking schemes for the microprocessor module, built around the simulator above.</li>
+            <li>Supervise individual and final-year projects, and run technical workshops for IMechE competitions.</li>
+            <li>Help organise ROSCO'26, an inter-university robotics competition, including its supporting systems.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="entry">
+        <p class="when">2026</p>
+        <div class="what">
+          <h3>Visiting lecturer</h3>
+          <p class="where">SIBA Campus, Department of Information and Technology</p>
+        </div>
+      </div>
+      <div class="entry">
+        <p class="when">2022 – 2023</p>
+        <div class="what">
+          <h3>Instructor</h3>
+          <p class="where">Sri Lanka Institute of Information Technology (SLIIT)</p>
+          <ul>
+            <li>Ran weekly assessments for the RC UAV project with second-year mechatronics students.</li>
+            <li>Taught practical automation to fourth-year mechatronics and advanced automation to electrical plant students.</li>
+            <li>Led a workshop on BCP design and practical sessions on PD control.</li>
+            <li>Taught automation programming to third-year electrical and electronic engineering students (BEng Hons, LJMU).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="entry">
+        <p class="when">2021</p>
+        <div class="what">
+          <h3>Trainee engineer</h3>
+          <p class="where">SriLankan Airlines</p>
+          <ul>
+            <li>Worked inside aircraft maintenance operations and aviation safety practice.</li>
+            <li>Led the design and optimisation of a test system for aircraft lavatory assemblies.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="education">
+    <h2>Education</h2>
+    <div class="body">
+      <div class="entry">
+        <p class="when">2022 – 2025</p>
+        <div class="what">
+          <h3>MPhil, Mechanical and Electronic Engineering</h3>
+          <p class="where">Shandong University of Science and Technology, Qingdao, China</p>
+          <p>Robotics engineering, specialising in bio-inspired underwater robotics. One semester completed online under COVID-19 restrictions.</p>
+        </div>
+      </div>
+      <div class="entry">
+        <p class="when">2022</p>
+        <div class="what">
+          <h3>BEng, Mechatronic Engineering</h3>
+          <p class="where">Shandong University of Science and Technology, Qingdao, China</p>
+          <p>GPA 4.23 / 5.00, average grade 91.8.</p>
+        </div>
+      </div>
+      <div class="entry">
+        <p class="when">Certificate</p>
+        <div class="what">
+          <h3>CS50: Introduction to Computer Science</h3>
+          <p class="where">HarvardX</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="projects">
+    <h2>Engineering projects</h2>
+    <div class="body">
+      <div class="entry">
+        <p class="when">MPhil</p>
+        <div class="what">
+          <h3>Bio-inspired underwater hybrid robot</h3>
+          <p>A multi-arm underwater vehicle with a mechanism that switches between propulsion modes. Hydrodynamic performance studied through CFD and validated experimentally, focused on propulsion efficiency and underwater locomotion.</p>
+        </div>
+      </div>
+      <div class="entry">
+        <p class="when">MPhil</p>
+        <div class="what">
+          <h3>Robotic arm</h3>
+          <p>Mechanical structure, actuator selection and control integration for precise motion, carried from CAD modelling through to a working system.</p>
+        </div>
+      </div>
+      <div class="entry">
+        <p class="when">BEng</p>
+        <div class="what">
+          <h3>Solar tracking system</h3>
+          <p>Tracks solar intensity and adjusts panel orientation continuously to raise energy yield. Final-year undergraduate project.</p>
+        </div>
+      </div>
+      <div class="entry">
+        <p class="when">Industry</p>
+        <div class="what">
+          <h3>Lavatory assembly test rig</h3>
+          <p>A custom test setup supporting maintenance and quality assurance of aircraft toilet assemblies, built in the avionics department at SriLankan Airlines.</p>
+        </div>
+      </div>
+      <div class="entry">
+        <p class="when">Industry</p>
+        <div class="what">
+          <h3>Screw conveyor drive</h3>
+          <p>Mechanical drive design for slurry transport on a construction site, sized against torque demand, material build-up and site conditions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--duo" id="tools">
+    <h2>Skills &amp; awards</h2>
+    <div class="body">
+      <div class="duo">
+        <div>
+          <h3 class="colhead">Tools and methods</h3>
+          <dl class="kit">
+            <div><dt>Robotics</dt><dd>Mechanism design, actuation systems, tendon-driven mechanisms, robotic arms</dd></div>
+            <div><dt>Simulation</dt><dd>ANSYS Fluent, dynamic grid motion, MATLAB</dd></div>
+            <div><dt>Control</dt><dd>PID and motion control, actuator tuning, dynamic systems</dd></div>
+            <div><dt>Embedded</dt><dd>ESP32, Arduino, STM32, sensors and IoT systems</dd></div>
+            <div><dt>CAD</dt><dd>SolidWorks, PTC Creo, Fusion 360, tolerancing</dd></div>
+            <div><dt>Electronics</dt><dd>PCB design, signal processing, relays, automation circuits</dd></div>
+            <div><dt>Programming</dt><dd>Python, C, MATLAB, JavaScript, 8085 and ARM assembly</dd></div>
+          </dl>
+        </div>
+        <div>
+          <h3 class="colhead">Awards and scholarships</h3>
+          <ul class="plain">
+            <li>Chinese Government Scholarship (CSC) — full funding for the master's programme at Shandong University of Science and Technology.</li>
+            <li>Outstanding Student Award, master's programme, 2025 — for academic performance alongside involvement in university life.</li>
+            <li>Shandong Provincial Government Scholarship — awarded three years running during undergraduate study.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="beyond">
+    <h2>Away from the lab</h2>
+    <div class="body">
+      <p>I swam for Sri Lanka at the 29th Summer Universiade in Taipei in 2017, which earned SLUSA Colours, and for Central Province at national level before that. I captained the swimming team at Kingswood College, Kandy, and coordinated its Western Music Society.</p>
+      <p>Music stayed with me, which is partly why one of the tools above is a recording studio. In 2024 I took second place in the graduate singing competition at SDUST along with the award for best original song, and first prize in the <span class="sub">Mountain and Sea Green Connection</span> storytelling competition about studying in Qingdao. I have represented the university on Qingdao TV and on Mango TV.</p>
+    </div>
+  </section>
+
+  <section class="band" id="contact">
+    <h2>Contact</h2>
+    <div class="body">
+      <div class="meet">
+        <img class="portrait" src="me.jpg" alt="Rajitha Herath" loading="lazy" onerror="this.remove()">
+        <div>
+          <p class="lede">I am open to doctoral research and collaboration in underwater robotics, hydrodynamics and marine energy systems. Write to me and I will reply.</p>
+          <ul class="contact-grid">
+            <li><a href="mailto:herathrajitha@gmail.com">herathrajitha@gmail.com</a></li>
+            <li><a href="https://orcid.org/0009-0008-5221-2415">orcid.org/0009-0008-5221-2415</a></li>
+            <li><a href="https://www.linkedin.com/in/rajitha-herath-24b166207">LinkedIn</a></li>
+          </ul>
+          <a class="cta" href="cv.pdf">Download the full CV</a>
+          <p class="sub" style="margin-top:1.6rem">Referees available on request.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Ratmalana, Sri Lanka. Last updated September 2026.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---- nav ---- */
+  var bar = document.getElementById('bar');
+  var onScroll = function(){
+    if (window.scrollY > 80) bar.classList.add('stuck'); else bar.classList.remove('stuck');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* ---- boot the embedded tool on demand, so the page stays light ---- */
+  var narrow = window.matchMedia('(max-width: 780px)');
+  Array.prototype.forEach.call(document.querySelectorAll('.boot'), function(btn){
+    btn.addEventListener('click', function(){
+      var src = btn.getAttribute('data-src');
+      if (narrow.matches){ window.open(src, '_blank', 'noopener'); return; }
+      var screen = btn.parentNode;
+      var frame = document.createElement('iframe');
+      frame.setAttribute('src', src);
+      frame.setAttribute('title', btn.getAttribute('data-label') || 'Embedded tool');
+      frame.setAttribute('allow', 'fullscreen; autoplay; microphone');
+      frame.setAttribute('loading', 'eager');
+      screen.innerHTML = '';
+      screen.appendChild(frame);
+      screen.style.aspectRatio = '16 / 10';
+    });
+  });
+
+  /* ---- hero flow field: particles advected through potential flow past a submerged body ---- */
+  var canvas = document.getElementById('flow');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W = 0, H = 0, dpr = 1, bx = 0, by = 0, a = 1;
+  var stretch = 1.9, U = 1.0, G = 0.55, STEP = 1.05;
+  var parts = [], raf = null, visible = true;
+
+  function resize(){
+    var r = canvas.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, Math.round(r.width));
+    H = Math.max(1, Math.round(r.height));
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    bx = W * 0.66; by = H * 0.46;
+    a = Math.max(46, Math.min(W, H) * 0.115);
+    ctx.fillStyle = '#08201F';
+    ctx.fillRect(0, 0, W, H);
+    seed();
+  }
+
+  function seed(){
+    var n = Math.round(Math.min(900, Math.max(220, (W * H) / 2400)));
+    parts = new Array(n);
+    for (var i = 0; i < n; i++) parts[i] = spawn(true);
+  }
+
+  function spawn(anywhere){
+    var x = anywhere ? Math.random() * W : -Math.random() * 40;
+    var y = Math.random() * H;
+    if (inside(x, y)) x = -10;
+    return {x:x, y:y, px:x, py:y, life: 60 + Math.random() * 260};
+  }
+
+  function inside(x, y){
+    var dx = x - bx, dy = (y - by) / stretch;
+    return (dx * dx + dy * dy) < a * a;
+  }
+
+  function vel(x, y){
+    var dx = x - bx, dy = (y - by) / stretch;
+    var r2 = dx * dx + dy * dy;
+    if (r2 < a * a) return null;
+    var r4 = r2 * r2, a2 = a * a;
+    var u = U * (1 - a2 * (dx * dx - dy * dy) / r4) + G * a * dy / r2;
+    var v = -U * (2 * a2 * dx * dy / r4) - G * a * dx / r2;
+    return [u, v * stretch];
+  }
+
+  function step(){
+    ctx.fillStyle = 'rgba(8,32,31,0.055)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.lineWidth = 1;
+    ctx.lineCap = 'round';
+    for (var i = 0; i < parts.length; i++){
+      var p = parts[i], q = vel(p.x, p.y);
+      if (!q){ parts[i] = spawn(false); continue; }
+      p.px = p.x; p.py = p.y;
+      p.x += q[0] * STEP; p.y += q[1] * STEP;
+      p.life--;
+      if (p.life < 0 || p.x > W + 20 || p.y < -30 || p.y > H + 30){ parts[i] = spawn(false); continue; }
+      var s = Math.sqrt(q[0]*q[0] + q[1]*q[1]) / U;
+      var t = Math.max(0, Math.min(1, (s - 0.55) / 1.15));
+      var cr = Math.round(28 + t * 205), cg = Math.round(92 + t * 69), cb = Math.round(87 - t * 28);
+      ctx.strokeStyle = 'rgba(' + cr + ',' + cg + ',' + cb + ',' + (0.16 + t * 0.4).toFixed(3) + ')';
+      ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();
+    }
+  }
+
+  function loop(){ step(); raf = visible ? window.requestAnimationFrame(loop) : null; }
+  function start(){ if (raf === null && visible) raf = window.requestAnimationFrame(loop); }
+  function stop(){ if (raf !== null){ window.cancelAnimationFrame(raf); raf = null; } }
+
+  resize();
+  if (reduced){
+    for (var k = 0; k < 420; k++) step();
+  } else {
+    start();
+    document.addEventListener('visibilitychange', function(){
+      visible = !document.hidden;
+      if (visible) start(); else stop();
+    });
+    if ('IntersectionObserver' in window){
+      new IntersectionObserver(function(entries){
+        visible = entries[0].isIntersecting && !document.hidden;
+        if (visible) start(); else stop();
+      }, {threshold: 0}).observe(canvas);
+    }
+  }
+
+  var t = null;
+  window.addEventListener('resize', function(){
+    window.clearTimeout(t);
+    t = window.setTimeout(function(){
+      stop(); resize();
+      if (reduced){ for (var k = 0; k < 420; k++) step(); }
+      else { visible = true; start(); }
+    }, 180);
+  });
+})();
+</script>
+</body>
+</html>
