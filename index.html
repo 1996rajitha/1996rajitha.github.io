@@ -3,549 +3,777 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rajitha Herath — Underwater robotics, mechatronics &amp; teaching tools</title>
-<meta name="description" content="Rajitha Herath (H.M.R.L.B Herath) — mechatronics engineer, lecturer at General Sir John Kotelawala Defence University, researcher in bio-inspired underwater robotics, and builder of offline browser-based engineering teaching tools.">
+<title>Rajitha Herath: bio-inspired underwater robotics and marine energy</title>
+<meta name="description" content="Rajitha Herath (H.M.R.L.B Herath), lecturer in mechanical engineering at General Sir John Kotelawala Defence University. MPhil research on an octopus-inspired, multi-modal underwater robot using CFD and tank experiments; seeking a PhD in bio-inspired marine energy from 2027.">
 <meta name="author" content="H.M.R.L.B Herath">
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Rajitha Herath — Underwater robotics &amp; mechatronics">
-<meta property="og:description" content="Bio-inspired underwater robots, CFD-based hydrodynamic analysis, and browser-based engineering simulators you can run right now.">
-<meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2308201F'/%3E%3Cpath d='M3 20c4-6 8-6 12 0s8 6 14 0' stroke='%23E9A13B' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta property="og:title" content="Rajitha Herath: bio-inspired underwater robotics and marine energy">
+<meta property="og:description" content="Octopus-inspired underwater robots studied with CFD and tank experiments, and a doctoral plan for colonies of kelp-inspired marine energy harvesters.">
+<meta name="theme-color" content="#F4F9F8">
+<!-- GitHub links fill in automatically on GitHub Pages. With a custom domain, set content to "username/repository". -->
+<meta name="github-repo" content="">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23E1F1F2'/%3E%3Cpath d='M5 20c3.5-5 7-5 10.5 0s7 5 11.5 0' stroke='%230E7A8B' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='21.5' cy='10.5' r='3.6' fill='%23F2B233'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,400&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&display=swap" rel="stylesheet">
 <style>
+/* Light "sunlit shallows" palette. Teal is the working colour, kelp bronze marks the
+   doctoral direction, and coral/blue are kept only for vorticity in flow figures. */
 :root{
-  color-scheme:dark;
-  --abyss:#08201F;
-  --deep:#0E3634;
-  --screen:#061B1A;
-  --rule:#1C4744;
-  --wire:#2E7F76;
-  --foam:#E8EFEA;
-  --haze:#93ABA5;
-  --sodium:#E9A13B;
-  --measure:64ch;
-  --rail:11rem;
-  --gap:3.5rem;
-  --pad:clamp(1.5rem,6vw,6rem);
-  --shell:78rem;
+  color-scheme:light;
+  --shallows:#F4F9F8; --foam:#FFFFFF; --spray:#E7F2F1; --aqua:#E1F1F2;
+  --rule:#CFE0DF; --rule-soft:#E1ECEB;
+  --ink:#12303A; --ink-2:#34535C; --muted:#5A7781;
+  --current:#0E7A8B; --current-2:#0A6170; --current-3:#A3D3D8;
+  --kelp:#6E5E1C; --kelp-g:#9A8530; --kelp-l:#CFC07A; --kelp-wash:#EEF3E4;
+  --coral:#D9533F; --blue:#2D6FC0; --glow:#F2B233; --sand:#EAE4D3;
+  --serif:"Newsreader","Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:"IBM Plex Sans Condensed","Roboto Condensed","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --shell:76rem; --pad:clamp(1.25rem,4.5vw,4rem); --rail:12.5rem; --gap:clamp(1.75rem,4vw,4rem); --nav-h:4rem;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 1rem);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-height:100vh;color:var(--ink);background:var(--shallows);
+  background-image:linear-gradient(180deg,#F8FBFB 0%,var(--shallows) 30%,#E9F3F3 100%);
+  font-family:var(--serif);font-size:clamp(1.05rem,.3vw + .99rem,1.15rem);line-height:1.62;
+  font-optical-sizing:auto;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+img,svg,canvas{max-width:100%}
+a{color:var(--current);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.18em;
+  text-decoration-color:rgba(14,122,139,.35);transition:color .15s,text-decoration-color .15s}
+a:hover{color:var(--current-2);text-decoration-color:currentColor}
+:focus-visible{outline:2px solid var(--current);outline-offset:3px;border-radius:3px}
+::selection{background:#C4E6E9;color:var(--ink)}
+h1,h2,h3{text-wrap:balance}
+p{text-wrap:pretty}
+.skip{position:absolute;left:-9999px;top:.5rem;z-index:100;padding:.6rem 1rem;background:#fff;color:var(--current-2);border:2px solid var(--current);font-family:var(--sans)}
+.skip:focus{left:.5rem}
+
+/* Navigation */
+.bar{position:fixed;inset:0 0 auto 0;z-index:50;height:var(--nav-h);display:flex;align-items:center;gap:1.5rem;
+  padding:0 var(--pad);font-family:var(--sans);font-size:.95rem;
+  background:rgba(244,249,248,.8);-webkit-backdrop-filter:saturate(1.3) blur(14px);backdrop-filter:saturate(1.3) blur(14px);
+  border-bottom:1px solid transparent;transition:border-color .2s,background-color .2s}
+.bar.is-stuck{background:rgba(244,249,248,.95);border-bottom-color:var(--rule)}
+.bar__me{margin-right:auto;display:inline-flex;align-items:center;gap:.55rem;font-family:var(--serif);font-size:1.18rem;font-weight:600;
+  color:var(--ink);text-decoration:none;white-space:nowrap}
+.bar__me svg{width:1.55rem;height:1.55rem;flex:none}
+.bar__links{display:flex;align-items:center;gap:1.3rem}
+.bar__links a{color:var(--ink-2);text-decoration:none;white-space:nowrap;padding:.3rem 0;border-bottom:1.5px solid transparent}
+.bar__links a:hover{color:var(--current)}
+.bar__links a[aria-current]{color:var(--current-2);border-bottom-color:var(--current)}
+.bar__links .bar__cv{padding:.42rem .9rem;border:1px solid var(--current);border-radius:.4rem;background:var(--current);color:#fff}
+.bar__links .bar__cv:hover{background:var(--current-2);border-color:var(--current-2);color:#fff}
+.bar__menu{display:none;align-items:center;gap:.6rem;font:inherit;font-weight:500;color:var(--ink);background:#fff;
+  border:1px solid var(--rule);border-radius:.4rem;padding:.42rem .8rem;cursor:pointer}
+.bar__menu i{display:block;width:1rem;height:2px;background:currentColor;box-shadow:0 -5px 0 currentColor,0 5px 0 currentColor}
+@media (max-width:1180px){
+  .bar__menu{display:inline-flex}
+  .bar__links{display:none;position:absolute;top:var(--nav-h);left:0;right:0;flex-direction:column;align-items:flex-start;gap:.1rem;
+    padding:.8rem var(--pad) 1.4rem;background:var(--shallows);border-bottom:1px solid var(--rule);box-shadow:0 18px 30px rgba(18,48,58,.08)}
+  .bar.is-open .bar__links{display:flex}
+  .bar__links a{padding:.5rem 0;font-size:1.05rem}
+  .bar__links .bar__cv{margin-top:.6rem;padding:.55rem 1rem}
 }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-
-body{
-  margin:0;
-  color:var(--foam);
-  background:var(--abyss);
-  background-image:linear-gradient(180deg,#08201F 0%,#09242200 22%),radial-gradient(120% 60% at 50% 100%,#0C2C2A 0%,#08201F 70%);
-  background-attachment:fixed;
-  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
-  font-size:clamp(1rem,0.55vw + 0.92rem,1.08rem);
-  line-height:1.68;
-  font-optical-sizing:auto;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-
-a{color:var(--foam);text-decoration:none;border-bottom:1px solid var(--rule);transition:border-color .18s,color .18s}
-a:hover{color:var(--sodium);border-bottom-color:var(--sodium)}
-a:focus-visible{outline:2px solid var(--sodium);outline-offset:3px;border-radius:2px}
-.sans{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif}
-.sub{color:var(--haze)}
-
-.skip{position:absolute;left:-9999px;top:0;padding:.6rem 1rem;background:var(--sodium);color:var(--abyss);z-index:60}
-.skip:focus{left:.5rem;top:.5rem}
-
-/* ---------------- nav ---------------- */
-.bar{
-  position:fixed;inset:0 0 auto 0;z-index:40;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:.85rem var(--pad);
-  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.86rem;
-  border-bottom:1px solid transparent;
-  transition:background .3s,border-color .3s;
-}
-.bar.stuck{background:rgba(8,32,31,.86);backdrop-filter:blur(12px);border-bottom-color:var(--rule)}
-.bar a{border:0}
-.bar__me{font-weight:600;opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s}
-.bar.stuck .bar__me{opacity:1;transform:none}
-.bar__links{display:flex;gap:1.4rem;color:var(--haze)}
-.bar__links a{color:inherit}
-.bar__links a:hover{color:var(--sodium)}
-@media (max-width:700px){.bar__links{display:none}.bar__me{opacity:1;transform:none}}
-
-/* ---------------- hero ---------------- */
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
-#flow{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero__veil{position:absolute;inset:0;
-  background:linear-gradient(100deg,var(--abyss) 8%,rgba(8,32,31,.72) 42%,rgba(8,32,31,.12) 78%),
-             linear-gradient(to top,var(--abyss) 2%,transparent 34%)}
-.hero__inner{position:relative;width:100%;padding:0 var(--pad) clamp(3rem,7vh,5.5rem)}
-
-.name{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-weight:700;
-  font-size:clamp(3.1rem,10.5vw,8.4rem);line-height:.88;letter-spacing:-.035em;margin:0;
-  font-variation-settings:"wdth" 92}
-.name span{display:block}
-.name .family{color:var(--sodium)}
-.legal{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.82rem;
-  color:var(--haze);letter-spacing:.06em;margin:1.15rem 0 0}
-.pitch{max-width:47ch;margin:1.5rem 0 0;font-size:clamp(1.08rem,1vw + .92rem,1.32rem);line-height:1.55}
-.reach{display:flex;flex-wrap:wrap;gap:0 1.6rem;margin:2rem 0 0;padding:0;list-style:none;
-  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.92rem}
-.reach li{padding:.25rem 0}
-.reach a{border-bottom-color:rgba(147,171,165,.45)}
-
-/* ---------------- section shell ---------------- */
-main{padding:clamp(4rem,10vh,7rem) var(--pad) 0}
-
-.band{display:grid;grid-template-columns:var(--rail) minmax(0,1fr);gap:var(--gap);
-  padding:clamp(2.6rem,5vh,3.6rem) 0;border-top:1px solid var(--rule);max-width:var(--shell)}
-.band:first-of-type{border-top:0;padding-top:0}
-.band > h2{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.92rem;
-  font-weight:500;color:var(--haze);margin:.35rem 0 0;position:sticky;top:4.2rem;align-self:start}
-.body{max-width:var(--measure)}
-.body > :first-child{margin-top:0}
-.body > :last-child{margin-bottom:0}
-.lede{font-size:clamp(1.18rem,.62vw + 1.04rem,1.36rem);line-height:1.54;letter-spacing:-.006em}
-.colhead{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.95rem;font-weight:600;
-  margin:0 0 1.1rem;color:var(--foam)}
-.duo{display:grid;grid-template-columns:1.15fr .85fr;gap:3.4rem}
-.band--duo .body{max-width:none}
-@media (max-width:820px){.duo{grid-template-columns:1fr;gap:2.4rem}}
-
-.band--wide{grid-template-columns:1fr;gap:1.6rem;max-width:var(--shell)}
-.band--wide > h2{position:static}
-.band--wide .body{max-width:none}
-
+/* Hero: who I am on top, the swimmer and its wake along the bottom band */
+.hero{position:relative;isolation:isolate;min-height:100svh;display:grid;grid-template-rows:auto minmax(19rem,1fr);
+  padding:calc(var(--nav-h) + clamp(1.5rem,5vh,3.75rem)) var(--pad) clamp(1rem,2.5vh,1.6rem);overflow:hidden;
+  background:radial-gradient(70% 55% at 82% -8%,rgba(255,255,255,.95),rgba(255,255,255,0) 70%),
+             linear-gradient(180deg,#F8FBFB 0%,#EEF6F6 46%,#DCECED 100%)}
+.hero__rays{position:absolute;inset:-5% -15% 25% -15%;z-index:-1;pointer-events:none;opacity:.7;
+  background:repeating-linear-gradient(102deg,rgba(255,255,255,0) 0 4.5rem,rgba(255,255,255,.6) 4.5rem 6rem,rgba(255,255,255,0) 6rem 11rem);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 45%,transparent 85%);
+  mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 45%,transparent 85%);
+  animation:rays 18s ease-in-out infinite alternate}
+@keyframes rays{from{transform:translateX(-2.5%) skewX(-3deg)}to{transform:translateX(2.5%) skewX(3deg)}}
+#flow{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;
+  --b:var(--band,62%);--c:var(--cap,92%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.2) 0,rgba(0,0,0,.3) calc(var(--b) - 5rem),#000 var(--b),#000 calc(var(--c) - 2.5rem),rgba(0,0,0,.14) var(--c));
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.2) 0,rgba(0,0,0,.3) calc(var(--b) - 5rem),#000 var(--b),#000 calc(var(--c) - 2.5rem),rgba(0,0,0,.14) var(--c))}
+.hero__top{position:relative;z-index:2;width:100%;max-width:var(--shell);margin:0 auto;display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(15rem,20rem);gap:clamp(2rem,5vw,5rem);align-items:end}
+.name{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(3rem,7vw,6rem);line-height:.96;letter-spacing:-.025em;color:var(--ink)}
+.alias{margin:.85rem 0 0;font-family:var(--sans);font-size:.93rem;color:var(--muted)}
+.role{margin:1.3rem 0 0;max-width:32ch;font-style:italic;font-size:clamp(1.3rem,1.1vw + 1rem,1.72rem);line-height:1.28;color:var(--current-2)}
+.pitch{margin:.9rem 0 0;max-width:56ch;color:var(--ink-2)}
+.reach{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.5rem 0 0;padding:0;list-style:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:2.75rem;padding:.5rem 1.05rem;border:1px solid var(--rule);
+  border-radius:.45rem;background:rgba(255,255,255,.85);color:var(--ink);font-family:var(--sans);font-size:1rem;font-weight:500;
+  text-decoration:none;transition:border-color .15s,background-color .15s,color .15s}
+.btn:hover{border-color:var(--current);color:var(--current-2);background:#fff}
+.btn--primary{background:var(--current);border-color:var(--current);color:#fff}
+.btn--primary:hover{background:var(--current-2);border-color:var(--current-2);color:#fff}
+.now{margin:0;padding:.35rem 0 .35rem 1.2rem;border-left:2px solid var(--current);font-family:var(--sans);font-size:.95rem;line-height:1.4;
+  background:linear-gradient(90deg,rgba(255,255,255,.75),rgba(255,255,255,0))}
+.now div{display:grid;grid-template-columns:4.6rem minmax(0,1fr);gap:.75rem;padding:.55rem 0}
+.now div+div{border-top:1px solid var(--rule-soft)}
+.now dt{color:var(--muted)}
+.now dd{margin:0;color:var(--ink)}
+.hero__fig{position:static;margin:0;display:flex;align-items:flex-end;width:100%;max-width:var(--shell);margin-inline:auto}
+.hero__cap{position:relative;z-index:2;width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:.7rem 2.5rem;
+  padding:.75rem 0 0;border-top:1px solid rgba(18,48,58,.16);font-family:var(--sans);font-size:.86rem;line-height:1.45;color:var(--ink-2)}
+.hero__cap p{margin:0;max-width:80ch}
+.hero__cap b,.fig figcaption b{color:var(--ink);font-weight:600}
+.figtools{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.2rem;flex-shrink:0}
+.cbar{display:inline-flex;align-items:center;gap:.45rem;font-size:.8rem;color:var(--muted)}
+.cbar i{display:block;width:5.5rem;height:.5rem;border-radius:1px;background:linear-gradient(90deg,var(--blue) 0%,#9FB9C4 42%,#CDB8AF 58%,var(--coral) 100%)}
+.motion{font:inherit;font-family:var(--sans);font-size:.84rem;font-weight:500;color:var(--ink);background:#fff;border:1px solid var(--rule);
+  border-radius:.35rem;padding:.3rem .7rem;cursor:pointer}
+.motion:hover{border-color:var(--current);color:var(--current-2)}
+/* The one orchestrated entrance on the page */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero__id>*{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.hero__id>:nth-child(2){animation-delay:.07s}
+.hero__id>:nth-child(3){animation-delay:.14s}
+.hero__id>:nth-child(4){animation-delay:.21s}
+.hero__id>:nth-child(5){animation-delay:.28s}
+.hero .now{animation:rise .9s .38s cubic-bezier(.2,.7,.2,1) both}
 @media (max-width:860px){
-  .band{grid-template-columns:1fr;gap:1rem}
-  .band > h2{position:static;color:var(--sodium)}
+  /* On phones the swimmer comes straight after the introduction; the status block follows it. */
+  .hero{grid-template-rows:auto minmax(21rem,auto) auto}
+  .hero__top{display:contents}
+  .hero__id{grid-row:1;position:relative;z-index:2}
+  .hero__fig{grid-row:2}
+  .hero .now{grid-row:3;position:relative;z-index:2;margin-top:1.6rem}
+  .hero__cap{flex-direction:column;align-items:flex-start}
 }
 
-/* ---------------- entries ---------------- */
-.entry{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:1.6rem;padding:1.5rem 0;
-  border-top:1px solid rgba(28,71,68,.55)}
-.entry:first-child{border-top:0;padding-top:0}
-.when{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.86rem;color:var(--haze);
-  padding-top:.35rem;font-variant-numeric:lining-nums tabular-nums}
-.what h3{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:1.12rem;font-weight:600;
-  letter-spacing:-.01em;margin:0;line-height:1.3}
-.where{color:var(--haze);margin:.25rem 0 0;font-size:.98rem}
-.what p{margin:.6rem 0 0}
-.what ul{margin:.7rem 0 0;padding-left:1.05rem}
-.what li{margin:.3rem 0;padding-left:.15rem}
-.what li::marker{color:var(--sodium)}
-@media (max-width:560px){.entry{grid-template-columns:1fr;gap:.35rem}.when{padding-top:0}}
+/* Sections: a rail title and a reading column */
+main{position:relative;z-index:1;overflow-x:clip}
+.sec{position:relative;display:grid;grid-template-columns:var(--rail) minmax(0,1fr);gap:var(--gap);max-width:var(--shell);margin:0 auto;
+  padding:clamp(3.5rem,9vh,6.25rem) var(--pad);border-top:1px solid var(--rule)}
+main>.sec:first-child{border-top:0}
+.sec__head{align-self:start;position:sticky;top:calc(var(--nav-h) + 1.5rem)}
+.sec__head h2{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(1.75rem,1.2vw + 1.3rem,2.3rem);line-height:1.1;letter-spacing:-.012em}
+.sec__head p{margin:.55rem 0 0;font-family:var(--sans);font-size:.93rem;line-height:1.4;color:var(--muted)}
+.sec__body{min-width:0}
+.prose{max-width:66ch}
+.prose>:first-child{margin-top:0}
+.lede{margin:0 0 1.1rem;font-size:clamp(1.22rem,.55vw + 1.06rem,1.45rem);line-height:1.5;color:var(--ink)}
+.sec--dir::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);
+  background:linear-gradient(180deg,var(--kelp-wash) 0%,rgba(238,243,228,.55) 70%,rgba(238,243,228,0) 100%)}
+@media (max-width:900px){.sec{grid-template-columns:1fr;gap:1.2rem}.sec__head{position:static}}
 
-/* ---------------- the lab ---------------- */
-.lab-intro{max-width:60ch;margin:0 0 2.4rem}
+/* Figures */
+.fig{margin:2.4rem 0 0}
+.fig figcaption{margin-top:.8rem;max-width:74ch;font-family:var(--sans);font-size:.88rem;line-height:1.45;color:var(--ink-2)}
+.frame{position:relative;overflow:hidden;border:1px solid var(--rule);border-radius:.85rem;background:#fff}
 
-.stage{position:relative;z-index:2;margin:0 0 2.6rem;border:1px solid var(--rule);background:var(--screen)}
-.stage__screen{position:relative;aspect-ratio:16/9;min-height:300px;overflow:hidden;display:block}
-.stage__screen svg,.stage__screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.stage__glare{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(170deg,rgba(232,239,234,.07),transparent 42%)}
-.boot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;
-  display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;
-  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:1rem;font-weight:600;
-  padding:.85rem 1.5rem;border:0;background:var(--sodium);color:var(--abyss);
-  box-shadow:0 0 0 10px rgba(8,32,31,.5);transition:background .18s,transform .18s}
-.boot:hover{background:var(--foam);transform:translate(-50%,-50%) scale(1.03)}
-.boot:focus-visible{outline:2px solid var(--foam);outline-offset:4px}
-.boot i{width:.55rem;height:.55rem;border-radius:50%;background:var(--abyss);display:block}
-.stage figcaption{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;justify-content:space-between;
-  padding:.9rem 1.1rem;border-top:1px solid var(--rule);color:var(--haze);
-  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.88rem}
-.stage figcaption b{color:var(--foam);font-weight:600}
+/* Figure 2: the MPhil workflow, a real sequence, so it is numbered */
+.pipe{list-style:none;margin:0;padding:clamp(1.2rem,2.5vw,1.8rem) clamp(1.2rem,2.5vw,1.8rem) 1.2rem;display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem clamp(1.5rem,3vw,2.75rem);counter-reset:step}
+.pipe li{position:relative;counter-increment:step}
+.pipe li+li::before{content:"";position:absolute;top:2.6rem;left:calc(-1 * clamp(1.5rem,3vw,2.75rem) + .3rem);
+  width:calc(clamp(1.5rem,3vw,2.75rem) - .75rem);height:1.5px;background:var(--current)}
+.pipe li+li::after{content:"";position:absolute;top:calc(2.6rem - 3.25px);left:-.55rem;border:4px solid transparent;border-left:6px solid var(--current);border-right:0}
+.pipe svg{display:block;width:100%;max-width:10rem;height:auto;color:var(--current);overflow:visible}
+.pipe h3{margin:.9rem 0 .2rem;font-family:var(--sans);font-size:1.02rem;font-weight:600;color:var(--ink)}
+.pipe h3::before{content:counter(step) ". ";color:var(--current)}
+.pipe p{margin:0;font-size:.97rem;line-height:1.5;color:var(--ink-2)}
+.loop{position:relative;height:1.9rem;margin:0 0 2.6rem calc(33.33% + 2.3rem);width:34%;border:1.5px dashed var(--current);border-top:0;
+  border-radius:0 0 1rem 1rem}
+.loop::before{content:"";position:absolute;left:-5.75px;top:-7px;border:5px solid transparent;border-bottom:7px solid var(--current);border-top:0}
+.loop span{position:absolute;left:-2rem;right:-2rem;top:calc(100% + .45rem);text-align:center;font-family:var(--sans);font-size:.84rem;color:var(--current-2)}
+@media (max-width:760px){
+  .pipe{grid-template-columns:1fr}
+  .pipe li+li::before,.pipe li+li::after{display:none}
+  .loop{width:auto;height:auto;margin:0 clamp(1.2rem,2.5vw,1.8rem) 1.3rem;border:0}
+  .loop::before{display:none}
+  .loop span{position:static;display:block;text-align:left}
+}
+/* Small motions inside the workflow icons: a travelling wave along the arm, flow past the body, a robot in the tank */
+.wig{transform-box:fill-box;transform-origin:50% 50%;animation:wig 2.6s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes wig{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-2.5px) rotate(-6deg)}}
+.flowline{stroke-dasharray:9 6;animation:flow 1.5s linear infinite}
+.signal{stroke-dasharray:2 3;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-30}}
+.pulse{transform-box:fill-box;transform-origin:50% 50%;animation:pulse 2.4s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
+.swim{animation:swim 3.2s ease-in-out infinite}
+@keyframes swim{0%,100%{transform:translateX(0)}50%{transform:translateX(-6px)}}
+.thesis{margin:2.2rem 0 0;max-width:66ch;padding:1.2rem 1.4rem;border-left:3px solid var(--current);background:rgba(255,255,255,.75);border-radius:0 .6rem .6rem 0}
+.thesis p{margin:0}
+.thesis .k{font-family:var(--sans);font-size:.88rem;font-weight:600;color:var(--current-2);margin-bottom:.3rem}
+.thesis .t{font-style:italic;font-size:1.12rem;line-height:1.45}
+.thesis .m{margin-top:.45rem;color:var(--muted);font-size:.98rem}
 
-.rack{display:grid;grid-template-columns:repeat(auto-fit,minmax(19rem,1fr));gap:1.4rem}
-.tool{display:flex;flex-direction:column;border:1px solid var(--rule);background:var(--deep)}
-.tool__screen{position:relative;aspect-ratio:16/10;background:var(--screen);overflow:hidden;
-  border-bottom:1px solid var(--rule)}
-.tool__screen svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-.tool__text{padding:1.15rem 1.25rem 1.35rem}
-.tool__text h3{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:1.08rem;
-  font-weight:600;margin:0;letter-spacing:-.01em}
-.tool__text p{margin:.55rem 0 0;font-size:.97rem;line-height:1.6}
-.state{display:inline-flex;align-items:center;gap:.45rem;margin:0 0 .55rem;
-  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.78rem;color:var(--haze)}
-.state i{width:.45rem;height:.45rem;border-radius:50%;background:var(--sodium);display:block}
-.state.wip i{background:var(--wire)}
-.tool__open{margin-top:1rem;display:inline-block;
-  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.92rem;font-weight:600;
-  border-bottom:1px solid var(--sodium);color:var(--sodium)}
-.tool__open:hover{color:var(--foam);border-bottom-color:var(--foam)}
+/* Figure 3: the doctoral concept */
+.figbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem 1rem;padding:.65rem .9rem;
+  border-bottom:1px solid var(--rule-soft);font-family:var(--sans);font-size:.9rem;background:#FBFCFA}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:.45rem;overflow:hidden;background:#fff}
+.seg button{font:inherit;font-weight:500;padding:.38rem .85rem;border:0;background:transparent;color:var(--ink-2);cursor:pointer}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button[aria-pressed="true"]{background:var(--current);color:#fff}
+#kelp{display:block;width:100%;height:clamp(18rem,34vw,26rem)}
+.rq{margin:2.4rem 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.6rem 2.6rem;max-width:62rem}
+.rq div{padding-top:.9rem;border-top:2px solid var(--kelp-g)}
+.rq dt{font-family:var(--sans);font-size:1rem;font-weight:600;color:var(--kelp)}
+.rq dd{margin:.3rem 0 0;line-height:1.55}
+.after{margin-top:2.2rem}
+@media (max-width:700px){.rq{grid-template-columns:1fr}}
 
-/* ---------------- publications ---------------- */
-.cite{padding:1.4rem 0;border-top:1px solid rgba(28,71,68,.55)}
-.cite:first-child{border-top:0;padding-top:0}
-.cite p{margin:0}
-.cite .title{font-style:italic}
-.cite .venue{color:var(--haze);display:block;margin-top:.35rem;font-size:.97rem}
+/* Publications */
+.pubs{list-style:none;margin:0;padding:0}
+.pub{display:grid;grid-template-columns:9rem minmax(0,1fr);gap:1.5rem;padding:1.6rem 0;border-top:1px solid var(--rule-soft)}
+.pub:first-child{border-top:0;padding-top:.2rem}
+.thumb{display:block;width:100%;height:auto;aspect-ratio:17/11;border-radius:.5rem;background:linear-gradient(180deg,#F1F8F8,#DDEDEE)}
+.pub__type{margin:0 0 .35rem;font-family:var(--sans);font-size:.88rem;font-weight:500;color:var(--current-2)}
+.pub__type--prep{color:var(--kelp)}
+.pub__c{margin:0}
+.pub__c .t{font-style:italic;color:var(--ink)}
+.pub__c .v{display:block;margin-top:.3rem;font-size:.97rem;color:var(--muted)}
+@media (max-width:560px){.pub{grid-template-columns:1fr;gap:.8rem}.thumb{max-width:11rem}}
 
-.pull{background:var(--deep);border-left:3px solid var(--sodium);padding:1.25rem 1.5rem;margin:1.8rem 0 0}
-.pull p{margin:0}
-.pull .k{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.8rem;color:var(--haze);
-  display:block;margin-bottom:.35rem}
+/* Education, experience */
+.entry{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:1.5rem;padding:1.4rem 0;border-top:1px solid var(--rule-soft)}
+.entry:first-child{border-top:0;padding-top:.2rem}
+.when{margin:0;padding-top:.25rem;font-family:var(--sans);font-size:.93rem;color:var(--current-2);font-variant-numeric:tabular-nums}
+.entry h3{margin:0;font-family:var(--serif);font-size:1.2rem;font-weight:600;line-height:1.3;color:var(--ink)}
+.where{margin:.15rem 0 0;color:var(--muted)}
+.entry .what>p:not(.where){margin:.5rem 0 0}
+.entry ul{margin:.6rem 0 0;padding-left:1.1rem}
+.entry li{margin:.3rem 0;padding-left:.15rem}
+.entry li::marker{color:var(--current)}
+@media (max-width:560px){.entry{grid-template-columns:1fr;gap:.3rem}.when{padding-top:0}}
 
-/* ---------------- skills ---------------- */
-.kit{margin:0;display:grid;gap:1.15rem}
-.kit div{display:grid;grid-template-columns:minmax(6.5rem,8.5rem) minmax(0,1fr);gap:1.1rem}
-.kit dt{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.92rem;color:var(--sodium);font-weight:500}
+/* Methods and skills */
+.kit{margin:0;max-width:60rem}
+.kit div{display:grid;grid-template-columns:9rem minmax(0,1fr);gap:1.2rem;padding:.8rem 0;border-top:1px solid var(--rule-soft)}
+.kit div:first-child{border-top:0;padding-top:.2rem}
+.kit dt{font-family:var(--sans);font-weight:600;color:var(--current-2);font-size:.98rem;padding-top:.1rem}
 .kit dd{margin:0}
-@media (max-width:560px){.kit div{grid-template-columns:1fr;gap:.15rem}}
+.kit-note{margin:1.4rem 0 0;max-width:62ch;color:var(--ink-2)}
+@media (max-width:560px){.kit div{grid-template-columns:1fr;gap:.1rem}}
 
-.plain{margin:0;padding-left:1.05rem}
-.plain li{margin:.55rem 0;padding-left:.2rem}
-.plain li::marker{color:var(--sodium)}
+/* Engineering projects */
+.projects{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(2rem,4vw,3.5rem)}
+.projects li{padding:1.2rem 0;border-top:1px solid var(--rule-soft)}
+.projects .tag{margin:0;font-family:var(--sans);font-size:.85rem;color:var(--current-2)}
+.projects h3{margin:.15rem 0 0;font-family:var(--serif);font-size:1.15rem;font-weight:600}
+.projects .d{margin:.35rem 0 0;color:var(--ink-2);font-size:1rem}
+@media (max-width:700px){.projects{grid-template-columns:1fr}}
 
-/* ---------------- contact ---------------- */
+/* Awards: one chronological list, marked like depth soundings */
+.hons{list-style:none;margin:0;padding:0;position:relative}
+.hons::before{content:"";position:absolute;top:.8rem;bottom:.8rem;left:calc(7.5rem + 1.25rem + 1.2rem - 1px);width:2px;border-radius:1px;
+  background:linear-gradient(180deg,var(--current-3),var(--rule-soft))}
+.hon{position:relative;display:grid;grid-template-columns:7.5rem 2.4rem minmax(0,1fr);column-gap:1.25rem;padding:0 0 1.7rem}
+.hon:last-child{padding-bottom:0}
+.hon .when{padding-top:.55rem}
+.hon__mark{position:relative;z-index:1;display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:50%;background:#fff;
+  border:1.5px solid var(--current-3);color:var(--current)}
+.hon__mark svg{width:1.25rem;height:1.25rem;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.hon--sch .hon__mark{background:var(--kelp-wash);border-color:var(--kelp-l);color:var(--kelp)}
+.hon--sport .hon__mark{background:var(--aqua)}
+.hon--music .hon__mark{background:#FFF6DF;border-color:#EBCB7E;color:#8A6412}
+.hon__kind{margin:.1rem 0 0;font-family:var(--sans);font-size:.84rem;color:var(--muted)}
+.hon h3{margin:.1rem 0 0;font-family:var(--serif);font-size:1.18rem;font-weight:600;line-height:1.3;color:var(--ink)}
+.hon__text>p:last-child{margin:.3rem 0 0;color:var(--ink-2)}
+@media (max-width:560px){
+  .hons::before{left:calc(1.2rem - 1px)}
+  .hon{grid-template-columns:2.4rem minmax(0,1fr);column-gap:1rem}
+  .hon__mark{grid-column:1;grid-row:1 / span 2}
+  .hon .when{grid-column:2;grid-row:1;padding-top:.1rem}
+  .hon__text{grid-column:2;grid-row:2}
+}
+
+/* Projects: hands-on tasters of the software tools, then the full apps */
+.tools{margin:0 0 3.2rem}
+.tools__tabs{display:flex;flex-wrap:wrap;gap:.55rem;margin:0 0 .9rem}
+.tools__tabs [role="tab"]{display:flex;flex-direction:column;align-items:flex-start;gap:.05rem;min-width:11.5rem;padding:.6rem .95rem .65rem;
+  border:1px solid var(--rule);border-radius:.6rem;background:#fff;color:var(--ink);font-family:var(--sans);text-align:left;cursor:pointer;
+  transition:border-color .15s,background-color .15s}
+.tools__tabs [role="tab"] b{font-size:1rem;font-weight:600}
+.tools__tabs [role="tab"] span{font-size:.84rem;color:var(--muted)}
+.tools__tabs [role="tab"]:hover{border-color:var(--current)}
+.tools__tabs [role="tab"][aria-selected="true"]{background:var(--aqua);border-color:var(--current);box-shadow:inset 0 -3px 0 var(--current)}
+.tools__panel{padding:clamp(.9rem,2.2vw,1.4rem);border:1px solid var(--rule);border-radius:.85rem;background:#fff}
+.demo{border:1px solid var(--rule-soft);border-radius:.7rem;background:#F8FBFB;padding:clamp(.8rem,2vw,1.1rem)}
+.demo__label{margin:0 0 .35rem;font-family:var(--sans);font-size:.82rem;color:var(--muted)}
+.demo__cap{margin:.65rem 0 0;max-width:78ch;font-family:var(--sans);font-size:.88rem;line-height:1.45;color:var(--ink-2)}
+.demo__controls{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .7rem;margin-top:.8rem;font-family:var(--sans);font-size:.92rem;color:var(--ink-2)}
+.demo output{min-width:3.4rem;font-family:var(--mono);font-size:.92rem;color:var(--ink)}
+.demo input[type="range"]{width:min(15rem,100%);accent-color:var(--current)}
+.btn--sm{min-height:2.3rem;padding:.3rem .85rem;font-size:.93rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.tools__info{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem clamp(1.5rem,3vw,2.5rem);margin-top:1.3rem;padding-top:1.2rem;
+  border-top:1px solid var(--rule-soft)}
+.tools__info h3{margin:.35rem 0 .45rem;font-family:var(--serif);font-size:1.5rem;font-weight:500;line-height:1.15}
+.tools__info p{margin:0;color:var(--ink-2)}
+.state{display:inline-flex;align-items:center;gap:.45rem;margin:0;font-family:var(--sans);font-size:.86rem;color:var(--muted)}
+.state i{width:.5rem;height:.5rem;border-radius:50%;background:var(--current)}
+.state--dev i{background:transparent;border:1.5px solid var(--current)}
+.state--out i{background:var(--glow)}
+.feat{margin:0 0 1rem;padding-left:1.1rem;color:var(--ink-2)}
+.feat li{margin:.3rem 0;padding-left:.1rem}
+.feat li::marker{color:var(--current)}
+.tools__links{display:flex;flex-wrap:wrap;gap:.55rem}
+.subhead{margin:0 0 .4rem;font-family:var(--sans);font-size:1rem;font-weight:600;color:var(--ink)}
+@media (max-width:760px){.tools__info{grid-template-columns:1fr}.tools__tabs [role="tab"]{min-width:0;flex:1 1 9rem}}
+
+/* KDU-8085 taster */
+.cpu{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,.9fr);gap:1rem 1.4rem}
+.cpu__prog{list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:.9rem}
+.cpu__prog li{display:grid;grid-template-columns:3.1rem 3.5rem minmax(0,1fr);gap:.5rem;padding:.28rem .5rem;border-radius:.35rem;color:var(--ink-2)}
+.cpu__prog .a{color:var(--muted)}
+.cpu__prog .b{color:var(--current-2)}
+.cpu__prog li.is-next{background:var(--aqua);color:var(--ink);box-shadow:inset 3px 0 0 var(--current)}
+.cpu__prog li.is-done{opacity:.55}
+.cpu__regs,.cpu__flags{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .8rem}
+.cpu__regs div,.cpu__flags div{display:flex;flex-direction:column;align-items:center;min-width:2.9rem;padding:.25rem .4rem;border:1px solid var(--rule);
+  border-radius:.4rem;background:#fff}
+.cpu__regs dt,.cpu__flags dt{font-family:var(--sans);font-size:.75rem;color:var(--muted)}
+.cpu__regs dd,.cpu__flags dd{margin:0;font-family:var(--mono);font-size:1rem;color:var(--ink)}
+.cpu__flags div{min-width:2.35rem;padding:.25rem .3rem}
+.cpu__flags div.is-set{border-color:#E5B54A;background:#FFF6DF}
+.cpu__regs dd.flash{animation:flash .8s ease}
+@keyframes flash{from{background:#FFE7A6}to{background:transparent}}
+.cpu__leds{display:flex;gap:.3rem;margin:.2rem 0 .45rem}
+.cpu__leds i{width:.85rem;height:.85rem;border-radius:50%;background:#E3ECEC;border:1px solid var(--rule)}
+.cpu__leds i.is-on{background:var(--glow);border-color:#D99A1E;box-shadow:0 0 8px rgba(242,178,51,.7)}
+.cpu__portval{margin:0;font-family:var(--mono);font-size:1.05rem;color:var(--ink)}
+.cpu__bus{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:.7rem;margin-top:.9rem;font-family:var(--sans);font-size:.84rem;color:var(--muted)}
+.cpu__bus b{font-family:var(--mono);font-weight:500;color:var(--ink-2)}
+.cpu__track{position:relative;height:1.7rem;border-radius:1rem;background:linear-gradient(90deg,var(--aqua),#EEF6F6);border:1px solid var(--rule-soft)}
+.cpu__tok{position:absolute;top:50%;left:.2rem;transform:translateY(-50%);min-width:2.3rem;padding:.05rem .4rem;border-radius:.8rem;background:var(--current);
+  color:#fff;font-family:var(--mono);font-size:.85rem;text-align:center}
+.cpu__tok.go{animation:bus .42s ease-in-out forwards}
+@keyframes bus{from{left:.2rem}to{left:calc(100% - 2.7rem)}}
+.cpu__note{margin:.7rem 0 0;min-height:2.9em;font-family:var(--sans);font-size:.9rem;line-height:1.45;color:var(--ink-2)}
+.cpu__seed{display:inline-flex;align-items:center;gap:.4rem;margin-left:auto}
+.cpu__seed input{width:3.2rem;padding:.3rem .45rem;border:1px solid var(--rule);border-radius:.4rem;background:#fff;color:var(--ink);font-family:var(--mono);
+  font-size:.95rem;text-transform:uppercase}
+.cpu__seed input[aria-invalid="true"]{border-color:var(--coral)}
+@media (max-width:760px){.cpu{grid-template-columns:1fr}.cpu__seed{margin-left:0}}
+
+/* NUCLEO bench taster */
+#nucleo{display:block;width:100%;height:clamp(13.5rem,24vw,17rem)}
+.rpm{margin-left:auto}
+.rpm b{font-family:var(--mono);font-weight:500;color:var(--ink)}
+.code{margin:.8rem 0 0;padding:.6rem .8rem;overflow-x:auto;border:1px solid var(--rule-soft);border-radius:.45rem;background:#fff;font-family:var(--mono);
+  font-size:.85rem;color:var(--ink-2)}
+.code b{font-weight:600;color:var(--current-2)}
+.code span{color:var(--muted)}
+
+/* StudioPad taster */
+.roll{display:grid;grid-template-columns:1.6rem repeat(16,minmax(0,1fr));gap:3px}
+.roll__key{display:grid;place-items:center;font-family:var(--sans);font-size:.8rem;color:var(--muted)}
+.roll__cell{height:1.65rem;min-width:0;padding:0;border:1px solid var(--rule-soft);border-radius:.25rem;background:#fff;cursor:pointer;transition:background-color .12s}
+.roll__cell.is-beat{border-left-color:var(--current-3)}
+.roll__cell:hover{border-color:var(--current)}
+.roll__cell[aria-pressed="true"]{background:var(--current);border-color:var(--current)}
+.roll__cell.is-now{background:var(--aqua)}
+.roll__cell.is-now[aria-pressed="true"]{background:var(--glow);border-color:#D99A1E}
+#studio-wave{display:block;width:100%;height:3.6rem;margin-top:.7rem;border:1px solid var(--rule-soft);border-radius:.4rem;background:#fff}
+
+/* Contact */
 .meet{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:2rem;align-items:start}
-.portrait{width:100%;aspect-ratio:1;object-fit:cover;background:var(--deep);
-  filter:grayscale(1) contrast(1.06);mix-blend-mode:luminosity;opacity:.92}
-@media (max-width:560px){.meet{grid-template-columns:1fr;gap:1.4rem}.portrait{max-width:9.5rem}}
-.contact-grid{display:flex;flex-wrap:wrap;gap:.9rem 2.4rem;margin:1.6rem 0 0;padding:0;list-style:none;
-  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:1rem}
-.cta{display:inline-block;margin-top:1.8rem;padding:.7rem 1.4rem;background:var(--sodium);color:var(--abyss);
-  border:0;font-weight:600;font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-size:.95rem}
-.cta:hover{background:var(--foam);color:var(--abyss)}
+.meet.no-photo,.meet:not(:has(.portrait)){grid-template-columns:minmax(0,1fr)}
+.meet>div{max-width:66ch}
+.portrait{width:100%;aspect-ratio:1;object-fit:cover;border-radius:.75rem;border:1px solid var(--rule);background:var(--spray)}
+.contact-links{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.4rem 0 0;padding:0;list-style:none}
+.note{margin:1.4rem 0 0;font-family:var(--sans);font-size:.93rem;color:var(--muted)}
+@media (max-width:560px){.meet{grid-template-columns:1fr}.portrait{max-width:9.5rem}}
 
-footer{max-width:var(--shell);margin-top:clamp(3rem,8vh,5rem);padding:1.6rem var(--pad) 3rem;
-  border-top:1px solid var(--rule);color:var(--haze);font-size:.88rem;
-  font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif}
-footer p{margin:0}
+/* Footer: the page ends on the seabed */
+footer{margin-top:1.5rem}
+#seabed{display:block;width:100%;height:92px}
+.foot{background:var(--sand)}
+.foot__in{max-width:var(--shell);margin:0 auto;padding:.3rem var(--pad) 2.2rem;display:flex;flex-wrap:wrap;justify-content:space-between;
+  gap:.5rem 1.5rem;font-family:var(--sans);font-size:.9rem;color:var(--ink-2)}
+.foot__in p{margin:0}
+.foot__in a{color:var(--current-2)}
 
-/* ---------------- surface texture ---------------- */
-.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-::selection{background:var(--sodium);color:var(--abyss)}
+/* Depth gauge: scroll position as depth through the sunlit zone, 0 to 200 m */
+.gauge{position:fixed;z-index:40;right:clamp(.6rem,1.4vw,1.4rem);top:50%;transform:translateY(-50%);width:3rem;height:min(56vh,31rem);
+  display:none;font-family:var(--sans);opacity:0;pointer-events:none;transition:opacity .4s}
+.gauge.is-on{opacity:1;pointer-events:auto}
+@media (min-width:1180px){.gauge{display:block}}
+.gauge__read{position:absolute;right:0;bottom:calc(100% + .7rem);margin:0;font-size:.8rem;color:var(--current-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.gauge__track{position:absolute;top:0;bottom:0;right:.55rem;width:1px;background:linear-gradient(180deg,var(--current-3),var(--current))}
+.gauge__track a{position:absolute;right:-4px;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--shallows);border:1.5px solid var(--current-3)}
+.gauge__track a span{position:absolute;right:1.1rem;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:.8rem;color:var(--ink-2);
+  background:rgba(244,249,248,.96);padding:.15rem .45rem;border-radius:.3rem;opacity:0;pointer-events:none;transition:opacity .15s}
+.gauge__track a:hover span{opacity:1}
+.gauge__track a.is-here{border-color:var(--current);background:var(--current)}
+.gauge__dot{position:absolute;right:-7px;top:0;width:15px;height:15px;margin-top:-7.5px;border-radius:50%;border:1.5px solid var(--current-2);
+  background:rgba(244,249,248,.7);will-change:transform}
 
-/* ---------------- tool cards: power on under the pointer or keyboard focus ---------------- */
-.tool{transition:border-color .25s,transform .25s}
-.tool:hover,.tool:focus-within{border-color:var(--wire);transform:translateY(-3px)}
-.tool__screen svg{opacity:.82;transition:opacity .25s}
-.tool:hover .tool__screen svg,.tool:focus-within .tool__screen svg{opacity:1}
-.tool__screen::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,transparent,rgba(233,161,59,.14),transparent);
-  transform:translateY(-110%);transition:transform .75s ease}
-.tool:hover .tool__screen::after,.tool:focus-within .tool__screen::after{transform:translateY(110%)}
-.stage__screen svg{transition:opacity .3s}
-.stage:hover .stage__screen svg{opacity:.9}
-
-/* ---------------- scroll-linked: reading progress, and the hero sinking away ---------------- */
-@keyframes progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes lift{to{transform:translateY(-46px);opacity:.1}}
-@keyframes sink{to{opacity:.2;transform:scale(1.07)}}
-
-@supports (animation-timeline: scroll()){
-  @media (prefers-reduced-motion:no-preference){
-    .bar{position:fixed}
-    .bar::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
-      background:var(--sodium);transform:scaleX(0);transform-origin:0 50%;
-      animation:progress linear;animation-timeline:scroll(root block)}
-    .hero__inner{animation:lift linear both;animation-timeline:view(block);animation-range:exit}
-    #flow{animation:sink linear both;animation-timeline:view(block);animation-range:exit}
-  }
-}
-
+/* Motion controls */
+.is-still .hero__rays,.is-still .wig,.is-still .flowline,.is-still .signal,.is-still .pulse,.is-still .swim{animation-play-state:paused}
 @media (prefers-reduced-motion:reduce){
-  .tool,.tool__screen::after,.tool__screen svg{transition:none}
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.001ms!important}
 }
 
-/* ---------------- print ---------------- */
 @media print{
-  :root{--foam:#111;--haze:#555;--rule:#ccc;--sodium:#111;--deep:#f4f4f4}
   body{background:#fff;color:#111;font-size:10.5pt}
-  .bar,#flow,.hero__veil,.cta,.stage,.tool__screen,.boot,.grain{display:none}
-  .hero{min-height:auto}.hero__inner{padding:0}
-  .name{font-size:28pt;color:#111}.name .family{color:#111}.name span{display:inline}
-  .band{border-color:#ccc;break-inside:avoid}
-  .tool{border-color:#ccc;break-inside:avoid}
-  .pull{background:#f4f4f4;border-left-color:#111}
-  a{color:#111;border:0}
+  .bar,.gauge,.hero__rays,#flow,.hero__fig,.fig--anim,.thumb,.motion,.skip,#seabed{display:none!important}
+  .hero{min-height:auto;display:block;padding:0 0 1rem;background:none}
+  .hero__top{display:block}
+  .sec{display:block;padding:1.2rem 0;break-inside:avoid-page}
+  .sec__head{position:static}
+  .sec--dir::before{display:none}
+  .pub{grid-template-columns:1fr}
+  .foot{background:none}
+  .demo,.demo__cap,.tools__tabs{display:none!important}
+  .tools__panel,.tools__panel[hidden]{display:block!important;border:0;padding:0;margin-bottom:1rem}
+  a{color:#111;text-decoration:none}
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="grain" aria-hidden="true"></div>
 
 <nav class="bar" id="bar" aria-label="Sections">
-  <a class="bar__me" href="#top">Rajitha Herath</a>
-  <div class="bar__links">
+  <a class="bar__me" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#E1F1F2"/><path d="M5 20c3.5-5 7-5 10.5 0s7 5 11.5 0" stroke="#0E7A8B" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="21.5" cy="10.5" r="3.6" fill="#F2B233"/></svg>Rajitha Herath</a>
+  <button class="bar__menu" id="menu" type="button" aria-expanded="false" aria-controls="links"><i aria-hidden="true"></i>Menu</button>
+  <div class="bar__links" id="links">
     <a href="#research">Research</a>
-    <a href="#lab">The lab</a>
+    <a href="#direction">Direction</a>
     <a href="#publications">Publications</a>
-    <a href="#teaching">Teaching</a>
+    <a href="#education">Education</a>
+    <a href="#awards">Awards</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
+    <a class="bar__cv" href="cv.pdf">Download CV</a>
   </div>
 </nav>
 
-<header class="hero" id="top">
-  <canvas id="flow" aria-hidden="true"></canvas>
-  <div class="hero__veil" aria-hidden="true"></div>
-  <div class="hero__inner">
-    <h1 class="name"><span class="given">Rajitha</span><span class="family">Herath</span></h1>
-    <p class="legal">H.M.R.L.B Herath</p>
-    <p class="pitch">I build robots that swim, I study the water they push against, and I write the software my students learn on. Mechatronics engineer, lecturer, researcher in bio-inspired underwater robotics.</p>
-    <ul class="reach">
-      <li><a href="#lab">Run my teaching simulators</a></li>
-      <li><a href="mailto:herathrajitha@gmail.com">herathrajitha@gmail.com</a></li>
-      <li><a href="https://orcid.org/0009-0008-5221-2415" rel="me">ORCID</a></li>
-      <li><a href="https://www.linkedin.com/in/rajitha-herath-24b166207" rel="me">LinkedIn</a></li>
-    </ul>
+<div class="gauge" id="gauge" aria-hidden="true">
+  <p class="gauge__read"><span id="depth">0</span> m</p>
+  <div class="gauge__track">
+    <span class="gauge__dot" id="gdot"></span>
+    <a href="#research" tabindex="-1" data-for="research"><span>Research</span></a>
+    <a href="#direction" tabindex="-1" data-for="direction"><span>Doctoral direction</span></a>
+    <a href="#publications" tabindex="-1" data-for="publications"><span>Publications</span></a>
+    <a href="#education" tabindex="-1" data-for="education"><span>Education</span></a>
+    <a href="#awards" tabindex="-1" data-for="awards"><span>Awards and honours</span></a>
+    <a href="#experience" tabindex="-1" data-for="experience"><span>Experience</span></a>
+    <a href="#skills" tabindex="-1" data-for="skills"><span>Methods and skills</span></a>
+    <a href="#projects" tabindex="-1" data-for="projects"><span>Projects</span></a>
+    <a href="#beyond" tabindex="-1" data-for="beyond"><span>Beyond the lab</span></a>
+    <a href="#contact" tabindex="-1" data-for="contact"><span>Contact</span></a>
   </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="hero__rays" aria-hidden="true"></div>
+  <div class="hero__top">
+    <div class="hero__id">
+      <h1 class="name">Rajitha Herath</h1>
+      <p class="alias">H.M.R.L.B Herath, publishing as Herath Rajitha Lakmal Bandara</p>
+      <p class="role">Engineering with nature, for a more sustainable technological future.(I work at the intersection of bio-inspired robotics, hydrodynamics and marine energy, exploring how biological principles can inform adaptive engineering systems that work with natural environments.)</p>
+      <p class="pitch">I build robots that swim and study the water they push against. My MPhil produced an octopus-inspired, multi-arm robot that switches propulsion modes underwater, analysed with CFD and tank experiments. Next, I want to turn the same physics toward harvesting energy from the sea.</p>
+      <ul class="reach">
+        <li><a class="btn btn--primary" href="mailto:herathrajitha@gmail.com">Email me</a></li>
+        <li><a class="btn" href="cv.pdf">Download CV</a></li>
+        <li><a class="btn" href="https://orcid.org/0009-0008-5221-2415" rel="me">ORCID</a></li>
+        <li><a class="btn" href="https://www.linkedin.com/in/rajitha-herath-24b166207" rel="me">LinkedIn</a></li>
+        <li hidden><a class="btn" data-gh="profile" href="https://github.com/" rel="me">GitHub</a></li>
+      </ul>
+    </div>
+    <dl class="now">
+      <div><dt>Now</dt><dd>Lecturer, Department of Mechanical Engineering, General Sir John Kotelawala Defence University, Sri Lanka</dd></div>
+      <div><dt>Writing</dt><dd>A critical review of bio-inspired adaptive systems for marine energy</dd></div>
+      <div><dt>Seeking</dt><dd>A doctoral position starting in 2027</dd></div>
+    </dl>
+  </div>
+  <figure class="hero__fig">
+    <canvas id="flow" role="img" aria-label="Animated schematic of an octopus-inspired robot swimming, with tracer particles showing the counter-rotating vortex pairs it sheds into its wake"></canvas>
+    <figcaption class="hero__cap">
+      <p><b>Figure 1.</b> Octopus-inspired multi-arm swimmer (schematic). Tracers are coloured by vorticity: each stroke sheds a counter-rotating vortex pair, the two-dimensional trace of a vortex ring. Move your pointer through the water to stir it.</p>
+      <div class="figtools">
+        <span class="cbar" aria-hidden="true">clockwise<i></i>anticlockwise</span>
+        <button class="motion" type="button" data-motion>Pause motion</button>
+      </div>
+    </figcaption>
+  </figure>
 </header>
 
 <main id="main">
 
-  <section class="band" id="research">
-    <h2>Research</h2>
-    <div class="body">
-      <p class="lede">My MPhil work produced a multi-modal underwater robot — a bio-inspired, multi-arm vehicle whose mechanism switches between propulsion modes without surfacing. I designed the mechanism, simulated the flow around it in ANSYS Fluent with dynamic mesh motion, and validated the predictions in tank experiments.</p>
-      <p>The question underneath it is a simple one: how does a body change shape to move efficiently through water, and can a single machine carry more than one way of swimming? That sits where mechanism design, hydrodynamics and control meet, and it is where I want to keep working — undulatory and multi-modal propulsion, hydrodynamic characterisation, and the marine energy systems that run on the same physics.</p>
-      <div class="pull">
-        <p><span class="k">MPhil thesis, 2025</span>Numerical simulation and experimental research on the hydrodynamic characteristics of multi-modal underwater robots.<br><span class="sub">Shandong University of Science and Technology, Qingdao. Supervised by Assoc. Prof. Zhang Minghui (张明辉).</span></p>
+  <section class="sec" id="research" aria-labelledby="h-research">
+    <header class="sec__head">
+      <h2 id="h-research">Research</h2>
+      <p>MPhil, 2022 to 2025</p>
+    </header>
+    <div class="sec__body">
+      <div class="prose">
+        <p class="lede">My MPhil produced a multi-modal underwater robot: an octopus-inspired, multi-arm vehicle whose mechanism switches between propulsion modes without surfacing. I designed the mechanism, simulated the flow around it in ANSYS Fluent with dynamic mesh motion, and validated the predictions in tank experiments.</p>
+        <p>The question underneath it is a simple one: how does a body change shape to move efficiently through water, and can a single machine carry more than one way of swimming? That sits where mechanism design, hydrodynamics and control meet, and it is where I want to keep working: undulatory and multi-modal propulsion, hydrodynamic characterisation, and the marine energy systems that run on the same physics.</p>
       </div>
-    </div>
-  </section>
 
-  <section class="band band--wide" id="lab">
-    <h2>The lab</h2>
-    <div class="body">
-      <p class="lab-intro lede">Every tool below is a single HTML file that runs with no install and no internet, because that is what a Sri Lankan engineering lab can actually rely on. They are open in the browser you are reading this in — click and use them.</p>
-
-      <figure class="stage">
-        <div class="stage__screen" id="stage-8085">
-          <svg viewBox="0 0 640 360" role="img" aria-label="Preview of the 8085 simulator: registers, a data bus and a memory map">
-            <rect width="640" height="360" fill="var(--screen)"/>
-            <g stroke="var(--rule)" stroke-width="1">
-              <line x1="0" y1="52" x2="640" y2="52"/><line x1="392" y1="52" x2="392" y2="360"/>
-            </g>
-            <g fill="var(--haze)" font-family="Bricolage Grotesque, Arial" font-size="13">
-              <text x="24" y="33">Registers</text><text x="416" y="33">Memory</text>
-            </g>
-            <g font-family="Bricolage Grotesque, Arial" font-size="14">
-              <g fill="var(--haze)" font-size="11">
-                <text x="26" y="88">A</text><text x="106" y="88">B</text><text x="186" y="88">C</text><text x="266" y="88">D</text>
-              </g>
-              <g>
-                <rect x="24" y="94" width="62" height="34" fill="none" stroke="var(--sodium)"/>
-                <rect x="104" y="94" width="62" height="34" fill="none" stroke="var(--rule)"/>
-                <rect x="184" y="94" width="62" height="34" fill="none" stroke="var(--rule)"/>
-                <rect x="264" y="94" width="62" height="34" fill="none" stroke="var(--rule)"/>
-              </g>
-              <g fill="var(--foam)">
-                <text x="40" y="117">3A</text><text x="120" y="117">00</text><text x="200" y="117">FF</text><text x="280" y="117">1C</text>
-              </g>
-            </g>
-            <g>
-              <line x1="24" y1="176" x2="356" y2="176" stroke="var(--wire)" stroke-width="2"/>
-              <line x1="24" y1="192" x2="356" y2="192" stroke="var(--wire)" stroke-width="2" opacity=".5"/>
-              <rect x="150" y="166" width="42" height="20" fill="var(--sodium)"/>
-              <text x="157" y="181" font-family="Bricolage Grotesque, Arial" font-size="12" fill="var(--abyss)">C3</text>
-              <text x="24" y="218" font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">data bus · T3</text>
-            </g>
-            <g font-family="Bricolage Grotesque, Arial" font-size="12">
-              <text x="24" y="262" fill="var(--haze)">MVI A, 3AH</text>
-              <text x="24" y="286" fill="var(--foam)">OUT 01H</text>
-              <text x="24" y="310" fill="var(--haze)">JMP 2000H</text>
-              <rect x="16" y="274" width="3" height="16" fill="var(--sodium)"/>
-            </g>
-            <g font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">
-              <g stroke="var(--rule)" fill="none">
-                <rect x="416" y="72" width="44" height="26"/><rect x="468" y="72" width="44" height="26"/>
-                <rect x="520" y="72" width="44" height="26"/><rect x="572" y="72" width="44" height="26"/>
-                <rect x="416" y="106" width="44" height="26"/><rect x="520" y="106" width="44" height="26"/>
-                <rect x="572" y="106" width="44" height="26"/>
-                <rect x="416" y="140" width="44" height="26"/><rect x="468" y="140" width="44" height="26"/>
-                <rect x="520" y="140" width="44" height="26"/><rect x="572" y="140" width="44" height="26"/>
-              </g>
-              <rect x="468" y="106" width="44" height="26" fill="var(--sodium)" opacity=".85"/>
-              <text x="428" y="90">00</text><text x="480" y="90">3E</text><text x="532" y="90">3A</text><text x="584" y="90">D3</text>
-              <text x="428" y="124">01</text><text x="480" y="124" fill="var(--abyss)">C3</text><text x="532" y="124">00</text><text x="584" y="124">20</text>
-              <text x="428" y="158">FF</text><text x="480" y="158">00</text><text x="532" y="158">00</text><text x="584" y="158">00</text>
-              <text x="416" y="196">2000H — 200AH</text>
-            </g>
-          </svg>
-          <div class="stage__glare" aria-hidden="true"></div>
-          <button class="boot" type="button" data-src="lab/8085/" data-label="the 8085 simulator"><i aria-hidden="true"></i>Run the 8085 simulator</button>
+      <figure class="fig">
+        <div class="frame">
+          <ol class="pipe">
+            <li>
+              <svg viewBox="0 0 160 90" aria-hidden="true">
+                <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                  <circle cx="24" cy="45" r="12"/><circle cx="24" cy="45" r="3"/>
+                  <path d="M24 33C60 29 84 29 142 36" stroke-dasharray="3 4" opacity=".55"/>
+                  <path d="M24 57C60 61 84 62 142 50" stroke-dasharray="3 4" opacity=".55"/>
+                </g>
+                <g fill="#fff" stroke="currentColor" stroke-width="1.6">
+                  <g class="wig"><rect x="40" y="36" width="20" height="18" rx="5"/></g>
+                  <g class="wig" style="--d:.18s"><rect x="64" y="37" width="18" height="16" rx="5" transform="rotate(-4 73 45)"/></g>
+                  <g class="wig" style="--d:.36s"><rect x="86" y="37" width="16" height="14" rx="5" transform="rotate(-9 94 44)"/></g>
+                  <g class="wig" style="--d:.54s"><rect x="105" y="36" width="14" height="12" rx="4" transform="rotate(-14 112 42)"/></g>
+                  <g class="wig" style="--d:.72s"><rect x="122" y="34" width="12" height="10" rx="4" transform="rotate(-20 128 39)"/></g>
+                </g>
+              </svg>
+              <h3>Mechanism design</h3>
+              <p>A multi-arm mechanism that changes propulsion mode without surfacing, taken from CAD to a working robot.</p>
+            </li>
+            <li>
+              <svg viewBox="0 0 160 90" aria-hidden="true">
+                <g fill="none" stroke="currentColor" stroke-width="1" opacity=".42">
+                  <ellipse cx="70" cy="45" rx="30" ry="15"/><ellipse cx="70" cy="45" rx="45" ry="24"/><ellipse cx="70" cy="45" rx="62" ry="35"/>
+                  <path d="M70 30V10M70 60v20M100 45h32M40 45H8M92 34l19-14M92 56l19 14M48 34 29 20M48 56 29 70"/>
+                </g>
+                <ellipse cx="70" cy="45" rx="18" ry="8" fill="currentColor"/>
+                <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                  <path class="flowline" d="M4 25C38 25 50 17 70 17S108 25 156 27"/>
+                  <path class="flowline" d="M4 65C38 65 50 73 70 73S108 65 156 63"/>
+                </g>
+                <circle class="pulse" cx="118" cy="40" r="3.4" fill="var(--coral)"/>
+                <circle class="pulse" style="--d:1.2s" cx="134" cy="51" r="3.4" fill="var(--blue)"/>
+              </svg>
+              <h3>CFD with moving boundaries</h3>
+              <p>ANSYS Fluent with dynamic mesh motion, resolving the flow and forces as the arms move.</p>
+            </li>
+            <li>
+              <svg viewBox="0 0 160 90" aria-hidden="true">
+                <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+                  <path d="M14 22v54h132V22"/>
+                  <path d="M14 34c10-4 20 4 30 0s20-4 30 0 20 4 30 0 20-4 30 0 10 3 12 0" opacity=".7"/>
+                  <rect x="64" y="5" width="22" height="13" rx="2"/><circle cx="75" cy="11.5" r="3"/>
+                  <path class="signal" d="M75 18v11"/>
+                </g>
+                <g class="swim">
+                  <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                    <path d="M82 52c-9-3-15 2-26-2M82 56c-9 2-15 1-24 6M83 54c-11 0-17 0-28 1"/>
+                  </g>
+                  <ellipse cx="93" cy="53" rx="12" ry="7.5" fill="currentColor"/>
+                </g>
+              </svg>
+              <h3>Tank experiments</h3>
+              <p>Physical tests in water to check the simulated predictions.</p>
+            </li>
+          </ol>
+          <p class="loop"><span>Experiments compared with the simulations; model refined</span></p>
         </div>
-        <figcaption>
-          <span><b>KDU-8085</b> — used in the microprocessor module at KDU</span>
-          <span><a href="lab/8085/" target="_blank" rel="noopener">Open full screen</a></span>
-        </figcaption>
+        <figcaption><b>Figure 2.</b> The workflow behind the MPhil thesis, from mechanism to validated hydrodynamics.</figcaption>
       </figure>
 
-      <div class="rack">
-
-        <article class="tool">
-          <div class="tool__screen">
-            <svg viewBox="0 0 400 250" role="img" aria-label="Preview of the NUCLEO board simulator with pin headers, an LED and wiring">
-              <rect width="400" height="250" fill="var(--screen)"/>
-              <rect x="96" y="40" width="208" height="170" rx="6" fill="var(--deep)" stroke="var(--wire)"/>
-              <g fill="var(--rule)">
-                <rect x="108" y="52" width="10" height="10"/><rect x="108" y="70" width="10" height="10"/>
-                <rect x="108" y="88" width="10" height="10"/><rect x="108" y="106" width="10" height="10"/>
-                <rect x="108" y="124" width="10" height="10"/><rect x="108" y="142" width="10" height="10"/>
-                <rect x="282" y="52" width="10" height="10"/><rect x="282" y="70" width="10" height="10"/>
-                <rect x="282" y="88" width="10" height="10"/><rect x="282" y="106" width="10" height="10"/>
-                <rect x="282" y="124" width="10" height="10"/><rect x="282" y="142" width="10" height="10"/>
-              </g>
-              <rect x="282" y="88" width="10" height="10" fill="var(--sodium)"/>
-              <rect x="164" y="96" width="72" height="62" fill="var(--screen)" stroke="var(--wire)"/>
-              <text x="176" y="132" font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">F411RE</text>
-              <circle cx="200" cy="184" r="7" fill="var(--sodium)"/>
-              <circle cx="200" cy="184" r="15" fill="var(--sodium)" opacity=".16"/>
-              <path d="M292 93 C 336 93, 346 150, 352 196" stroke="var(--sodium)" stroke-width="2" fill="none"/>
-              <path d="M108 129 C 60 129, 52 180, 48 204" stroke="var(--wire)" stroke-width="2" fill="none"/>
-              <circle cx="352" cy="200" r="5" fill="none" stroke="var(--sodium)" stroke-width="2"/>
-              <rect x="34" y="204" width="28" height="12" fill="none" stroke="var(--wire)" stroke-width="2"/>
-              <text x="20" y="34" font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">PA5 · PWM · TIM2</text>
-            </svg>
-          </div>
-          <div class="tool__text">
-            <p class="state wip"><i aria-hidden="true"></i>In development</p>
-            <h3>NUCLEO-F411RE bench</h3>
-            <p>A Wokwi-style STM32 simulator that mirrors the CubeMX and CubeIDE workflow, so pin configuration feels like the real thing. Students drag in LEDs, resistors, sensors and motors, wire them up, and watch PWM change how a motor responds. It is heading towards a full line-following robot they can build and drive on screen.</p>
-            <a class="tool__open" href="lab/nucleo/" target="_blank" rel="noopener">Open the bench</a>
-          </div>
-        </article>
-
-        <article class="tool">
-          <div class="tool__screen">
-            <svg viewBox="0 0 400 250" role="img" aria-label="Preview of the PCB learning platform showing copper routing, pads and a rule violation">
-              <rect width="400" height="250" fill="var(--screen)"/>
-              <g stroke="var(--rule)" stroke-width=".5" opacity=".55">
-                <path d="M0 50h400M0 100h400M0 150h400M0 200h400M50 0v250M100 0v250M150 0v250M200 0v250M250 0v250M300 0v250M350 0v250"/>
-              </g>
-              <g stroke="var(--wire)" stroke-width="3" fill="none" stroke-linecap="square">
-                <path d="M60 190 L60 140 L110 90 L190 90"/>
-                <path d="M60 210 L140 210 L190 160 L300 160"/>
-                <path d="M240 90 L290 90 L330 130 L330 200"/>
-              </g>
-              <g stroke="var(--sodium)" stroke-width="3" fill="none">
-                <path d="M190 122 L230 122 L250 142"/>
-              </g>
-              <g fill="var(--screen)" stroke="var(--wire)" stroke-width="3">
-                <circle cx="60" cy="190" r="7"/><circle cx="330" cy="200" r="7"/><circle cx="300" cy="160" r="7"/>
-              </g>
-              <rect x="190" y="74" width="50" height="64" fill="var(--deep)" stroke="var(--wire)"/>
-              <g fill="var(--wire)">
-                <rect x="182" y="84" width="8" height="6"/><rect x="182" y="102" width="8" height="6"/><rect x="182" y="120" width="8" height="6"/>
-                <rect x="240" y="84" width="8" height="6"/><rect x="240" y="102" width="8" height="6"/><rect x="240" y="120" width="8" height="6"/>
-              </g>
-              <circle cx="250" cy="142" r="13" fill="none" stroke="var(--sodium)" stroke-width="2"/>
-              <text x="20" y="32" font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--sodium)">DRC · clearance 0.15 mm</text>
-            </svg>
-          </div>
-          <div class="tool__text">
-            <p class="state wip"><i aria-hidden="true"></i>In development</p>
-            <h3>PCB Academy</h3>
-            <p>A teaching environment rather than another PCB editor. It walks students through schematic capture, nets, footprints, placement, routing, design rule checks and what the manufacturer actually needs — as transferable skill, so the knowledge carries into KiCad, Altium or Cadence instead of into one tool's buttons. Guided missions, scored.</p>
-            <a class="tool__open" href="lab/pcb/" target="_blank" rel="noopener">Open the platform</a>
-          </div>
-        </article>
-
-        <article class="tool">
-          <div class="tool__screen">
-            <svg viewBox="0 0 400 250" role="img" aria-label="Preview of StudioPad Pro showing a piano roll and an audio waveform">
-              <rect width="400" height="250" fill="var(--screen)"/>
-              <g stroke="var(--rule)" stroke-width=".5">
-                <path d="M0 40h400M0 68h400M0 96h400M0 124h400M0 152h400"/>
-              </g>
-              <g fill="var(--wire)">
-                <rect x="40" y="46" width="70" height="16" rx="2"/><rect x="130" y="74" width="46" height="16" rx="2"/>
-                <rect x="196" y="46" width="34" height="16" rx="2"/><rect x="250" y="102" width="86" height="16" rx="2"/>
-                <rect x="88" y="130" width="52" height="16" rx="2"/>
-              </g>
-              <g fill="var(--sodium)">
-                <rect x="160" y="102" width="70" height="16" rx="2"/><rect x="300" y="46" width="44" height="16" rx="2"/>
-              </g>
-              <line x1="230" y1="34" x2="230" y2="160" stroke="var(--foam)" stroke-width="1.5" opacity=".8"/>
-              <g stroke="var(--haze)" stroke-width="2" stroke-linecap="round">
-                <path d="M40 206v14M52 198v30M64 188v50M76 202v22M88 180v66M100 196v34M112 186v54M124 204v18M136 192v42M148 200v26M160 182v62M172 198v30M184 206v14M196 194v38M208 200v26"/>
-              </g>
-              <g stroke="var(--sodium)" stroke-width="2" stroke-linecap="round">
-                <path d="M220 190v46M232 176v74M244 194v38M256 184v58M268 200v26M280 190v46M292 198v30"/>
-              </g>
-              <text x="20" y="26" font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">hum → melody · YIN</text>
-            </svg>
-          </div>
-          <div class="tool__text">
-            <p class="state"><i aria-hidden="true"></i>Released</p>
-            <h3>StudioPad Pro</h3>
-            <p>A digital audio workstation that runs in a browser tab. Real sampled instruments, a vocal recorder with overdub and noise reduction, a song wizard, and a module that turns a hummed melody into notes using a YIN pitch tracker. It ships as an offline package. The signal processing here is the same thinking I use on sensor data.</p>
-            <a class="tool__open" href="lab/studiopad/" target="_blank" rel="noopener">Open the studio</a>
-          </div>
-        </article>
-
-        <article class="tool">
-          <div class="tool__screen">
-            <svg viewBox="0 0 400 250" role="img" aria-label="Preview of the 8085 design brief challenges showing a timed sensor scenario and a score">
-              <rect width="400" height="250" fill="var(--screen)"/>
-              <text x="24" y="42" font-family="Bricolage Grotesque, Arial" font-size="13" fill="var(--foam)">Brief 04 · tank level control</text>
-              <g stroke="var(--rule)"><line x1="24" y1="56" x2="376" y2="56"/></g>
-              <g font-family="Bricolage Grotesque, Arial" font-size="11" fill="var(--haze)">
-                <text x="24" y="82">sensor in</text><text x="24" y="188">valve out</text>
-              </g>
-              <path d="M96 96 L140 96 L140 74 L212 74 L212 110 L268 110 L268 88 L344 88"
-                    stroke="var(--wire)" stroke-width="2" fill="none"/>
-              <path d="M96 182 L168 182 L168 160 L240 160 L240 182 L344 182"
-                    stroke="var(--sodium)" stroke-width="2" fill="none"/>
-              <g stroke="var(--rule)" stroke-width=".5" opacity=".7">
-                <path d="M96 128h280M96 216h280"/>
-              </g>
-              <g font-family="Bricolage Grotesque, Arial" font-size="11">
-                <rect x="24" y="210" width="86" height="24" fill="var(--sodium)"/>
-                <text x="36" y="227" fill="var(--abyss)">PASS 9/10</text>
-                <text x="128" y="227" fill="var(--haze)">graded on behaviour, not source</text>
-              </g>
-            </svg>
-          </div>
-          <div class="tool__text">
-            <p class="state"><i aria-hidden="true"></i>In use at KDU</p>
-            <h3>Design briefs, marked automatically</h3>
-            <p>Inside KDU-8085 sits the part I am proudest of. Students get a real control problem with a memory map, a specification and a marking scheme. Their whole program is then run against timed sensor scenarios and graded on how it behaves, not on how its source looks — so there is one honest answer to "does it work", and they get it in seconds.</p>
-            <a class="tool__open" href="lab/8085/" target="_blank" rel="noopener">Try a brief</a>
-          </div>
-        </article>
-
+      <div class="thesis">
+        <p class="k">MPhil thesis, 2025</p>
+        <p class="t">Numerical simulation and experimental research on the hydrodynamic characteristics of multi-modal underwater robots</p>
+        <p class="m">Shandong University of Science and Technology, Qingdao. Supervised by Assoc. Prof. Zhang Minghui (张明辉).</p>
       </div>
     </div>
   </section>
 
-  <section class="band" id="publications">
-    <h2>Publications</h2>
-    <div class="body">
-      <div class="cite">
-        <p>Zhang Minghui &amp; Herath Rajitha Lakmal Bandara (2024). <span class="title">Research on motion mechanism of a snake-like robot in water environment.</span>
-        <span class="venue">3rd International Symposium on Control Engineering and Robotics, Changsha, China, 13 August 2024. ACM Digital Library. <a href="https://doi.org/10.1145/3679409.3679497">10.1145/3679409.3679497</a></span></p>
+  <section class="sec sec--dir" id="direction" aria-labelledby="h-direction">
+    <header class="sec__head">
+      <h2 id="h-direction">Doctoral direction</h2>
+      <p>Proposed, for a 2027 start</p>
+    </header>
+    <div class="sec__body">
+      <div class="prose">
+        <p class="lede">Kelp forests and fish schools both reshape the flow around each of their members. My doctoral question is whether engineered energy harvesters, arranged as a colony, can work with that interaction instead of against it.</p>
       </div>
-      <div class="cite">
-        <p>Herath Rajitha Lakmal Bandara (2025). <span class="title">Numerical simulation and experimental research on the hydrodynamic characteristics of multi-modal underwater robots.</span>
-        <span class="venue">MPhil thesis, Shandong University of Science and Technology, Qingdao, China.</span></p>
+
+      <figure class="fig fig--anim">
+        <div class="frame">
+          <div class="figbar">
+            <div class="seg" role="group" aria-label="Number of harvesters shown">
+              <button type="button" data-mode="one" aria-pressed="false">One device</button>
+              <button type="button" data-mode="colony" aria-pressed="true">A colony</button>
+            </div>
+            <button class="motion" type="button" data-motion>Pause motion</button>
+          </div>
+          <canvas id="kelp" role="img" aria-label="Animated concept sketch: kelp-like energy harvesters covered in overlapping scale-like plates sway under a passing wave, their roots glowing as motion is converted, while small fish swim through the array"></canvas>
+        </div>
+        <figcaption><b>Figure 3.</b> Concept sketch, not a result. Kelp-like compliant harvesters, faced with overlapping fish-scale plates, sway under a passing wave, and each root glows as its motion is converted. Water particles trace the wave’s orbital paths while fish swim through the array. Switch between one device and a colony to see the comparison the PhD would quantify.</figcaption>
+      </figure>
+
+      <dl class="rq">
+        <div><dt>Adaptation</dt><dd>How can kelp-like compliant structures reconfigure under waves and currents, so they keep converting energy across sea states and ride out the extreme ones?</dd></div>
+        <div><dt>Hybrid surfaces</dt><dd>What do fish-scale-inspired elements add when they are built into those structures?</dd></div>
+        <div><dt>The colony</dt><dd>Does a colony of harvesters, spaced and phased with intent, capture more than the same devices working apart, and which arrangements matter most?</dd></div>
+        <div><dt>Coexistence</dt><dd>How can such a colony share the water with the ecosystem around it?</dd></div>
+      </dl>
+
+      <div class="prose after">
+        <p>The methods carry over from my MPhil: mechanism design, CFD with moving boundaries extended to fluid–structure interaction for compliant bodies, and scaled tank experiments to validate the simulations. Alongside, I am writing a critical review of bio-inspired adaptive systems for marine energy harvesting, conversion and environmental coexistence, to map where this idea sits in the literature.</p>
+        <p>If this overlaps with your group’s work, I would be glad to talk.</p>
+        <p><a class="btn btn--primary" href="mailto:herathrajitha@gmail.com?subject=PhD%20enquiry">Email me about a PhD</a></p>
       </div>
     </div>
   </section>
 
-  <section class="band" id="teaching">
-    <h2>Teaching &amp; positions</h2>
-    <div class="body">
+  <section class="sec" id="publications" aria-labelledby="h-publications">
+    <header class="sec__head">
+      <h2 id="h-publications">Publications</h2>
+      <p>Full record on <a href="https://orcid.org/0009-0008-5221-2415">ORCID</a></p>
+    </header>
+    <div class="sec__body">
+      <ol class="pubs">
+        <li class="pub">
+          <canvas class="thumb" data-thumb="snake" width="170" height="110" role="img" aria-label="Animated sketch of a snake-like robot swimming"></canvas>
+          <div>
+            <p class="pub__type">Conference paper</p>
+            <p class="pub__c">Zhang Minghui &amp; Herath Rajitha Lakmal Bandara (2024). <span class="t">Research on motion mechanism of a snake-like robot in water environment.</span>
+            <span class="v">3rd International Symposium on Control Engineering and Robotics, Changsha, China, 13 August 2024. ACM Digital Library. <a href="https://doi.org/10.1145/3679409.3679497">doi.org/10.1145/3679409.3679497</a></span></p>
+          </div>
+        </li>
+        <li class="pub">
+          <canvas class="thumb" data-thumb="octo" width="170" height="110" role="img" aria-label="Animated sketch of the octopus-inspired robot"></canvas>
+          <div>
+            <p class="pub__type">MPhil thesis</p>
+            <p class="pub__c">Herath Rajitha Lakmal Bandara (2025). <span class="t">Numerical simulation and experimental research on the hydrodynamic characteristics of multi-modal underwater robots.</span>
+            <span class="v">Shandong University of Science and Technology, Qingdao, China.</span></p>
+          </div>
+        </li>
+        <li class="pub">
+          <canvas class="thumb" data-thumb="kelp" width="170" height="110" role="img" aria-label="Animated sketch of kelp-like harvesters swaying"></canvas>
+          <div>
+            <p class="pub__type pub__type--prep">Review, in preparation</p>
+            <p class="pub__c">Herath Rajitha Lakmal Bandara (in preparation). <span class="t">A critical review of bio-inspired adaptive systems for marine energy harvesting, conversion and environmental coexistence.</span></p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="education" aria-labelledby="h-education">
+    <header class="sec__head">
+      <h2 id="h-education">Education</h2>
+    </header>
+    <div class="sec__body">
+      <div>
+        <div class="entry">
+          <p class="when">2022–2025</p>
+          <div class="what">
+            <h3>MPhil, Mechanical and Electronic Engineering</h3>
+            <p class="where">Shandong University of Science and Technology, Qingdao, China</p>
+            <p>Robotics engineering, specialising in bio-inspired underwater robotics. Thesis on the hydrodynamics of multi-modal underwater robots, supervised by Assoc. Prof. Zhang Minghui. One semester completed online under COVID‑19 restrictions.</p>
+          </div>
+        </div>
+        <div class="entry">
+          <p class="when">2022</p>
+          <div class="what">
+            <h3>BEng, Mechatronic Engineering</h3>
+            <p class="where">Shandong University of Science and Technology, Qingdao, China</p>
+            <p>GPA 4.23 / 5.00, average grade 91.8.</p>
+          </div>
+        </div>
+        <div class="entry">
+          <p class="when">Certificate</p>
+          <div class="what">
+            <h3>CS50: Introduction to Computer Science</h3>
+            <p class="where">HarvardX</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="awards" aria-labelledby="h-awards">
+    <header class="sec__head">
+      <h2 id="h-awards">Awards and honours</h2>
+      <p>Scholarships, study, sport and music</p>
+    </header>
+    <div class="sec__body">
+      <ol class="hons">
+        <li class="hon hon--study">
+          <p class="when">2025</p>
+          <span class="hon__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M8.6 13.2 7 21l5-2.6 5 2.6-1.6-7.8"/></svg></span>
+          <div class="hon__text">
+            <p class="hon__kind">Study</p>
+            <h3>Outstanding Student Award</h3>
+            <p>Master’s programme at Shandong University of Science and Technology, for academic performance alongside involvement in university life.</p>
+          </div>
+        </li>
+        <li class="hon hon--music">
+          <p class="when">2024</p>
+          <span class="hon__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></span>
+          <div class="hon__text">
+            <p class="hon__kind">Music</p>
+            <h3>Second place and best original song</h3>
+            <p>Graduate singing competition, Shandong University of Science and Technology.</p>
+          </div>
+        </li>
+        <li class="hon hon--music">
+          <p class="when">2024</p>
+          <span class="hon__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H10l-4 4v-4H4z"/><path d="M8 9h8M8 12h5"/></svg></span>
+          <div class="hon__text">
+            <p class="hon__kind">Storytelling</p>
+            <h3>First prize, Mountain and Sea Green Connection</h3>
+            <p>Storytelling competition about studying in Qingdao.</p>
+          </div>
+        </li>
+        <li class="hon hon--sch">
+          <p class="when">2022–2025</p>
+          <span class="hon__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 9.5 12 5l10 4.5L12 14z"/><path d="M6 11.5V16c3.5 2.4 8.5 2.4 12 0v-4.5M22 9.5V15"/></svg></span>
+          <div class="hon__text">
+            <p class="hon__kind">Scholarship</p>
+            <h3>Chinese Government Scholarship (CSC)</h3>
+            <p>Full funding for the master’s programme at Shandong University of Science and Technology.</p>
+          </div>
+        </li>
+        <li class="hon hon--sch">
+          <p class="when">Undergraduate</p>
+          <span class="hon__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 9.5 12 5l10 4.5L12 14z"/><path d="M6 11.5V16c3.5 2.4 8.5 2.4 12 0v-4.5M22 9.5V15"/></svg></span>
+          <div class="hon__text">
+            <p class="hon__kind">Scholarship</p>
+            <h3>Shandong Provincial Government Scholarship</h3>
+            <p>Awarded three years running during my BEng.</p>
+          </div>
+        </li>
+        <li class="hon hon--sport">
+          <p class="when">2017</p>
+          <span class="hon__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="16" cy="6.5" r="2"/><path d="M4 12.5 9 9l3 2.5 3.5-2"/><path d="M2 17c2-1.4 4-1.4 6 0s4 1.4 6 0 4-1.4 6 0"/></svg></span>
+          <div class="hon__text">
+            <p class="hon__kind">Sport</p>
+            <h3>Represented Sri Lanka at the 29th Summer Universiade</h3>
+            <p>Swimming, Taipei. Awarded SLUSA Colours.</p>
+          </div>
+        </li>
+        <li class="hon hon--sport">
+          <p class="when">School</p>
+          <span class="hon__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="16" cy="6.5" r="2"/><path d="M4 12.5 9 9l3 2.5 3.5-2"/><path d="M2 17c2-1.4 4-1.4 6 0s4 1.4 6 0 4-1.4 6 0"/></svg></span>
+          <div class="hon__text">
+            <p class="hon__kind">Sport</p>
+            <h3>Central Province swimmer at national level</h3>
+            <p>Also captained the swimming team at Kingswood College, Kandy.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="experience" aria-labelledby="h-experience">
+    <header class="sec__head">
+      <h2 id="h-experience">Experience</h2>
+      <p>Teaching and industry</p>
+    </header>
+    <div class="sec__body">
       <div class="entry">
-        <p class="when">2026 —</p>
+        <p class="when">2026–present</p>
         <div class="what">
-          <h3>Lecturer, and level coordinator</h3>
-          <p class="where">General Sir John Kotelawala Defence University, Ratmalana</p>
+          <h3>Lecturer and level coordinator</h3>
+          <p class="where">Department of Mechanical Engineering, General Sir John Kotelawala Defence University, Ratmalana</p>
           <ul>
             <li>Teach embedded systems, microprocessor architecture and mechatronic design.</li>
-            <li>Write the laboratory sheets, assignments and marking schemes for the microprocessor module, built around the simulator above.</li>
+            <li>Write the laboratory sheets, assignments and marking schemes for the microprocessor module, built around KDU-8085, a browser-based 8085 simulator I wrote that marks students’ design briefs automatically.</li>
+            <li>Designed the assessment for Mechatronic Design (MC 3253), aligned with IEA graduate attributes and IESL accreditation.</li>
             <li>Supervise individual and final-year projects, and run technical workshops for IMechE competitions.</li>
-            <li>Help organise ROSCO'26, an inter-university robotics competition, including its supporting systems.</li>
+            <li>Help organise ROSCO’26, an inter-university robotics competition, including its supporting systems.</li>
           </ul>
         </div>
       </div>
@@ -557,7 +785,7 @@ footer p{margin:0}
         </div>
       </div>
       <div class="entry">
-        <p class="when">2022 – 2023</p>
+        <p class="when">2022–2023</p>
         <div class="what">
           <h3>Instructor</h3>
           <p class="where">Sri Lanka Institute of Information Technology (SLIIT)</p>
@@ -583,126 +811,242 @@ footer p{margin:0}
     </div>
   </section>
 
-  <section class="band" id="education">
-    <h2>Education</h2>
-    <div class="body">
-      <div class="entry">
-        <p class="when">2022 – 2025</p>
-        <div class="what">
-          <h3>MPhil, Mechanical and Electronic Engineering</h3>
-          <p class="where">Shandong University of Science and Technology, Qingdao, China</p>
-          <p>Robotics engineering, specialising in bio-inspired underwater robotics. One semester completed online under COVID-19 restrictions.</p>
-        </div>
-      </div>
-      <div class="entry">
-        <p class="when">2022</p>
-        <div class="what">
-          <h3>BEng, Mechatronic Engineering</h3>
-          <p class="where">Shandong University of Science and Technology, Qingdao, China</p>
-          <p>GPA 4.23 / 5.00, average grade 91.8.</p>
-        </div>
-      </div>
-      <div class="entry">
-        <p class="when">Certificate</p>
-        <div class="what">
-          <h3>CS50: Introduction to Computer Science</h3>
-          <p class="where">HarvardX</p>
-        </div>
-      </div>
+  <section class="sec" id="skills" aria-labelledby="h-skills">
+    <header class="sec__head">
+      <h2 id="h-skills">Methods and skills</h2>
+    </header>
+    <div class="sec__body">
+      <dl class="kit">
+        <div><dt>Simulation</dt><dd>ANSYS Fluent with dynamic mesh motion, structural FEA in ANSYS, CST Microwave Studio, MATLAB</dd></div>
+        <div><dt>Experiments</dt><dd>Tank testing of underwater robots to validate CFD predictions</dd></div>
+        <div><dt>Robotics</dt><dd>Mechanism design, actuation systems, tendon-driven mechanisms, robotic arms</dd></div>
+        <div><dt>Control</dt><dd>PID and motion control, actuator tuning, dynamic systems</dd></div>
+        <div><dt>Embedded</dt><dd>ESP32, Arduino, STM32, sensors and IoT systems</dd></div>
+        <div><dt>CAD</dt><dd>SolidWorks, PTC Creo, Fusion 360, tolerancing</dd></div>
+        <div><dt>Electronics</dt><dd>PCB design, signal processing, relays, automation circuits</dd></div>
+        <div><dt>Vision</dt><dd>OpenCV, in-browser model training with TensorFlow.js</dd></div>
+        <div><dt>Programming</dt><dd>Python, C, UDF(Ansys), MATLAB, JavaScript, 8085 and ARM assembly</dd></div>
+      </dl>
+      <p class="kit-note">I also write the CFD and FEA guidance my students follow in ANSYS.</p>
     </div>
   </section>
 
-  <section class="band" id="projects">
-    <h2>Engineering projects</h2>
-    <div class="body">
-      <div class="entry">
-        <p class="when">MPhil</p>
-        <div class="what">
-          <h3>Bio-inspired underwater hybrid robot</h3>
-          <p>A multi-arm underwater vehicle with a mechanism that switches between propulsion modes. Hydrodynamic performance studied through CFD and validated experimentally, focused on propulsion efficiency and underwater locomotion.</p>
+  <section class="sec" id="projects" aria-labelledby="h-projects">
+    <header class="sec__head">
+      <h2 id="h-projects">Projects</h2>
+      <p>Try each tool here, then open the full version</p>
+    </header>
+    <div class="sec__body">
+      <div class="tools">
+        <div class="tools__tabs" role="tablist" aria-label="Software tools">
+          <button type="button" role="tab" id="tab-8085" aria-controls="panel-8085" aria-selected="true"><b>KDU-8085</b><span>8085 microprocessor simulator</span></button>
+          <button type="button" role="tab" id="tab-nucleo" aria-controls="panel-nucleo" aria-selected="false" tabindex="-1"><b>NUCLEO-F411RE bench</b><span>STM32 board simulator</span></button>
+          <button type="button" role="tab" id="tab-studio" aria-controls="panel-studio" aria-selected="false" tabindex="-1"><b>StudioPad Pro</b><span>Music studio in a browser tab</span></button>
+        </div>
+
+        <div class="tools__panel" role="tabpanel" id="panel-8085" aria-labelledby="tab-8085">
+          <div class="demo" id="cpu">
+            <div class="cpu">
+              <div class="cpu__col">
+                <p class="demo__label">Program in memory</p>
+                <ol class="cpu__prog">
+                  <li><span class="a">2000</span><span class="b">3E 3A</span><span class="m">MVI A, 3AH</span></li>
+                  <li><span class="a">2002</span><span class="b">47</span><span class="m">MOV B, A</span></li>
+                  <li><span class="a">2003</span><span class="b">C6 05</span><span class="m">ADI 05H</span></li>
+                  <li><span class="a">2005</span><span class="b">D3 01</span><span class="m">OUT 01H</span></li>
+                  <li><span class="a">2007</span><span class="b">76</span><span class="m">HLT</span></li>
+                </ol>
+              </div>
+              <div class="cpu__col">
+                <p class="demo__label">Registers</p>
+                <dl class="cpu__regs">
+                  <div><dt>A</dt><dd data-reg="A">00</dd></div>
+                  <div><dt>B</dt><dd data-reg="B">00</dd></div>
+                  <div><dt>PC</dt><dd data-reg="PC">2000</dd></div>
+                </dl>
+                <p class="demo__label">Flags</p>
+                <dl class="cpu__flags">
+                  <div><dt>S</dt><dd data-flag="S">0</dd></div>
+                  <div><dt>Z</dt><dd data-flag="Z">0</dd></div>
+                  <div><dt>AC</dt><dd data-flag="AC">0</dd></div>
+                  <div><dt>P</dt><dd data-flag="P">0</dd></div>
+                  <div><dt>CY</dt><dd data-flag="CY">0</dd></div>
+                </dl>
+              </div>
+              <div class="cpu__col">
+                <p class="demo__label">Port 01H</p>
+                <div class="cpu__leds" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <p class="cpu__portval">--</p>
+              </div>
+            </div>
+            <div class="cpu__bus" aria-hidden="true">
+              <span>Memory <b class="cpu__addr">2000H</b></span>
+              <span class="cpu__track"><span class="cpu__tok">--</span></span>
+              <span>CPU</span>
+            </div>
+            <p class="cpu__note" aria-live="polite">Press Step to fetch the first instruction from memory.</p>
+            <div class="demo__controls">
+              <button type="button" class="btn btn--primary btn--sm" data-cpu="step">Step</button>
+              <button type="button" class="btn btn--sm" data-cpu="run">Run</button>
+              <button type="button" class="btn btn--sm" data-cpu="reset">Reset</button>
+              <span class="cpu__seed"><label for="cpu-seed">A starts at</label><input id="cpu-seed" value="3A" maxlength="2" spellcheck="false" autocomplete="off"><span>H</span></span>
+            </div>
+          </div>
+          <p class="demo__cap">A taste of KDU-8085: step through five instructions and watch each byte cross the data bus. Start A at FE to see a carry.</p>
+          <div class="tools__info">
+            <div>
+              <p class="state"><i aria-hidden="true"></i>In use at KDU</p>
+              <h3>KDU-8085</h3>
+              <p>An 8085 simulator that grew from a simple lab into the platform my microprocessor module is built on. Students write assembly, watch it move through the datapath, and solve design briefs marked on how their program behaves.</p>
+            </div>
+            <div>
+              <ul class="feat">
+                <li>Two-pass assembler with micro-step datapath animation</li>
+                <li>8255A PPI, I/O and pin-level benches, a stack visualiser and a bit lab</li>
+                <li>A bytes and cycles bench for T-states, machine cycles and addressing modes</li>
+                <li>Design briefs graded automatically against timed sensor scenarios</li>
+              </ul>
+              <p class="tools__links">
+                <a class="btn btn--primary" href="lab/8085/" target="_blank" rel="noopener">Open the simulator</a>
+                <a class="btn" data-gh="lab/8085" href="https://github.com/" hidden>Source on GitHub</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tools__panel" role="tabpanel" id="panel-nucleo" aria-labelledby="tab-nucleo" hidden>
+          <div class="demo">
+            <canvas id="nucleo" role="img" aria-label="NUCLEO-F411RE board driving its LD2 LED and a DC motor through a motor driver from pin PA5, with a scope trace of the PWM signal"></canvas>
+            <div class="demo__controls">
+              <label for="duty">Duty cycle</label>
+              <input type="range" id="duty" min="0" max="100" step="1" value="40">
+              <output id="duty-out" for="duty">40%</output>
+              <span class="rpm">Motor <b id="rpm">1,280 rpm</b></span>
+            </div>
+            <pre class="code"><code>__HAL_TIM_SET_COMPARE(&amp;htim2, TIM_CHANNEL_1, <b id="ccr">400</b>);  <span>// ARR = 999, so duty = CCR / 1000</span></code></pre>
+          </div>
+          <p class="demo__cap">A taste of the bench: PA5 runs TIM2 channel 1 in PWM mode. Drag the duty cycle and watch the LED dim, the motor settle to a new speed, and the CubeIDE-style code change with it.</p>
+          <div class="tools__info">
+            <div>
+              <p class="state state--dev"><i aria-hidden="true"></i>In development</p>
+              <h3>NUCLEO-F411RE bench</h3>
+              <p>A Wokwi-style simulator for the NUCLEO-F411RE, built the same single-file, offline way as KDU-8085. It mirrors the STM32CubeMX and CubeIDE workflow, so pin set-up and code feel like the real board.</p>
+            </div>
+            <div>
+              <ul class="feat">
+                <li>Pin and peripheral set-up in the CubeMX style</li>
+                <li>Drag-and-drop parts: LEDs, resistors, sensors, motors and drivers</li>
+                <li>PWM and sensor readings made visible as students wire things up</li>
+                <li>Heading toward a line-following robot, wired and simulated end to end</li>
+              </ul>
+              <p class="tools__links">
+                <a class="btn btn--primary" href="lab/nucleo/" target="_blank" rel="noopener">Open the bench</a>
+                <a class="btn" data-gh="lab/nucleo" href="https://github.com/" hidden>Source on GitHub</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tools__panel" role="tabpanel" id="panel-studio" aria-labelledby="tab-studio" hidden>
+          <div class="demo" id="studio">
+            <div class="roll" role="group" aria-label="Piano roll: five notes across sixteen steps"></div>
+            <canvas id="studio-wave" aria-hidden="true"></canvas>
+            <div class="demo__controls">
+              <button type="button" class="btn btn--primary btn--sm" data-studio="play">Play</button>
+              <button type="button" class="btn btn--sm" data-studio="example">Example</button>
+              <button type="button" class="btn btn--sm" data-studio="clear">Clear</button>
+              <label for="tempo">Tempo</label>
+              <input type="range" id="tempo" min="70" max="140" step="1" value="96">
+              <output id="tempo-out" for="tempo">96 BPM</output>
+            </div>
+          </div>
+          <p class="demo__cap">A taste of StudioPad Pro: tap the grid to write a melody on a pentatonic scale, then press Play. Sound only starts when you press it.</p>
+          <div class="tools__info">
+            <div>
+              <p class="state state--out"><i aria-hidden="true"></i>Released</p>
+              <h3>StudioPad Pro</h3>
+              <p>A digital audio workstation that runs in a browser tab and ships as an offline package. The signal processing behind it is the same thinking I use on sensor data.</p>
+            </div>
+            <div>
+              <ul class="feat">
+                <li>Sampled nylon guitar, organ and drums</li>
+                <li>Vocal recorder with presets, overdub and noise reduction</li>
+                <li>A Song Wizard for sketching whole songs</li>
+                <li>Hum-to-melody transcription with a YIN pitch tracker</li>
+              </ul>
+              <p class="tools__links">
+                <a class="btn btn--primary" href="lab/studiopad/" target="_blank" rel="noopener">Open the studio</a>
+                <a class="btn" data-gh="lab/studiopad" href="https://github.com/" hidden>Source on GitHub</a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="entry">
-        <p class="when">MPhil</p>
-        <div class="what">
+
+      <h3 class="subhead">Engineering and research projects</h3>
+      <ul class="projects">
+        <li>
+          <p class="tag">Research tool</p>
+          <h3>SerpentLab</h3>
+          <p class="d">A snake-locomotion analysis tool, built first for the browser and later ported to a Python desktop application.</p>
+        </li>
+        <li>
+          <p class="tag">Teaching, in development</p>
+          <h3>PCB Academy</h3>
+          <p class="d">A PCB design teaching platform with guided missions through schematic capture, footprints, placement, routing and design rule checks, taught as skills that carry over to KiCad, Altium or Cadence.</p>
+        </li>
+        <li>
+          <p class="tag">MPhil</p>
           <h3>Robotic arm</h3>
-          <p>Mechanical structure, actuator selection and control integration for precise motion, carried from CAD modelling through to a working system.</p>
-        </div>
-      </div>
-      <div class="entry">
-        <p class="when">BEng</p>
-        <div class="what">
+          <p class="d">Mechanical structure, actuator selection and control integration for precise motion, carried from CAD modelling through to a working system.</p>
+        </li>
+        <li>
+          <p class="tag">BEng</p>
           <h3>Solar tracking system</h3>
-          <p>Tracks solar intensity and adjusts panel orientation continuously to raise energy yield. Final-year undergraduate project.</p>
-        </div>
-      </div>
-      <div class="entry">
-        <p class="when">Industry</p>
-        <div class="what">
+          <p class="d">Tracks solar intensity and adjusts panel orientation continuously to raise energy yield. Final-year undergraduate project.</p>
+        </li>
+        <li>
+          <p class="tag">Industry</p>
           <h3>Lavatory assembly test rig</h3>
-          <p>A custom test setup supporting maintenance and quality assurance of aircraft toilet assemblies, built in the avionics department at SriLankan Airlines.</p>
-        </div>
-      </div>
-      <div class="entry">
-        <p class="when">Industry</p>
-        <div class="what">
+          <p class="d">A custom test setup supporting maintenance and quality assurance of aircraft toilet assemblies, built in the avionics department at SriLankan Airlines.</p>
+        </li>
+        <li>
+          <p class="tag">Industry</p>
           <h3>Screw conveyor drive</h3>
-          <p>Mechanical drive design for slurry transport on a construction site, sized against torque demand, material build-up and site conditions.</p>
-        </div>
-      </div>
+          <p class="d">Mechanical drive design for slurry transport on a construction site, sized against torque demand, material build-up and site conditions.</p>
+        </li>
+      </ul>
     </div>
   </section>
 
-  <section class="band band--duo" id="tools">
-    <h2>Skills &amp; awards</h2>
-    <div class="body">
-      <div class="duo">
-        <div>
-          <h3 class="colhead">Tools and methods</h3>
-          <dl class="kit">
-            <div><dt>Robotics</dt><dd>Mechanism design, actuation systems, tendon-driven mechanisms, robotic arms</dd></div>
-            <div><dt>Simulation</dt><dd>ANSYS Fluent, dynamic grid motion, MATLAB</dd></div>
-            <div><dt>Control</dt><dd>PID and motion control, actuator tuning, dynamic systems</dd></div>
-            <div><dt>Embedded</dt><dd>ESP32, Arduino, STM32, sensors and IoT systems</dd></div>
-            <div><dt>CAD</dt><dd>SolidWorks, PTC Creo, Fusion 360, tolerancing</dd></div>
-            <div><dt>Electronics</dt><dd>PCB design, signal processing, relays, automation circuits</dd></div>
-            <div><dt>Programming</dt><dd>Python, C, MATLAB, JavaScript, 8085 and ARM assembly</dd></div>
-          </dl>
-        </div>
-        <div>
-          <h3 class="colhead">Awards and scholarships</h3>
-          <ul class="plain">
-            <li>Chinese Government Scholarship (CSC) — full funding for the master's programme at Shandong University of Science and Technology.</li>
-            <li>Outstanding Student Award, master's programme, 2025 — for academic performance alongside involvement in university life.</li>
-            <li>Shandong Provincial Government Scholarship — awarded three years running during undergraduate study.</li>
-          </ul>
-        </div>
-      </div>
+  <section class="sec" id="beyond" aria-labelledby="h-beyond">
+    <header class="sec__head">
+      <h2 id="h-beyond">Beyond the lab</h2>
+    </header>
+    <div class="sec__body prose">
+      <p class="lede">Before I built robots that swim, I swam.</p>
+      <p>Competitive swimming took me from captaining the Kingswood College team in Kandy to representing Sri Lanka at the 2017 Summer Universiade in Taipei.</p>
+      <p>Music has been with me since I coordinated the Western Music Society at Kingswood, and it is partly why I built StudioPad Pro. At SDUST I sang and wrote songs for university competitions, and I have represented the university on Qingdao TV and on Mango TV.</p>
     </div>
   </section>
 
-  <section class="band" id="beyond">
-    <h2>Away from the lab</h2>
-    <div class="body">
-      <p>I swam for Sri Lanka at the 29th Summer Universiade in Taipei in 2017, which earned SLUSA Colours, and for Central Province at national level before that. I captained the swimming team at Kingswood College, Kandy, and coordinated its Western Music Society.</p>
-      <p>Music stayed with me, which is partly why one of the tools above is a recording studio. In 2024 I took second place in the graduate singing competition at SDUST along with the award for best original song, and first prize in the <span class="sub">Mountain and Sea Green Connection</span> storytelling competition about studying in Qingdao. I have represented the university on Qingdao TV and on Mango TV.</p>
-    </div>
-  </section>
-
-  <section class="band" id="contact">
-    <h2>Contact</h2>
-    <div class="body">
+  <section class="sec" id="contact" aria-labelledby="h-contact">
+    <header class="sec__head">
+      <h2 id="h-contact">Contact</h2>
+    </header>
+    <div class="sec__body">
       <div class="meet">
-        <img class="portrait" src="me.jpg" alt="Rajitha Herath" loading="lazy" onerror="this.remove()">
+        <img class="portrait" src="me.jpg" alt="Rajitha Herath" loading="lazy" onerror="this.parentNode.classList.add('no-photo');this.remove()">
         <div>
-          <p class="lede">I am open to doctoral research and collaboration in underwater robotics, hydrodynamics and marine energy systems. Write to me and I will reply.</p>
-          <ul class="contact-grid">
-            <li><a href="mailto:herathrajitha@gmail.com">herathrajitha@gmail.com</a></li>
-            <li><a href="https://orcid.org/0009-0008-5221-2415">orcid.org/0009-0008-5221-2415</a></li>
-            <li><a href="https://www.linkedin.com/in/rajitha-herath-24b166207">LinkedIn</a></li>
+          <p class="lede">I am open to doctoral research and collaboration in underwater robotics, hydrodynamics and marine energy systems, for a start in 2027. Write to me and I will reply.</p>
+          <ul class="contact-links">
+            <li><a class="btn btn--primary" href="mailto:herathrajitha@gmail.com">herathrajitha@gmail.com</a></li>
+            <li><a class="btn" href="cv.pdf">Download the full CV</a></li>
+            <li><a class="btn" href="https://orcid.org/0009-0008-5221-2415">ORCID 0009-0008-5221-2415</a></li>
+            <li><a class="btn" href="https://www.linkedin.com/in/rajitha-herath-24b166207">LinkedIn</a></li>
+            <li hidden><a class="btn" data-gh="profile" href="https://github.com/">GitHub</a></li>
           </ul>
-          <a class="cta" href="cv.pdf">Download the full CV</a>
-          <p class="sub" style="margin-top:1.6rem">Referees available on request.</p>
+          <p class="note">Referees available on request.</p>
         </div>
       </div>
     </div>
@@ -711,141 +1055,1171 @@ footer p{margin:0}
 </main>
 
 <footer>
-  <p>Ratmalana, Sri Lanka. Last updated September 2026.</p>
+  <canvas id="seabed" aria-hidden="true"></canvas>
+  <div class="foot">
+    <div class="foot__in">
+      <p>Ratmalana, Sri Lanka. Last updated September 2026.</p>
+      <p><a href="#top">Back to the surface</a></p>
+    </div>
+  </div>
 </footer>
 
 <script>
 (function(){
-  "use strict";
+  'use strict';
+  var root = document.documentElement;
+  var TAU = Math.PI * 2;
+  var reduceMQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  var S = { playing: !reduceMQ.matches, pageVisible: !document.hidden };
+  var scenes = [], raf = 0, lastNow = 0;
 
-  /* ---- nav ---- */
-  var bar = document.getElementById('bar');
-  var onScroll = function(){
-    if (window.scrollY > 80) bar.classList.add('stuck'); else bar.classList.remove('stuck');
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, {passive:true});
-
-  /* ---- boot the embedded tool on demand, so the page stays light ---- */
-  var narrow = window.matchMedia('(max-width: 780px)');
-  Array.prototype.forEach.call(document.querySelectorAll('.boot'), function(btn){
-    btn.addEventListener('click', function(){
-      var src = btn.getAttribute('data-src');
-      if (narrow.matches){ window.open(src, '_blank', 'noopener'); return; }
-      var screen = btn.parentNode;
-      var frame = document.createElement('iframe');
-      frame.setAttribute('src', src);
-      frame.setAttribute('title', btn.getAttribute('data-label') || 'Embedded tool');
-      frame.setAttribute('allow', 'fullscreen; autoplay; microphone');
-      frame.setAttribute('loading', 'eager');
-      screen.innerHTML = '';
-      screen.appendChild(frame);
-      screen.style.aspectRatio = '16 / 10';
+  /* ---------- colours come from the stylesheet so the figures match the page ---------- */
+  var COL = {};
+  (function(){
+    var cs = getComputedStyle(root);
+    ['ink','ink-2','current','current-2','current-3','kelp','kelp-g','kelp-l','coral','blue','glow','sand','muted'].forEach(function(n){
+      COL[n] = (cs.getPropertyValue('--' + n) || '').trim() || '#12303A';
     });
-  });
-
-  /* ---- hero flow field: particles advected through potential flow past a submerged body ---- */
-  var canvas = document.getElementById('flow');
-  if (!canvas || !canvas.getContext) return;
-  var ctx = canvas.getContext('2d');
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var W = 0, H = 0, dpr = 1, bx = 0, by = 0, a = 1;
-  var stretch = 1.9, U = 1.0, G = 0.55, STEP = 1.05;
-  var parts = [], raf = null, visible = true;
-
-  function resize(){
-    var r = canvas.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = Math.max(1, Math.round(r.width));
-    H = Math.max(1, Math.round(r.height));
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
+  })();
+  function rgb(hex){
+    var h = hex.replace('#', '');
+    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    var n = parseInt(h, 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+  function rgba(hex, a){ var c = rgb(hex); return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+  function fit(cv){
+    var r = cv.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
+    var bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+    if (cv.width !== bw) cv.width = bw;
+    if (cv.height !== bh) cv.height = bh;
+    var ctx = cv.getContext('2d');
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    bx = W * 0.66; by = H * 0.46;
-    a = Math.max(46, Math.min(W, H) * 0.115);
-    ctx.fillStyle = '#08201F';
-    ctx.fillRect(0, 0, W, H);
-    seed();
+    return { ctx: ctx, w: w, h: h };
   }
 
-  function seed(){
-    var n = Math.round(Math.min(900, Math.max(220, (W * H) / 2400)));
-    parts = new Array(n);
-    for (var i = 0; i < n; i++) parts[i] = spawn(true);
-  }
-
-  function spawn(anywhere){
-    var x = anywhere ? Math.random() * W : -Math.random() * 40;
-    var y = Math.random() * H;
-    if (inside(x, y)) x = -10;
-    return {x:x, y:y, px:x, py:y, life: 60 + Math.random() * 260};
-  }
-
-  function inside(x, y){
-    var dx = x - bx, dy = (y - by) / stretch;
-    return (dx * dx + dy * dy) < a * a;
-  }
-
-  function vel(x, y){
-    var dx = x - bx, dy = (y - by) / stretch;
-    var r2 = dx * dx + dy * dy;
-    if (r2 < a * a) return null;
-    var r4 = r2 * r2, a2 = a * a;
-    var u = U * (1 - a2 * (dx * dx - dy * dy) / r4) + G * a * dy / r2;
-    var v = -U * (2 * a2 * dx * dy / r4) - G * a * dx / r2;
-    return [u, v * stretch];
-  }
-
-  function step(){
-    ctx.fillStyle = 'rgba(8,32,31,0.055)';
-    ctx.fillRect(0, 0, W, H);
-    ctx.lineWidth = 1;
-    ctx.lineCap = 'round';
-    for (var i = 0; i < parts.length; i++){
-      var p = parts[i], q = vel(p.x, p.y);
-      if (!q){ parts[i] = spawn(false); continue; }
-      p.px = p.x; p.py = p.y;
-      p.x += q[0] * STEP; p.y += q[1] * STEP;
-      p.life--;
-      if (p.life < 0 || p.x > W + 20 || p.y < -30 || p.y > H + 30){ parts[i] = spawn(false); continue; }
-      var s = Math.sqrt(q[0]*q[0] + q[1]*q[1]) / U;
-      var t = Math.max(0, Math.min(1, (s - 0.55) / 1.15));
-      var cr = Math.round(28 + t * 205), cg = Math.round(92 + t * 69), cb = Math.round(87 - t * 28);
-      ctx.strokeStyle = 'rgba(' + cr + ',' + cg + ',' + cb + ',' + (0.16 + t * 0.4).toFixed(3) + ')';
-      ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();
+  /* ---------- one loop drives every figure; each runs only while it is on screen ---------- */
+  function tick(now){
+    raf = 0;
+    if (!S.playing || !S.pageVisible){ lastNow = 0; return; }
+    var dt = lastNow ? Math.min(0.05, (now - lastNow) / 1000) : 1 / 60;
+    lastNow = now;
+    var any = false;
+    for (var i = 0; i < scenes.length; i++){
+      var sc = scenes[i];
+      if (sc.visible && sc.ready){ sc.step(dt); sc.draw(); any = true; }
     }
+    if (any) raf = requestAnimationFrame(tick); else lastNow = 0;
   }
+  function kick(){ if (!raf && S.playing && S.pageVisible) raf = requestAnimationFrame(tick); }
+  function halt(){ if (raf) cancelAnimationFrame(raf); raf = 0; lastNow = 0; }
 
-  function loop(){ step(); raf = visible ? window.requestAnimationFrame(loop) : null; }
-  function start(){ if (raf === null && visible) raf = window.requestAnimationFrame(loop); }
-  function stop(){ if (raf !== null){ window.cancelAnimationFrame(raf); raf = null; } }
-
-  resize();
-  if (reduced){
-    for (var k = 0; k < 420; k++) step();
-  } else {
-    start();
-    document.addEventListener('visibilitychange', function(){
-      visible = !document.hidden;
-      if (visible) start(); else stop();
-    });
+  function addScene(sc){
+    if (!sc) return;
+    scenes.push(sc);
+    sc.visible = false; sc.ready = false;
+    var watch = sc.watch || [sc.canvas], timer = 0, lastKey = '';
+    function sizeKey(){
+      return watch.map(function(el){ var r = el.getBoundingClientRect(); return Math.round(r.width) + 'x' + Math.round(r.height); }).join('|');
+    }
+    function layout(){ lastKey = sizeKey(); sc.resize(); sc.ready = true; if (!S.playing || !raf) sc.draw(); }
+    sc.relayout = layout;
+    layout();
+    if ('ResizeObserver' in window){
+      var ro = new ResizeObserver(function(){
+        if (sizeKey() === lastKey) return;
+        clearTimeout(timer); timer = setTimeout(layout, 140);
+      });
+      watch.forEach(function(el){ ro.observe(el); });
+    } else {
+      window.addEventListener('resize', function(){ clearTimeout(timer); timer = setTimeout(layout, 140); });
+    }
     if ('IntersectionObserver' in window){
       new IntersectionObserver(function(entries){
-        visible = entries[0].isIntersecting && !document.hidden;
-        if (visible) start(); else stop();
-      }, {threshold: 0}).observe(canvas);
-    }
+        sc.visible = entries[entries.length - 1].isIntersecting;
+        if (sc.visible){ if (S.playing) kick(); else sc.draw(); }
+      }, { rootMargin: '60px 0px' }).observe(sc.canvas);
+    } else { sc.visible = true; kick(); }
   }
 
-  var t = null;
-  window.addEventListener('resize', function(){
-    window.clearTimeout(t);
-    t = window.setTimeout(function(){
-      stop(); resize();
-      if (reduced){ for (var k = 0; k < 420; k++) step(); }
-      else { visible = true; start(); }
-    }, 180);
+  /* ---------- motion control: pause button, reduced-motion setting, hidden tabs ---------- */
+  var motionBtns = Array.prototype.slice.call(document.querySelectorAll('[data-motion]'));
+  function syncMotion(){
+    root.classList.toggle('is-still', !S.playing);
+    motionBtns.forEach(function(b){ b.textContent = S.playing ? 'Pause motion' : 'Play motion'; });
+  }
+  function setPlaying(p){
+    S.playing = p; syncMotion();
+    if (p) kick();
+    else { halt(); scenes.forEach(function(sc){ if (sc.ready) sc.draw(); }); }
+  }
+  motionBtns.forEach(function(b){ b.addEventListener('click', function(){ setPlaying(!S.playing); }); });
+  if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', function(e){ setPlaying(!e.matches); });
+  document.addEventListener('visibilitychange', function(){
+    S.pageVisible = !document.hidden;
+    if (S.pageVisible) kick(); else halt();
   });
+  syncMotion();
+
+  /* ---------- drawing helpers ---------- */
+  // Smooth tapered ribbon along a polyline P = [x0,y0,x1,y1,...]; returns its lower edge.
+  function ribbon(ctx, P, n, wAt){
+    var Lx = new Array(n), Ly = new Array(n), Rx = new Array(n), Ry = new Array(n), i;
+    for (i = 0; i < n; i++){
+      var a = Math.max(0, i - 1), b = Math.min(n - 1, i + 1);
+      var dx = P[b * 2] - P[a * 2], dy = P[b * 2 + 1] - P[a * 2 + 1];
+      var l = Math.sqrt(dx * dx + dy * dy) || 1, w = wAt(i);
+      var nx = -dy / l * w, ny = dx / l * w;
+      Lx[i] = P[i * 2] + nx; Ly[i] = P[i * 2 + 1] + ny;
+      Rx[i] = P[i * 2] - nx; Ry[i] = P[i * 2 + 1] - ny;
+    }
+    ctx.beginPath();
+    ctx.moveTo(Lx[0], Ly[0]);
+    for (i = 1; i < n - 1; i++) ctx.quadraticCurveTo(Lx[i], Ly[i], (Lx[i] + Lx[i + 1]) / 2, (Ly[i] + Ly[i + 1]) / 2);
+    ctx.lineTo(Lx[n - 1], Ly[n - 1]);
+    var tx = P[(n - 1) * 2], ty = P[(n - 1) * 2 + 1];
+    var ex = tx - P[(n - 2) * 2], ey = ty - P[(n - 2) * 2 + 1];
+    ctx.quadraticCurveTo(tx + ex * 0.7, ty + ey * 0.7, Rx[n - 1], Ry[n - 1]);
+    for (i = n - 2; i > 0; i--) ctx.quadraticCurveTo(Rx[i], Ry[i], (Rx[i] + Rx[i - 1]) / 2, (Ry[i] + Ry[i - 1]) / 2);
+    ctx.lineTo(Rx[0], Ry[0]);
+    ctx.closePath();
+    return { Rx: Rx, Ry: Ry };
+  }
+
+  // Octopus-inspired robot, side view, swimming mantle-first to the right.
+  // Each arm carries a travelling wave toward its tip; the stroke cycle spreads and closes the arms.
+  var Octo = (function(){
+    var ARMS = [
+      { by: -0.10, base: -0.30, ph: 0.9, len: 2.2,  w: 0.072 },
+      { by:  0.02, base: -0.04, ph: 2.2, len: 2.45, w: 0.078 },
+      { by:  0.13, base:  0.22, ph: 3.5, len: 2.15, w: 0.072 },
+      { by: -0.05, base: -0.17, ph: 0.2, len: 2.4,  w: 0.092 },
+      { by:  0.07, base:  0.07, ph: 1.5, len: 2.6,  w: 0.098 },
+      { by:  0.17, base:  0.33, ph: 2.8, len: 2.3,  w: 0.088 }
+    ];
+    function arm(a, t, L, N, om){
+      var sp = 1 + 0.55 * Math.sin(om * t);
+      var seg = a.len * L / N, x = -0.17 * L, y = a.by * L, out = [x, y];
+      for (var j = 0; j < N; j++){
+        var s = (j + 0.5) / N;
+        var th = Math.PI - a.base * sp
+          + (0.1 + 0.42 * Math.pow(s, 1.35)) * Math.sin(om * t - 7 * s + a.ph)
+          + 0.5 * s * s * s * Math.sin(om * t + a.ph + 1.1);
+        x += Math.cos(th) * seg; y += Math.sin(th) * seg;
+        out.push(x, y);
+      }
+      return out;
+    }
+    function pose(L, t, om){ return { pitch: 0.045 * Math.sin(om * t - 1.0), bob: 0.05 * L * Math.sin(om * t - 0.7) }; }
+    function drawArm(ctx, P, a, L, N, front, detail){
+      var n = N + 1;
+      var wAt = function(i){ return a.w * L * (1 - 0.8 * i / N) + 0.014 * L; };
+      var e = ribbon(ctx, P, n, wAt);
+      ctx.fillStyle = front ? COL.current : COL['current-3'];
+      ctx.fill();
+      if (!detail || !front) return;
+      var j, r;
+      ctx.fillStyle = 'rgba(255,255,255,.5)';                        // suckers
+      for (j = 2; j < n - 2; j += 2){
+        r = Math.max(0.8, wAt(j) * 0.26);
+        ctx.beginPath();
+        ctx.arc(P[j * 2] * 0.35 + e.Rx[j] * 0.65, P[j * 2 + 1] * 0.35 + e.Ry[j] * 0.65, r, 0, TAU);
+        ctx.fill();
+      }
+      ctx.strokeStyle = 'rgba(255,255,255,.45)';                     // tendon
+      ctx.lineWidth = Math.max(0.6, L * 0.01);
+      ctx.beginPath(); ctx.moveTo(P[0], P[1]);
+      for (j = 1; j < n - 3; j++) ctx.lineTo(P[j * 2], P[j * 2 + 1]);
+      ctx.stroke();
+      ctx.lineWidth = Math.max(0.7, L * 0.012);                      // joints
+      ctx.strokeStyle = COL['current-2'];
+      for (j = 3; j < n - 3; j += 3){
+        r = Math.max(1.2, wAt(j) * 0.5);
+        ctx.beginPath(); ctx.arc(P[j * 2], P[j * 2 + 1], r, 0, TAU);
+        ctx.fillStyle = '#F4FAFA'; ctx.fill(); ctx.stroke();
+      }
+    }
+    function body(ctx, L, t, om, detail){
+      var pulse = Math.sin(om * t), lw = Math.max(1, L * 0.016);
+      var mx = 0.62 * L, my = -0.16 * L, rx = 0.66 * L * (1 + 0.03 * pulse), ry = 0.4 * L * (1 - 0.06 * pulse), rot = -0.14;
+      ctx.beginPath();                                               // siphon
+      ctx.moveTo(0.04 * L, 0.2 * L);
+      ctx.quadraticCurveTo(-0.12 * L, 0.25 * L, -0.31 * L, 0.33 * L);
+      ctx.lineTo(-0.29 * L, 0.4 * L);
+      ctx.quadraticCurveTo(-0.1 * L, 0.34 * L, 0.08 * L, 0.3 * L);
+      ctx.closePath();
+      ctx.fillStyle = COL['current-2']; ctx.fill();
+      var g = ctx.createLinearGradient(0, my - ry, 0, my + ry);      // mantle
+      g.addColorStop(0, '#FFFFFF'); g.addColorStop(1, '#C9E1E4');
+      ctx.beginPath(); ctx.ellipse(mx, my, rx, ry, rot, 0, TAU);
+      ctx.fillStyle = g; ctx.fill();
+      ctx.lineWidth = lw; ctx.strokeStyle = COL['current-2']; ctx.stroke();
+      if (detail){
+        ctx.strokeStyle = rgba(COL['current-2'], 0.32);
+        ctx.lineWidth = Math.max(0.7, L * 0.01);
+        ctx.beginPath(); ctx.ellipse(mx, my, rx * 0.74, ry * 0.7, rot, Math.PI * 1.08, Math.PI * 1.86); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(mx, my, rx * 0.44, ry * 0.4, rot, Math.PI * 1.12, Math.PI * 1.8); ctx.stroke();
+        ctx.fillStyle = rgba(COL['current-2'], 0.45);
+        var cr = Math.cos(rot), sr = Math.sin(rot);
+        for (var k = 0; k < 6; k++){
+          var a = 0.45 + k * 0.4, ex = rx * 0.84 * Math.cos(a), ey = ry * 0.8 * Math.sin(a);
+          ctx.beginPath(); ctx.arc(mx + ex * cr - ey * sr, my + ex * sr + ey * cr, Math.max(0.8, L * 0.013), 0, TAU); ctx.fill();
+        }
+        ctx.beginPath(); ctx.ellipse(mx + 0.04 * L, my - ry * 0.52, rx * 0.4, ry * 0.18, -0.22, 0, TAU);
+        ctx.fillStyle = 'rgba(255,255,255,.8)'; ctx.fill();
+      }
+      var hg = ctx.createLinearGradient(0, -0.22 * L, 0, 0.34 * L);  // head
+      hg.addColorStop(0, '#FBFDFD'); hg.addColorStop(1, '#CFE4E7');
+      ctx.beginPath(); ctx.ellipse(0.07 * L, 0.06 * L, 0.3 * L, 0.27 * L, 0, 0, TAU);
+      ctx.fillStyle = hg; ctx.fill(); ctx.lineWidth = lw; ctx.strokeStyle = COL['current-2']; ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(-0.17 * L, 0.06 * L, 0.075 * L, 0.26 * L, 0, 0, TAU); // collar where the arms attach
+      ctx.fillStyle = COL['current-2']; ctx.fill();
+      ctx.beginPath(); ctx.arc(0.15 * L, -0.02 * L, 0.09 * L, 0, TAU);  // camera eye
+      ctx.fillStyle = COL.ink; ctx.fill();
+      if (detail){
+        ctx.beginPath(); ctx.arc(0.15 * L, -0.02 * L, 0.058 * L, 0, TAU);
+        ctx.strokeStyle = rgba(COL['current-3'], 0.9); ctx.lineWidth = Math.max(0.6, L * 0.01); ctx.stroke();
+      }
+      ctx.beginPath(); ctx.arc(0.125 * L, -0.047 * L, Math.max(0.8, 0.024 * L), 0, TAU);
+      ctx.fillStyle = '#FFFFFF'; ctx.fill();
+    }
+    function draw(ctx, ox, oy, L, t, o){
+      var om = o.omega, N = o.detail ? 16 : 9, i, p = pose(L, t, om), P = [];
+      for (i = 0; i < 6; i++) P.push(arm(ARMS[i], t, L, N, om));
+      ctx.save(); ctx.translate(ox, oy + p.bob); ctx.rotate(p.pitch);
+      ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      for (i = 0; i < 3; i++) drawArm(ctx, P[i], ARMS[i], L, N, false, o.detail);
+      body(ctx, L, t, om, o.detail);
+      for (i = 3; i < 6; i++) drawArm(ctx, P[i], ARMS[i], L, N, true, o.detail);
+      ctx.restore();
+    }
+    // World positions of the three front arm tips, used for vortex shedding.
+    function tips(ox, oy, L, t, om, out){
+      var p = pose(L, t, om), cp = Math.cos(p.pitch), sp = Math.sin(p.pitch), cy = oy + p.bob;
+      out.length = 0;
+      for (var i = 3; i < 6; i++){
+        var q = arm(ARMS[i], t, L, 16, om), m = q.length, lx = q[m - 2], ly = q[m - 1];
+        out.push(ox + cp * lx - sp * ly, cy + sp * lx + cp * ly);
+      }
+      return out;
+    }
+    return { draw: draw, tips: tips };
+  })();
+
+  // Kelp-like blade: stipe, gas float, then a frond tiled with overlapping fish-scale plates.
+  // th bends the whole blade; lag lets the tip trail behind, giving the S-curve of a flexible body.
+  function drawBlade(ctx, x, by, h, th, t, pr, seed, bw, detail, lag){
+    if (pr < 0.02) return;
+    lag = lag || 0;
+    var N = detail ? 22 : 11, seg = h * pr / N, px = x, py = by, P = [px, py], A = [0], j;
+    for (j = 1; j <= N; j++){
+      var s = j / N;
+      var a = th * Math.pow(s, 1.3) - lag * Math.pow(s, 2.2) + 0.08 * Math.sin(2.1 * t - 6 * s + seed);
+      px += Math.sin(a) * seg; py -= Math.cos(a) * seg;
+      P.push(px, py); A.push(a);
+    }
+    ctx.save();
+    ctx.globalAlpha = Math.min(1, pr * 1.25);
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = COL.kelp; ctx.lineWidth = Math.max(1.2, bw * 0.3);
+    ctx.beginPath(); ctx.moveTo(P[0], P[1]);
+    for (j = 1; j <= N; j++) ctx.lineTo(P[j * 2], P[j * 2 + 1]);
+    ctx.stroke();
+    var j0 = detail ? 5 : 3;
+    for (j = j0; j <= N; j++){
+      var s2 = (j - j0 + 1) / (N - j0 + 1);
+      var w = bw * (0.16 + 0.84 * Math.sin(Math.PI * Math.min(1, 0.12 + 0.88 * Math.pow(s2, 0.75))));
+      ctx.beginPath();
+      ctx.ellipse(P[j * 2], P[j * 2 + 1], w, seg * 1.55, A[j], Math.PI, TAU);
+      ctx.closePath();
+      ctx.fillStyle = j % 2 ? COL['kelp-g'] : '#AD983A';
+      ctx.fill();
+      if (detail){ ctx.lineWidth = 0.75; ctx.strokeStyle = rgba(COL['kelp-l'], 0.85); ctx.stroke(); }
+    }
+    ctx.beginPath();
+    ctx.arc(P[(j0 - 1) * 2], P[(j0 - 1) * 2 + 1], Math.max(1.6, bw * 0.34), 0, TAU);
+    ctx.fillStyle = COL['kelp-l']; ctx.fill();
+    ctx.lineWidth = 0.8; ctx.strokeStyle = COL.kelp; ctx.stroke();
+    ctx.restore();
+  }
+
+  // Small fish silhouette; the caller sets fillStyle. dir 1 faces right, -1 faces left.
+  function drawFish(ctx, x, y, fl, tail, dir){
+    ctx.save(); ctx.translate(x, y); if (dir < 0) ctx.scale(-1, 1);
+    ctx.beginPath(); ctx.moveTo(fl * 0.55, 0);
+    ctx.quadraticCurveTo(fl * 0.1, -fl * 0.27, -fl * 0.34, 0);
+    ctx.quadraticCurveTo(fl * 0.1, fl * 0.27, fl * 0.55, 0);
+    ctx.fill();
+    ctx.translate(-fl * 0.3, 0); ctx.rotate(tail);
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-fl * 0.32, -fl * 0.2); ctx.lineTo(-fl * 0.24, 0); ctx.lineTo(-fl * 0.32, fl * 0.2);
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+
+  // Snake-like robot: capsule links carrying a travelling wave from head to tail.
+  function drawSnake(ctx, W, H, t){
+    var n = 10, len = W * 0.7, om = TAU * 0.9, x0 = W * 0.84, y0 = H * 0.52, P = [], i;
+    for (i = 0; i <= n; i++){
+      var s = i / n;
+      P.push(x0 - s * len, y0 + H * (0.035 + 0.17 * s * s) * Math.sin(TAU * 1.15 * s - om * t));
+    }
+    ctx.strokeStyle = rgba(COL.current, 0.22); ctx.lineWidth = 1; ctx.lineCap = 'round';
+    ctx.beginPath();
+    for (i = 0; i < 7; i++){
+      var span = W + 30, sx = (((i * 53.7 - t * 34) % span) + span) % span - 15, sy = H * (0.14 + 0.12 * i);
+      ctx.moveTo(sx, sy); ctx.lineTo(sx + 9, sy);
+    }
+    ctx.stroke();
+    for (i = n - 1; i >= 0; i--){
+      var w = H * (0.105 - 0.055 * i / n);
+      ctx.strokeStyle = i % 2 ? COL.current : COL['current-2'];
+      ctx.lineWidth = w;
+      ctx.beginPath(); ctx.moveTo(P[i * 2], P[i * 2 + 1]); ctx.lineTo(P[i * 2 + 2], P[i * 2 + 3]); ctx.stroke();
+      ctx.beginPath(); ctx.arc(P[i * 2], P[i * 2 + 1], w * 0.2, 0, TAU); ctx.fillStyle = '#F4FAFA'; ctx.fill();
+    }
+    var ang = Math.atan2(P[1] - P[3], P[0] - P[2]);
+    ctx.save(); ctx.translate(P[0], P[1]); ctx.rotate(ang);
+    ctx.beginPath(); ctx.ellipse(H * 0.03, 0, H * 0.09, H * 0.066, 0, 0, TAU); ctx.fillStyle = COL['current-2']; ctx.fill();
+    ctx.beginPath(); ctx.arc(H * 0.06, -H * 0.02, H * 0.016, 0, TAU); ctx.fillStyle = '#FFFFFF'; ctx.fill();
+    ctx.restore();
+  }
+
+  /* ---------- Figure 1: the swimmer and its wake ----------
+     The camera follows the robot, so water streams right to left. Velocity field: free stream,
+     a doublet around the body, and regularised point vortices shed once per stroke plus weaker
+     alternating tip vortices. Tracers are integrated with a midpoint step and coloured by local
+     vorticity. Trails are drawn in the frame of the still water (free stream subtracted, as in
+     PIV), so undisturbed water shows as drifting specks and each vortex shows as a swirl. */
+  function HeroScene(){
+    var cv = document.getElementById('flow');
+    var fig = document.querySelector('.hero__fig');
+    var cap = document.querySelector('.hero__cap');
+    var hero = document.querySelector('.hero');
+    if (!cv || !cv.getContext || !fig || !cap || !hero) return null;
+    var sc = { canvas: cv, watch: [hero, fig], t: 0 };
+    var ctx = null, W = 0, H = 0, K = 8, SAMPLE = 1 / 24;
+    var R = { x: 0, y: 0, L: 60 };
+    var U = 60, G0 = 2e4, CORE0 = 12, NU = 60, WREF = 1, OM = TAU * 0.55;
+    var body = { x: 0, y: 0, a: 50, s: 0.5 };
+    var parts = [], vorts = [], dye = [], tips = [];
+    var sampleAcc = 0, lastPair = -1, lastHalf = -1, tipSign = 1, warmed = false;
+    var VO = [0, 0, 0];
+    var BUCKETS = [rgba(COL.blue, 0.85), rgba(COL.blue, 0.55), 'rgba(52,98,110,.34)', rgba(COL.coral, 0.55), rgba(COL.coral, 0.88)];
+
+    function inBody(x, y){ var dx = x - body.x, dy = (y - body.y) / body.s; return dx * dx + dy * dy < body.a * body.a; }
+    function vel(x, y){
+      var u = -U, v = 0, w = 0, k;
+      var dx = x - body.x, dy = (y - body.y) / body.s, r2 = dx * dx + dy * dy, a2 = body.a * body.a;
+      if (r2 > a2 * 0.5){ var r4 = r2 * r2; u += U * a2 * (dx * dx - dy * dy) / r4; v += 2 * U * a2 * dx * dy / r4 * body.s; }
+      for (k = 0; k < vorts.length; k++){
+        var q = vorts[k], ex = x - q.x, ey = y - q.y, d2 = ex * ex + ey * ey, c2 = q.c * q.c;
+        var f = q.g / (TAU * (d2 + c2));
+        u -= f * ey; v += f * ex;
+        if (d2 < 12 * c2) w += q.g / (Math.PI * c2) * Math.exp(-d2 / c2);
+      }
+      VO[0] = u; VO[1] = v; VO[2] = w;
+      return VO;
+    }
+    function reset(p, anywhere){
+      var x, y, n = 0;
+      do {
+        x = anywhere ? Math.random() * W : W + Math.random() * 24;
+        y = Math.random() < 0.45 ? R.y + (Math.random() * 2 - 1) * 1.9 * R.L : Math.random() * H;   // denser along the wake
+      } while (inBody(x, y) && ++n < 8);
+      p.x = x; p.y = y; p.age = 0; p.life = 4 + Math.random() * 9; p.c = 2;
+      for (var j = 0; j < K; j++){ p.tx[j] = x; p.ty[j] = y; }
+      return p;
+    }
+    function seed(){
+      var n = Math.round(Math.min(1300, Math.max(340, W * H / 1150)));
+      parts = [];
+      for (var i = 0; i < n; i++) parts.push(reset({ tx: new Float32Array(K), ty: new Float32Array(K) }, true));
+    }
+    function addVort(x, y, g){
+      vorts.push({ x: x, y: y, g: g, g0: g, c: CORE0, age: 0, nx: x, ny: y });
+      if (vorts.length > 64) vorts.shift();
+    }
+    function addDye(x, y){
+      var p = { tx: new Float32Array(K), ty: new Float32Array(K), x: x, y: y, age: 0, life: 3 + Math.random() * 1.5 };
+      for (var j = 0; j < K; j++){ p.tx[j] = x; p.ty[j] = y; }
+      dye.push(p); if (dye.length > 240) dye.shift();
+    }
+    function spawn(t){
+      if (tips.length < 6) return;
+      var cyc = OM * t / TAU, whole = Math.floor(cyc), frac = cyc - whole;
+      if (frac > 0.58 && lastPair !== whole){                        // one vortex pair per stroke: a backward jet
+        lastPair = whole;
+        var mx = (tips[0] + tips[2] + tips[4]) / 3, my = (tips[1] + tips[3] + tips[5]) / 3;
+        var lo = Math.min(tips[1], tips[3], tips[5]), hi = Math.max(tips[1], tips[3], tips[5]);
+        var d = Math.max(0.28 * R.L, Math.min(0.6 * R.L, (hi - lo) * 0.5));
+        addVort(mx + 0.1 * R.L, my - d, G0);
+        addVort(mx + 0.1 * R.L, my + d, -G0);
+      }
+      var half = Math.floor(cyc * 2);
+      if (half !== lastHalf){                                          // weaker alternating tip vortices
+        lastHalf = half; tipSign = -tipSign;
+        addVort(tips[2], tips[3], tipSign * G0 * 0.28);
+      }
+    }
+    function moveVorts(dt){
+      var i, k, q, o;
+      for (i = 0; i < vorts.length; i++){
+        q = vorts[i]; var u = -U, v = 0;
+        for (k = 0; k < vorts.length; k++){
+          if (k === i) continue;
+          o = vorts[k];
+          var ex = q.x - o.x, ey = q.y - o.y, f = o.g / (TAU * (ex * ex + ey * ey + o.c * o.c));
+          u -= f * ey; v += f * ex;
+        }
+        q.nx = q.x + u * dt; q.ny = q.y + v * dt;
+      }
+      for (i = vorts.length - 1; i >= 0; i--){
+        q = vorts[i]; q.x = q.nx; q.y = q.ny; q.age += dt;
+        q.g = q.g0 * Math.exp(-q.age / 9);                             // decay
+        q.c = Math.sqrt(CORE0 * CORE0 + 4 * NU * q.age);               // viscous core growth
+        if (q.x < -2 * R.L || q.y < -R.L || q.y > H + R.L || Math.abs(q.g) < Math.abs(q.g0) * 0.06) vorts.splice(i, 1);
+      }
+    }
+    sc.resize = function(){
+      var f = fit(cv); ctx = f.ctx; W = f.w; H = f.h;
+      var hr = hero.getBoundingClientRect(), fr = fig.getBoundingClientRect(), cr = cap.getBoundingClientRect();
+      var top = fr.top - hr.top, bot = cr.top - hr.top - 6;
+      if (bot - top < 140){ top = H * 0.55; bot = H * 0.9; }
+      var band = bot - top, narrow = W < 760;
+      hero.style.setProperty('--band', Math.round(top) + 'px');
+      hero.style.setProperty('--cap', Math.round(cr.top - hr.top) + 'px');
+      R.L = Math.max(30, Math.min(band * 0.3, W * (narrow ? 0.13 : 0.08), 130));
+      R.x = W * (narrow ? 0.62 : 0.72);
+      R.y = top + band * 0.5;
+      U = R.L * 1.05;
+      G0 = 4 * Math.PI * (0.42 * R.L) * (0.66 * R.L);
+      CORE0 = Math.max(6, R.L * 0.24);
+      NU = R.L * R.L * 0.012;
+      WREF = G0 / (Math.PI * CORE0 * CORE0) * 0.12;
+      body.x = R.x + 0.42 * R.L; body.y = R.y - 0.04 * R.L; body.a = 0.86 * R.L; body.s = 0.5;
+      vorts.length = 0; dye.length = 0; lastPair = -1; lastHalf = -1;
+      seed();
+      var n = warmed ? 60 : 170;                                       // pre-roll so the wake is already there
+      for (var i = 0; i < n; i++) sc.step(1 / 30);
+      warmed = true;
+    };
+    function advance(p, fx, shift){
+      var j;
+      for (j = 0; j < K; j++) p.tx[j] -= fx;                          // keep the trail in the still-water frame
+      if (shift){ for (j = K - 1; j > 0; j--){ p.tx[j] = p.tx[j - 1]; p.ty[j] = p.ty[j - 1]; } }
+      p.tx[0] = p.x; p.ty[0] = p.y;
+    }
+    sc.step = function(dt){
+      sc.t += dt;
+      Octo.tips(R.x, R.y, R.L, sc.t, OM, tips);
+      spawn(sc.t);
+      moveVorts(dt);
+      sampleAcc += dt;
+      var shift = sampleAcc >= SAMPLE, fx = U * dt, i, p, v;
+      if (shift) sampleAcc = 0;
+      for (i = 0; i < parts.length; i++){
+        p = parts[i];
+        v = vel(p.x, p.y);
+        var hx = p.x + v[0] * dt * 0.5, hy = p.y + v[1] * dt * 0.5;
+        v = vel(hx, hy);
+        p.x += v[0] * dt; p.y += v[1] * dt; p.age += dt;
+        var s = -v[2] / WREF;
+        p.c = s > 0.5 ? 4 : s > 0.14 ? 3 : s < -0.5 ? 0 : s < -0.14 ? 1 : 2;
+        advance(p, fx, shift);
+        if (p.x < -20 || p.x > W + 40 || p.y < -30 || p.y > H + 30 || inBody(p.x, p.y)) reset(p, false);
+        else if (p.age > p.life) reset(p, true);
+      }
+      for (i = dye.length - 1; i >= 0; i--){
+        p = dye[i]; v = vel(p.x, p.y);
+        p.x += v[0] * dt; p.y += v[1] * dt; p.age += dt;
+        advance(p, fx, shift);
+        if (p.age > p.life || p.x < -20) dye.splice(i, 1);
+      }
+    };
+    sc.draw = function(){
+      if (!ctx) return;
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      var b, i, j, p;
+      for (b = 0; b < 5; b++){
+        ctx.lineWidth = b === 2 ? 1.7 : 1.35;
+        ctx.beginPath();
+        for (i = 0; i < parts.length; i++){
+          p = parts[i]; if (p.c !== b) continue;
+          ctx.moveTo(p.tx[0], p.ty[0]);
+          for (j = 1; j < K; j++) ctx.lineTo(p.tx[j], p.ty[j]);
+        }
+        ctx.strokeStyle = BUCKETS[b]; ctx.stroke();
+      }
+      if (dye.length){
+        ctx.lineWidth = 1.8;
+        var alphas = [0.6, 0.36, 0.16];
+        for (b = 0; b < 3; b++){
+          ctx.beginPath();
+          for (i = 0; i < dye.length; i++){
+            p = dye[i];
+            var f = p.age / p.life;
+            if ((f < 0.33 ? 0 : f < 0.66 ? 1 : 2) !== b) continue;
+            ctx.moveTo(p.tx[0], p.ty[0]);
+            for (j = 1; j < K; j++) ctx.lineTo(p.tx[j], p.ty[j]);
+          }
+          ctx.strokeStyle = rgba(COL['current-2'], alphas[b]); ctx.stroke();
+        }
+      }
+      Octo.draw(ctx, R.x, R.y, R.L, sc.t, { omega: OM, detail: true });
+    };
+    // Stirring: a quick pointer stroke leaves a vortex pair that travels with it, plus a thread of dye.
+    var lx = 0, ly = 0, lt = 0, lastStir = 0;
+    hero.addEventListener('pointermove', function(e){
+      if (!S.playing || !ctx) return;
+      var r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      var now = e.timeStamp || performance.now(), dts = (now - lt) / 1000;
+      if (lt && dts > 0 && dts < 0.25){
+        var vx = (x - lx) / dts, vy = (y - ly) / dts, spd = Math.sqrt(vx * vx + vy * vy);
+        if (spd > 160 && now - lastStir > 90){
+          lastStir = now;
+          var mx = vx / spd, my = vy / spd, nx = -my, ny = mx, d = 0.24 * R.L;
+          var g = Math.min(0.8 * G0, 0.5 * spd * 4 * Math.PI * d);
+          addVort(x + nx * d, y + ny * d, g);
+          addVort(x - nx * d, y - ny * d, -g);
+        }
+        if (dts > 0.012) addDye(x + (Math.random() - 0.5) * 4, y + (Math.random() - 0.5) * 4);
+      }
+      lx = x; ly = y; lt = now;
+    }, { passive: true });
+    return sc;
+  }
+
+  /* ---------- Figure 3: kelp-like harvesters under a linear wave ----------
+     Each blade is a damped oscillator forced by the wave's horizontal orbital velocity at its
+     mid-height; its root glows with the blade's angular speed, and pulses carry power to shore. */
+  function KelpScene(){
+    var cv = document.getElementById('kelp');
+    if (!cv || !cv.getContext) return null;
+    var sc = { canvas: cv, t: 0 };
+    var ctx = null, W = 0, H = 0, surf = 0, bed = 0, depth = 1, k = 0.01, amp = 6, OMW = TAU / 4.4;
+    var KB = Math.pow(TAU / 3.2, 2), DB = 1.1;
+    var mode = 'colony', blades = [], motes = [], fish = [], pulses = [], busY = 0;
+    function build(){
+      var i, n = 9;
+      blades = [];
+      for (i = 0; i < n; i++){
+        var on = mode === 'colony' || i === 4;
+        blades.push({ x: W * (0.07 + 0.8 * i / (n - 1)) + (i % 2 ? 7 : -5), h: depth * (0.62 + 0.2 * ((i * 7) % 5) / 4),
+          th: 0, om: 0, pr: on ? 1 : 0, tg: on ? 1 : 0, seed: i * 1.7, glow: 0, cd: i * 0.13 });
+      }
+      motes = [];
+      var m = Math.round(Math.min(160, W * depth / 2400));
+      for (i = 0; i < m; i++) motes.push({ x: Math.random() * W, y: surf + amp + 6 + Math.random() * (depth - amp - 12) });
+      fish = [];
+      for (i = 0; i < 7; i++) fish.push({ dx: -i * 21 - (i % 2) * 8, dy: ((i % 3) - 1) * 16 + (i % 2) * 5, ph: i * 1.37, front: i % 2 === 0 });
+      pulses = [];
+    }
+    function fishes(front){
+      var t = sc.t, span = W + 200, cx = ((t * 30) % span) - 100, cy = surf + depth * 0.55 + depth * 0.06 * Math.sin(t * 0.45);
+      var fl = Math.max(11, H * 0.044);
+      ctx.fillStyle = rgba(COL['current-2'], front ? 0.85 : 0.3);
+      for (var i = 0; i < fish.length; i++){
+        var f = fish[i]; if (f.front !== front) continue;
+        drawFish(ctx, cx + f.dx + 3 * Math.sin(t * 1.2 + f.ph), cy + f.dy + 2.5 * Math.sin(t * 1.5 + f.ph * 2), fl, 0.45 * Math.sin(t * 10 + f.ph), 1);
+      }
+    }
+    sc.resize = function(){
+      var f = fit(cv); ctx = f.ctx; W = f.w; H = f.h;
+      surf = H * 0.16; bed = H * 0.85; depth = bed - surf; busY = bed + (H - bed) * 0.5;
+      k = TAU / (W * 0.9); amp = Math.max(4, H * 0.022);
+      build();
+      for (var i = 0; i < 200; i++) sc.step(1 / 30);
+    };
+    sc.setMode = function(m){
+      mode = m;
+      for (var i = 0; i < blades.length; i++){
+        var b = blades[i];
+        b.tg = (m === 'colony' || i === 4) ? 1 : 0;
+        if (!S.playing) b.pr = b.tg;
+      }
+      if (!S.playing) sc.draw(); else kick();
+    };
+    sc.step = function(dt){
+      sc.t += dt;
+      var t = sc.t, sh = Math.sinh(k * depth), i, b;
+      for (i = 0; i < blades.length; i++){
+        b = blades[i];
+        b.pr += (b.tg - b.pr) * Math.min(1, dt * 2.4);
+        var ym = bed - b.h * 0.55, G = Math.cosh(k * (bed - ym)) / sh;
+        var F = 2.7 * G * Math.cos(k * b.x - OMW * t) + 0.1 * Math.sin(1.7 * t + b.seed);
+        var hs = dt / 2;
+        for (var s = 0; s < 2; s++){ b.om += (-KB * b.th - DB * b.om + F) * hs; b.th += b.om * hs; }
+        b.glow = Math.min(1, Math.abs(b.om) / 0.6) * b.pr;
+        b.cd -= dt;
+        if (b.pr > 0.6 && b.glow > 0.6 && b.cd <= 0){ pulses.push(b.x); b.cd = 0.55; }
+      }
+      for (i = pulses.length - 1; i >= 0; i--){ pulses[i] += dt * 95; if (pulses[i] > W - 24) pulses.splice(i, 1); }
+      for (i = 0; i < motes.length; i++){ motes[i].x += dt * 5; if (motes[i].x > W + 6) motes[i].x = -6; }
+    };
+    sc.draw = function(){
+      if (!ctx) return;
+      var t = sc.t, i, x, b, sh = Math.sinh(k * depth);
+      var wg = ctx.createLinearGradient(0, surf, 0, bed);
+      wg.addColorStop(0, '#E8F3F4'); wg.addColorStop(1, '#D5E8EA');
+      ctx.fillStyle = wg; ctx.fillRect(0, 0, W, H);
+      ctx.beginPath(); ctx.moveTo(0, 0);                               // air above the free surface
+      for (x = 0; x <= W + 8; x += 8) ctx.lineTo(x, surf - amp * Math.cos(k * x - OMW * t));
+      ctx.lineTo(W + 8, 0); ctx.closePath();
+      ctx.fillStyle = '#F8FBFB'; ctx.fill();
+      ctx.beginPath();
+      for (x = 0; x <= W + 8; x += 8){ var ys = surf - amp * Math.cos(k * x - OMW * t); if (x === 0) ctx.moveTo(x, ys); else ctx.lineTo(x, ys); }
+      ctx.strokeStyle = COL.current; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.fillStyle = rgba(COL['current-2'], 0.35);                    // water particles on their orbital paths
+      for (i = 0; i < motes.length; i++){
+        var m = motes[i], zb = bed - m.y, ph = k * m.x - OMW * t;
+        ctx.fillRect(m.x - amp * Math.cosh(k * zb) / sh * Math.sin(ph) - 0.9, m.y - amp * Math.sinh(k * zb) / sh * Math.cos(ph) - 0.9, 1.8, 1.8);
+      }
+      ctx.beginPath(); ctx.moveTo(0, H);                               // seabed
+      for (x = 0; x <= W + 10; x += 10) ctx.lineTo(x, bed + 2 * Math.sin(x * 0.06) + 1.4 * Math.sin(x * 0.017 + 1));
+      ctx.lineTo(W + 10, H); ctx.closePath();
+      ctx.fillStyle = COL.sand; ctx.fill();
+      var first = W;                                                   // power line to shore
+      for (i = 0; i < blades.length; i++){ b = blades[i]; if (b.pr > 0.05) first = Math.min(first, b.x); }
+      ctx.strokeStyle = rgba(COL['current-2'], 0.35); ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.moveTo(first, busY); ctx.lineTo(W - 24, busY);
+      for (i = 0; i < blades.length; i++){ b = blades[i]; if (b.pr > 0.05){ ctx.moveTo(b.x, bed + 4); ctx.lineTo(b.x, busY); } }
+      ctx.stroke();
+      ctx.fillStyle = COL['current-2']; ctx.fillRect(W - 26, busY - 6, 12, 12);
+      ctx.fillStyle = COL.glow; ctx.fillRect(W - 23, busY - 3, 6, 6);
+      fishes(false);
+      var bw = Math.max(4, depth * 0.036);
+      for (i = 0; i < blades.length; i++){
+        b = blades[i]; if (b.pr < 0.02) continue;
+        if (b.glow > 0.03){
+          var rr = 16 + 12 * b.glow, rg = ctx.createRadialGradient(b.x, bed, 0, b.x, bed, rr);
+          rg.addColorStop(0, rgba(COL.glow, 0.55 * b.glow)); rg.addColorStop(1, rgba(COL.glow, 0));
+          ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(b.x, bed, rr, 0, TAU); ctx.fill();
+        }
+        drawBlade(ctx, b.x, bed, b.h, b.th, t, b.pr, b.seed, bw, true, 0.3 * b.om);
+        ctx.beginPath(); ctx.arc(b.x, bed + 1, 5, 0, TAU);
+        ctx.fillStyle = COL['current-2']; ctx.fill();
+        ctx.lineWidth = 1.6; ctx.strokeStyle = rgba(COL.glow, 0.3 + 0.7 * b.glow); ctx.stroke();
+      }
+      fishes(true);
+      ctx.fillStyle = COL.glow;
+      for (i = 0; i < pulses.length; i++){ ctx.beginPath(); ctx.arc(pulses[i], busY, 2.4, 0, TAU); ctx.fill(); }
+    };
+    var modeBtns = Array.prototype.slice.call(document.querySelectorAll('[data-mode]'));
+    modeBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        modeBtns.forEach(function(o){ o.setAttribute('aria-pressed', String(o === btn)); });
+        sc.setMode(btn.getAttribute('data-mode'));
+      });
+    });
+    return sc;
+  }
+
+  /* ---------- publication thumbnails ---------- */
+  function ThumbScene(cv){
+    var kind = cv.getAttribute('data-thumb');
+    var sc = { canvas: cv, t: 0.8 };
+    var ctx = null, W = 0, H = 0;
+    sc.resize = function(){ var f = fit(cv); ctx = f.ctx; W = f.w; H = f.h; };
+    sc.step = function(dt){ sc.t += dt; };
+    sc.draw = function(){
+      if (!ctx) return;
+      ctx.clearRect(0, 0, W, H);
+      var t = sc.t;
+      if (kind === 'snake') drawSnake(ctx, W, H, t);
+      else if (kind === 'octo') Octo.draw(ctx, W * 0.6, H * 0.47, H * 0.22, t, { omega: TAU * 0.55, detail: false });
+      else if (kind === 'kelp'){
+        var bed = H * 0.9;
+        ctx.fillStyle = COL.sand; ctx.fillRect(0, bed, W, H - bed);
+        for (var i = 0; i < 4; i++){
+          var x = W * (0.2 + 0.2 * i), ph = 1.4 * t - 0.9 * i;
+          drawBlade(ctx, x, bed, H * (0.66 + 0.1 * (i % 2)), 0.36 * Math.sin(ph), t, 1, i, Math.max(2.6, H * 0.045), false, 0.3 * Math.cos(ph));
+          ctx.beginPath(); ctx.arc(x, bed, 2.6, 0, TAU); ctx.fillStyle = COL['current-2']; ctx.fill();
+        }
+      }
+    };
+    return sc;
+  }
+
+  /* ---------- footer: the seabed at the bottom of the page ---------- */
+  function SeabedScene(){
+    var cv = document.getElementById('seabed');
+    if (!cv || !cv.getContext) return null;
+    var sc = { canvas: cv, t: 0 }, ctx = null, W = 0, H = 0, tufts = [];
+    sc.resize = function(){
+      var f = fit(cv); ctx = f.ctx; W = f.w; H = f.h;
+      tufts = [];
+      var n = Math.max(6, Math.round(W / 64));
+      for (var i = 0; i < n; i++){
+        tufts.push({ x: (i + 0.5) * W / n + Math.sin(i * 12.9898) * 0.3 * W / n, h: H * (0.42 + 0.36 * ((i * 7) % 5) / 4), ph: i * 1.3 });
+      }
+    };
+    sc.step = function(dt){ sc.t += dt; };
+    sc.draw = function(){
+      if (!ctx) return;
+      var t = sc.t, bed = H * 0.8, i, x;
+      ctx.clearRect(0, 0, W, H);
+      var span = W + 220, cx = W + 110 - ((t * 24) % span), fl = Math.max(9, H * 0.11);
+      ctx.fillStyle = rgba(COL['current-2'], 0.4);
+      for (i = 0; i < 5; i++){
+        drawFish(ctx, cx + i * 19 + (i % 2) * 6, H * 0.3 + ((i % 3) - 1) * 8 + 2 * Math.sin(t * 1.4 + i), fl, 0.4 * Math.sin(t * 9 + i), -1);
+      }
+      for (i = 0; i < tufts.length; i++){
+        var b = tufts[i], ph = 1.1 * t - b.x * 0.008 + b.ph;
+        drawBlade(ctx, b.x, bed + 3, b.h, 0.22 * Math.sin(ph), t, 1, b.ph, Math.max(2.4, H * 0.045), false, 0.2 * Math.cos(ph));
+      }
+      ctx.beginPath(); ctx.moveTo(0, H);
+      for (x = 0; x <= W + 10; x += 10) ctx.lineTo(x, bed + 2.5 * Math.sin(x * 0.021) + 1.8 * Math.sin(x * 0.053 + 1));
+      ctx.lineTo(W + 10, H); ctx.closePath();
+      ctx.fillStyle = COL.sand; ctx.fill();
+    };
+    return sc;
+  }
+
+  addScene(HeroScene());
+  addScene(KelpScene());
+  Array.prototype.forEach.call(document.querySelectorAll('canvas[data-thumb]'), function(cv){ addScene(ThumbScene(cv)); });
+  addScene(SeabedScene());
+  if (document.fonts && document.fonts.ready){
+    document.fonts.ready.then(function(){ scenes.forEach(function(sc){ if (sc.relayout) sc.relayout(); }); });
+  }
+
+  /* ---------- navigation, section highlighting and the depth gauge ---------- */
+  (function(){
+    var bar = document.getElementById('bar'), menu = document.getElementById('menu');
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll('.bar__links a[href^="#"]'));
+    var secs = Array.prototype.slice.call(document.querySelectorAll('main > section[id]'));
+    var gauge = document.getElementById('gauge'), gdot = document.getElementById('gdot'), depthEl = document.getElementById('depth');
+    var track = gauge ? gauge.querySelector('.gauge__track') : null;
+    var gLinks = gauge ? Array.prototype.slice.call(gauge.querySelectorAll('a[data-for]')) : [];
+    var gH = 0, maxScroll = 1, queued = false;
+    function measure(){
+      maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      if (!track) return;
+      gH = track.getBoundingClientRect().height;
+      var pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
+      gLinks.forEach(function(a){
+        var s = document.getElementById(a.getAttribute('data-for'));
+        if (!s) return;
+        var top = s.getBoundingClientRect().top + window.scrollY - pad;
+        a.style.top = (Math.min(1, Math.max(0, top / maxScroll)) * 100).toFixed(2) + '%';
+      });
+    }
+    function update(){
+      queued = false;
+      var y = window.scrollY || window.pageYOffset || 0, f = Math.min(1, Math.max(0, y / maxScroll));
+      bar.classList.toggle('is-stuck', y > 20);
+      var cur = '';
+      for (var i = 0; i < secs.length; i++){ if (secs[i].getBoundingClientRect().top <= window.innerHeight * 0.35) cur = secs[i].id; }
+      navLinks.forEach(function(a){ if (a.hash === '#' + cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+      if (gauge){
+        gauge.classList.toggle('is-on', y > window.innerHeight * 0.5);
+        gdot.style.transform = 'translateY(' + (f * gH).toFixed(1) + 'px)';
+        depthEl.textContent = String(Math.round(f * 200));
+        gLinks.forEach(function(a){ a.classList.toggle('is-here', a.getAttribute('data-for') === cur); });
+      }
+    }
+    function onScroll(){ if (!queued){ queued = true; requestAnimationFrame(update); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function(){ measure(); onScroll(); });
+    window.addEventListener('load', function(){ measure(); update(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ measure(); update(); });
+    measure(); update();
+    if (menu){
+      var close = function(){ bar.classList.remove('is-open'); menu.setAttribute('aria-expanded', 'false'); };
+      menu.addEventListener('click', function(){ var open = bar.classList.toggle('is-open'); menu.setAttribute('aria-expanded', String(open)); });
+      navLinks.forEach(function(a){ a.addEventListener('click', close); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && bar.classList.contains('is-open')){ close(); menu.focus(); } });
+    }
+  })();
+  /* ---------- Projects: tabs (arrow keys move between them) ---------- */
+  var toolTabs = Array.prototype.slice.call(document.querySelectorAll('.tools [role="tab"]'));
+  var onToolShow = [];
+  function showTool(tab, focus){
+    toolTabs.forEach(function(t){
+      var on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
+    });
+    if (focus) tab.focus();
+    var id = tab.getAttribute('aria-controls');
+    onToolShow.forEach(function(fn){ fn(id); });
+  }
+  toolTabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ showTool(t, false); });
+    t.addEventListener('keydown', function(e){
+      var j = -1, n = toolTabs.length;
+      if (e.key === 'ArrowRight') j = (i + 1) % n;
+      else if (e.key === 'ArrowLeft') j = (i - 1 + n) % n;
+      else if (e.key === 'Home') j = 0;
+      else if (e.key === 'End') j = n - 1;
+      if (j >= 0){ e.preventDefault(); showTool(toolTabs[j], true); }
+    });
+  });
+
+  /* ---------- KDU-8085 taster: step through a five-line program ---------- */
+  (function(){
+    var box = document.getElementById('cpu');
+    if (!box) return;
+    function hx(n, w){ var s = n.toString(16).toUpperCase(); while (s.length < (w || 2)) s = '0' + s; return s; }
+    function q(sel){ return box.querySelector(sel); }
+    var lines = Array.prototype.slice.call(box.querySelectorAll('.cpu__prog li'));
+    var regA = q('[data-reg="A"]'), regB = q('[data-reg="B"]'), regPC = q('[data-reg="PC"]');
+    var FLAGS = ['S', 'Z', 'AC', 'P', 'CY'], flagEls = {};
+    FLAGS.forEach(function(f){ flagEls[f] = q('[data-flag="' + f + '"]'); });
+    var leds = Array.prototype.slice.call(box.querySelectorAll('.cpu__leds i'));
+    var portOut = q('.cpu__portval'), tok = q('.cpu__tok'), addr = q('.cpu__addr'), note = q('.cpu__note');
+    var stepBtn = q('[data-cpu="step"]'), runBtn = q('[data-cpu="run"]'), resetBtn = q('[data-cpu="reset"]'), seed = q('#cpu-seed');
+    var PROG = [
+      { at: 0x2000, bytes: [0x3E, 0x3A], name: function(b){ return 'MVI A, ' + hx(b[1]) + 'H'; } },
+      { at: 0x2002, bytes: [0x47], name: function(){ return 'MOV B, A'; } },
+      { at: 0x2003, bytes: [0xC6, 0x05], name: function(){ return 'ADI 05H'; } },
+      { at: 0x2005, bytes: [0xD3, 0x01], name: function(){ return 'OUT 01H'; } },
+      { at: 0x2007, bytes: [0x76], name: function(){ return 'HLT'; } }
+    ];
+    var st, busy = false, running = false, runT = 0, timers = [];
+    function parity(v){ var c = 0; for (var i = 0; i < 8; i++) c += (v >> i) & 1; return c % 2 === 0 ? 1 : 0; }
+    function later(fn, ms){ timers.push(setTimeout(fn, ms)); }
+    function paintProg(){
+      PROG.forEach(function(ins, i){
+        lines[i].querySelector('.b').textContent = ins.bytes.map(function(b){ return hx(b); }).join(' ');
+        lines[i].querySelector('.m').textContent = ins.name(ins.bytes);
+      });
+    }
+    function paint(changed){
+      regA.textContent = hx(st.A); regB.textContent = hx(st.B); regPC.textContent = hx(st.PC, 4);
+      FLAGS.forEach(function(f){ flagEls[f].textContent = st[f]; flagEls[f].parentNode.classList.toggle('is-set', st[f] === 1); });
+      leds.forEach(function(led, i){ led.classList.toggle('is-on', st.port !== null && ((st.port >> (7 - i)) & 1) === 1); });
+      portOut.textContent = st.port === null ? '--' : hx(st.port) + 'H';
+      lines.forEach(function(li, i){ li.classList.toggle('is-next', !st.halted && i === st.i); li.classList.toggle('is-done', i < st.i); });
+      (changed || []).forEach(function(k){
+        var e = k === 'A' ? regA : regB;
+        e.classList.remove('flash'); void e.offsetWidth; e.classList.add('flash');
+      });
+      stepBtn.disabled = st.halted || busy || running;
+      runBtn.disabled = st.halted;
+    }
+    function exec(ins){
+      var b = ins.bytes, op = b[0], changed = [], msg = '';
+      if (op === 0x3E){ st.A = b[1]; changed.push('A'); msg = 'MVI loads ' + hx(b[1]) + 'H straight into A.'; }
+      else if (op === 0x47){ st.B = st.A; changed.push('B'); msg = 'MOV copies A into B. A keeps its value, ' + hx(st.A) + 'H.'; }
+      else if (op === 0xC6){
+        var a = st.A, r = a + b[1];
+        st.CY = r > 0xFF ? 1 : 0;
+        st.AC = ((a & 0xF) + (b[1] & 0xF)) > 0xF ? 1 : 0;
+        st.A = r & 0xFF; st.Z = st.A === 0 ? 1 : 0; st.S = st.A >> 7; st.P = parity(st.A);
+        changed.push('A');
+        msg = 'ADI adds 05H to A: ' + hx(a) + 'H + 05H = ' + hx(st.A) + 'H' + (st.CY ? ', with a carry out, so CY is set.' : '.') + ' The flags now describe the result.';
+      }
+      else if (op === 0xD3){ st.port = st.A; msg = 'OUT sends A (' + hx(st.A) + 'H) to port 01H, and the LEDs show its bits.'; }
+      else if (op === 0x76){ st.halted = true; msg = 'HLT stops the processor. Reset to run it again, or change the starting value of A.'; }
+      st.PC = ins.at + b.length; st.i++;
+      return { changed: changed, msg: msg };
+    }
+    function fetch(address, byte, quick){
+      addr.textContent = hx(address, 4) + 'H';
+      tok.textContent = hx(byte);
+      tok.classList.remove('go'); void tok.offsetWidth;
+      if (quick) tok.style.left = 'calc(100% - 2.7rem)'; else { tok.style.left = ''; tok.classList.add('go'); }
+    }
+    function step(done){
+      if (st.halted || busy) return;
+      var ins = PROG[st.i], quick = reduceMQ.matches || !S.playing, per = quick ? 0 : 440;
+      busy = true; paint();
+      ins.bytes.forEach(function(byte, k){ later(function(){ fetch(ins.at + k, byte, quick); }, k * per); });
+      later(function(){
+        var r = exec(ins);
+        busy = false;
+        note.textContent = ins.name(ins.bytes) + '. ' + r.msg;
+        paint(r.changed);
+        if (done) done();
+      }, ins.bytes.length * per + (quick ? 0 : 140));
+    }
+    function stopRun(){ running = false; clearTimeout(runT); runBtn.textContent = 'Run'; paint(); }
+    function run(){
+      if (running){ stopRun(); return; }
+      running = true; runBtn.textContent = 'Pause'; paint();
+      (function loop(){
+        if (!running) return;
+        if (st.halted){ stopRun(); return; }
+        step(function(){ runT = setTimeout(loop, 360); });
+      })();
+    }
+    function reset(){
+      timers.forEach(clearTimeout); timers = [];
+      running = false; clearTimeout(runT); runBtn.textContent = 'Run'; busy = false;
+      st = { A: 0, B: 0, PC: 0x2000, S: 0, Z: 0, AC: 0, P: 0, CY: 0, port: null, halted: false, i: 0 };
+      tok.classList.remove('go'); tok.style.left = ''; tok.textContent = '--'; addr.textContent = '2000H';
+      note.textContent = 'Press Step to fetch the first instruction from memory.';
+      paint();
+    }
+    stepBtn.addEventListener('click', function(){ step(); });
+    runBtn.addEventListener('click', run);
+    resetBtn.addEventListener('click', reset);
+    seed.addEventListener('input', function(){
+      var v = seed.value.trim(), ok = /^[0-9a-f]{1,2}$/i.test(v);
+      seed.setAttribute('aria-invalid', ok ? 'false' : 'true');
+      if (!ok) return;
+      PROG[0].bytes[1] = parseInt(v, 16);
+      paintProg(); reset();
+    });
+    onToolShow.push(function(id){ if (id !== 'panel-8085' && running) stopRun(); });
+    paintProg(); reset();
+  })();
+
+  /* ---------- NUCLEO-F411RE taster: PWM on PA5 drives LD2 and a DC motor ---------- */
+  function NucleoScene(){
+    var cv = document.getElementById('nucleo');
+    if (!cv || !cv.getContext) return null;
+    var slider = document.getElementById('duty'), out = document.getElementById('duty-out');
+    var ccr = document.getElementById('ccr'), rpmOut = document.getElementById('rpm');
+    var sc = { canvas: cv, t: 0 }, ctx = null, W = 0, H = 0;
+    var duty = 0.4, speed = 0.4, angle = 0, shown = -1;
+    function showRpm(){
+      var r = Math.round(speed * 320) * 10;
+      if (r !== shown){ shown = r; rpmOut.textContent = r.toLocaleString('en-US') + ' rpm'; }
+    }
+    function sync(){
+      duty = slider.value / 100;
+      out.textContent = slider.value + '%';
+      ccr.textContent = String(Math.round(duty * 1000));
+      if (!S.playing || reduceMQ.matches){ speed = duty; showRpm(); sc.draw(); } else kick();
+    }
+    slider.addEventListener('input', sync);
+    function rr(x, y, w, h, r){
+      ctx.beginPath();
+      ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath();
+    }
+    function text(s, x, y, size, color, align, weight){
+      ctx.font = (weight || 500) + ' ' + size.toFixed(1) + 'px "IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif';
+      ctx.fillStyle = color; ctx.textAlign = align || 'left'; ctx.textBaseline = 'middle'; ctx.fillText(s, x, y);
+    }
+    sc.resize = function(){ var f = fit(cv); ctx = f.ctx; W = f.w; H = f.h; };
+    sc.step = function(dt){
+      sc.t += dt;
+      speed += (duty - speed) * Math.min(1, dt / 0.5);                 // first-order motor response
+      angle += speed * dt * TAU * 1.6;
+      showRpm();
+    };
+    sc.draw = function(){
+      if (!ctx || W < 20) return;
+      var i, fs = Math.max(10, Math.min(13, W / 48));
+      ctx.clearRect(0, 0, W, H);
+      var bx = W * 0.03, by = H * 0.08, bw = W * 0.4, bh = H * 0.84, rows = 13, pitch = (bh - 56) / (rows - 1);
+      rr(bx, by, bw, bh, 12); ctx.fillStyle = '#FFFFFF'; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = COL['current-3']; ctx.stroke();
+      text('NUCLEO-F411RE', bx + 30, by + 18, fs, COL['current-2'], 'left', 600);
+      ctx.fillStyle = '#C9DCDD';                                      // morpho headers
+      for (i = 0; i < rows; i++){
+        var yy = by + 38 + i * pitch;
+        ctx.fillRect(bx + 10, yy - 2.5, 5, 5); ctx.fillRect(bx + 18, yy - 2.5, 5, 5);
+        ctx.fillRect(bx + bw - 23, yy - 2.5, 5, 5); ctx.fillRect(bx + bw - 15, yy - 2.5, 5, 5);
+      }
+      var cs = Math.min(bw, bh) * 0.34, cx = bx + bw * 0.5, cy = by + bh * 0.58;   // STM32F411RE
+      ctx.strokeStyle = '#9CBFC3'; ctx.lineWidth = 1; ctx.beginPath();
+      for (i = 0; i < 8; i++){
+        var o = -cs / 2 + (i + 0.5) * cs / 8;
+        ctx.moveTo(cx + o, cy - cs / 2 - 5); ctx.lineTo(cx + o, cy - cs / 2); ctx.moveTo(cx + o, cy + cs / 2); ctx.lineTo(cx + o, cy + cs / 2 + 5);
+        ctx.moveTo(cx - cs / 2 - 5, cy + o); ctx.lineTo(cx - cs / 2, cy + o); ctx.moveTo(cx + cs / 2, cy + o); ctx.lineTo(cx + cs / 2 + 5, cy + o);
+      }
+      ctx.stroke();
+      rr(cx - cs / 2, cy - cs / 2, cs, cs, 4); ctx.fillStyle = '#EAF4F5'; ctx.fill(); ctx.strokeStyle = COL['current-2']; ctx.lineWidth = 1.2; ctx.stroke();
+      text('STM32', cx, cy - fs * 0.55, fs * 0.9, COL['current-2'], 'center', 600);
+      text('F411RE', cx, cy + fs * 0.6, fs * 0.9, COL['current-2'], 'center', 600);
+      var lx = bx + bw * 0.6, ly = by + bh * 0.26;                   // LD2 sits on PA5
+      if (duty > 0.02){
+        var g = ctx.createRadialGradient(lx, ly, 0, lx, ly, 24);
+        g.addColorStop(0, 'rgba(60,190,110,' + (0.55 * duty).toFixed(3) + ')'); g.addColorStop(1, 'rgba(60,190,110,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(lx, ly, 24, 0, TAU); ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(lx, ly, 6, 0, TAU); ctx.fillStyle = 'rgba(47,163,90,' + (0.18 + 0.82 * duty).toFixed(3) + ')'; ctx.fill();
+      ctx.lineWidth = 1; ctx.strokeStyle = '#2F8F57'; ctx.stroke();
+      text('LD2', lx + 12, ly, fs * 0.9, COL.muted, 'left', 500);
+      var my = H * 0.3, prow = Math.max(0, Math.min(rows - 1, Math.round((my - by - 38) / pitch)));
+      var px = bx + bw - 12.5, py = by + 38 + prow * pitch;
+      ctx.fillStyle = COL.current; ctx.fillRect(px - 5, py - 4, 10, 8);
+      text('PA5 (D13)', px - 10, py - 12, fs * 0.85, COL['current-2'], 'right', 600);
+      var dw = W * 0.12, dh = H * 0.24, dx = W * 0.54, dy = my - dh / 2;       // motor driver
+      var live = S.playing && !reduceMQ.matches && duty > 0.001;
+      ctx.lineWidth = 2; ctx.strokeStyle = COL.current;
+      ctx.setLineDash(live ? [7, 5] : []); ctx.lineDashOffset = -sc.t * 40;
+      ctx.beginPath(); ctx.moveTo(px + 5, py); ctx.bezierCurveTo(px + 45, py, dx - 45, my, dx, my); ctx.stroke();
+      ctx.setLineDash([]);
+      rr(dx, dy, dw, dh, 6); ctx.fillStyle = '#F2F8F8'; ctx.fill(); ctx.strokeStyle = COL['current-2']; ctx.lineWidth = 1.2; ctx.stroke();
+      text('Motor', dx + dw / 2, dy + dh * 0.36, fs * 0.9, COL['current-2'], 'center', 600);
+      text('driver', dx + dw / 2, dy + dh * 0.66, fs * 0.9, COL['current-2'], 'center', 600);
+      var mr = Math.min(W * 0.07, H * 0.15), mx = W * 0.86;             // DC motor
+      ctx.strokeStyle = '#8FB5BA'; ctx.lineWidth = 1.6; ctx.beginPath();
+      ctx.moveTo(dx + dw, my - 6); ctx.lineTo(mx - mr - 4, my - 6); ctx.moveTo(dx + dw, my + 6); ctx.lineTo(mx - mr - 4, my + 6); ctx.stroke();
+      ctx.beginPath(); ctx.arc(mx, my, mr, 0, TAU); ctx.fillStyle = '#FFFFFF'; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = COL['current-2']; ctx.stroke();
+      ctx.save(); ctx.translate(mx, my); ctx.rotate(angle);
+      ctx.strokeStyle = COL.current; ctx.lineWidth = 3; ctx.lineCap = 'round';
+      for (i = 0; i < 3; i++){ ctx.rotate(TAU / 3); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(mr * 0.72, 0); ctx.stroke(); }
+      ctx.restore();
+      ctx.beginPath(); ctx.arc(mx, my, mr * 0.16, 0, TAU); ctx.fillStyle = COL['current-2']; ctx.fill();
+      text('DC motor', mx, my + mr + 11, fs * 0.9, COL.muted, 'center', 500);
+      var sx = W * 0.5, sy = H * 0.56, sw = W * 0.47, sh = H * 0.36;     // scope
+      rr(sx, sy, sw, sh, 8); ctx.fillStyle = '#FFFFFF'; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = '#CFE0DF'; ctx.stroke();
+      ctx.strokeStyle = '#E6EFEF'; ctx.beginPath();
+      for (i = 1; i < 8; i++){ var gx = sx + i * sw / 8; ctx.moveTo(gx, sy + 4); ctx.lineTo(gx, sy + sh - 4); }
+      for (i = 1; i < 4; i++){ var gy = sy + i * sh / 4; ctx.moveTo(sx + 4, gy); ctx.lineTo(sx + sw - 4, gy); }
+      ctx.stroke();
+      var hi = sy + sh * 0.34, lo = sy + sh * 0.8, x0 = sx + 12, per = (sw - 24) / 4;
+      ctx.strokeStyle = COL.current; ctx.lineWidth = 2; ctx.lineJoin = 'miter'; ctx.beginPath(); ctx.moveTo(x0, duty >= 0.999 ? hi : lo);
+      for (i = 0; i < 4; i++){
+        var a = x0 + i * per, b = a + per * duty;
+        if (duty <= 0.001) ctx.lineTo(a + per, lo);
+        else if (duty >= 0.999) ctx.lineTo(a + per, hi);
+        else { ctx.lineTo(a, lo); ctx.lineTo(a, hi); ctx.lineTo(b, hi); ctx.lineTo(b, lo); ctx.lineTo(a + per, lo); }
+      }
+      ctx.stroke();
+      text('PA5, 1 kHz PWM', sx + 10, sy + 12, fs * 0.85, COL.muted, 'left', 500);
+      text('3.3 V', sx + sw - 8, hi - 9, fs * 0.8, COL.muted, 'right', 500);
+    };
+    sync();
+    return sc;
+  }
+  var nucleoScene = NucleoScene();
+  addScene(nucleoScene);
+
+  /* ---------- StudioPad taster: a small piano roll played with Web Audio ---------- */
+  var studio = (function(){
+    var box = document.getElementById('studio');
+    if (!box) return null;
+    var grid = box.querySelector('.roll'), wave = document.getElementById('studio-wave');
+    var playBtn = box.querySelector('[data-studio="play"]'), exBtn = box.querySelector('[data-studio="example"]'), clearBtn = box.querySelector('[data-studio="clear"]');
+    var tempo = document.getElementById('tempo'), tempoOut = document.getElementById('tempo-out');
+    var ROWS = [{ n: 'A', f: 440.00 }, { n: 'G', f: 392.00 }, { n: 'E', f: 329.63 }, { n: 'D', f: 293.66 }, { n: 'C', f: 261.63 }];
+    var STEPS = 16, EXAMPLE = { 0: [4], 2: [2], 4: [1], 6: [2], 7: [1], 8: [0], 10: [1], 12: [2], 14: [3] };
+    var cells = [], on = [];
+    var ac = null, master = null, analyser = null, buf = null, playing = false, timer = 0, rafId = 0, nextT = 0, idx = 0, queue = [], nowCol = -1;
+    var wctx = null, WW = 0, WH = 0;
+    function set(r, s, v){ on[r][s] = v; cells[r][s].setAttribute('aria-pressed', String(v)); }
+    ROWS.forEach(function(row, r){
+      var key = document.createElement('span'); key.className = 'roll__key'; key.textContent = row.n; key.setAttribute('aria-hidden', 'true');
+      grid.appendChild(key);
+      cells[r] = []; on[r] = [];
+      for (var s = 0; s < STEPS; s++){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'roll__cell' + (s % 4 === 0 ? ' is-beat' : '');
+        b.setAttribute('aria-label', row.n + ', step ' + (s + 1));
+        b.setAttribute('aria-pressed', 'false');
+        b.addEventListener('click', (function(r, s){ return function(){ set(r, s, !on[r][s]); if (on[r][s] && ac) voice(ROWS[r].f, ac.currentTime + 0.01); }; })(r, s));
+        grid.appendChild(b); cells[r][s] = b; on[r][s] = false;
+      }
+    });
+    function example(){ for (var r = 0; r < ROWS.length; r++) for (var s = 0; s < STEPS; s++) set(r, s, !!(EXAMPLE[s] && EXAMPLE[s].indexOf(r) >= 0)); }
+    function audio(){
+      if (!ac){
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        ac = new AC();
+        master = ac.createGain(); master.gain.value = 0.2;
+        analyser = ac.createAnalyser(); analyser.fftSize = 1024;
+        master.connect(analyser); analyser.connect(ac.destination);
+      }
+      if (ac.state === 'suspended') ac.resume();
+      return ac;
+    }
+    function voice(f, t){                                               // soft mallet: triangle plus a quiet octave
+      var o = ac.createOscillator(), o2 = ac.createOscillator(), g = ac.createGain(), g2 = ac.createGain();
+      o.type = 'triangle'; o.frequency.value = f;
+      o2.type = 'sine'; o2.frequency.value = f * 2; g2.gain.value = 0.3;
+      o.connect(g); o2.connect(g2); g2.connect(g); g.connect(master);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.9, t + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+      o.start(t); o2.start(t); o.stop(t + 0.52); o2.stop(t + 0.52);
+    }
+    function schedule(){
+      var spb = 60 / Number(tempo.value) / 4;
+      while (nextT < ac.currentTime + 0.12){
+        for (var r = 0; r < ROWS.length; r++) if (on[r][idx]) voice(ROWS[r].f, nextT);
+        queue.push({ s: idx, t: nextT });
+        nextT += spb; idx = (idx + 1) % STEPS;
+      }
+    }
+    function mark(col){
+      if (col === nowCol) return;
+      for (var r = 0; r < ROWS.length; r++) for (var s = 0; s < STEPS; s++) cells[r][s].classList.toggle('is-now', s === col);
+      nowCol = col;
+    }
+    function sizeWave(){ var f = fit(wave); wctx = f.ctx; WW = f.w; WH = f.h; }
+    function drawWave(){
+      if (!wctx) sizeWave();
+      wctx.clearRect(0, 0, WW, WH);
+      wctx.lineWidth = 1; wctx.strokeStyle = COL['current-3'];
+      wctx.beginPath(); wctx.moveTo(0, WH / 2); wctx.lineTo(WW, WH / 2); wctx.stroke();
+      if (!playing || !analyser) return;
+      if (!buf) buf = new Uint8Array(analyser.fftSize);
+      analyser.getByteTimeDomainData(buf);
+      wctx.lineWidth = 1.6; wctx.strokeStyle = COL.current; wctx.beginPath();
+      for (var i = 0; i < buf.length; i++){
+        var x = i / (buf.length - 1) * WW, y = WH / 2 + Math.max(-0.46, Math.min(0.46, (buf[i] - 128) / 128 * 3.2)) * WH;
+        if (i) wctx.lineTo(x, y); else wctx.moveTo(x, y);
+      }
+      wctx.stroke();
+    }
+    function frame(){
+      if (!playing) return;
+      var t = ac.currentTime;
+      while (queue.length > 1 && queue[1].t <= t) queue.shift();
+      mark(queue.length && queue[0].t <= t ? queue[0].s : -1);
+      drawWave();
+      rafId = requestAnimationFrame(frame);
+    }
+    function play(){
+      if (!audio()){ playBtn.textContent = 'Audio unavailable'; playBtn.disabled = true; return; }
+      playing = true; idx = 0; queue = []; nextT = ac.currentTime + 0.06;
+      schedule(); timer = setInterval(schedule, 25);
+      playBtn.textContent = 'Stop';
+      rafId = requestAnimationFrame(frame);
+    }
+    function stop(){
+      playing = false; clearInterval(timer); cancelAnimationFrame(rafId);
+      playBtn.textContent = 'Play'; mark(-1); drawWave();
+    }
+    playBtn.addEventListener('click', function(){ if (playing) stop(); else play(); });
+    exBtn.addEventListener('click', example);
+    clearBtn.addEventListener('click', function(){ for (var r = 0; r < ROWS.length; r++) for (var s = 0; s < STEPS; s++) set(r, s, false); });
+    tempo.addEventListener('input', function(){ tempoOut.textContent = tempo.value + ' BPM'; });
+    document.addEventListener('visibilitychange', function(){ if (document.hidden && playing) stop(); });
+    example();
+    return { stop: function(){ if (playing) stop(); }, refresh: function(){ sizeWave(); drawWave(); } };
+  })();
+
+  onToolShow.push(function(id){
+    if (studio){ if (id === 'panel-studio') studio.refresh(); else studio.stop(); }
+    if (id === 'panel-nucleo' && nucleoScene && nucleoScene.relayout) nucleoScene.relayout();
+  });
+
+  /* ---------- GitHub links: filled in from the GitHub Pages address, or from the github-repo meta tag ---------- */
+  (function(){
+    var info = null, meta = document.querySelector('meta[name="github-repo"]');
+    var m = meta ? (meta.getAttribute('content') || '').trim().match(/^([A-Za-z0-9-]+)\/([A-Za-z0-9._-]+)$/) : null;
+    if (m) info = { user: m[1], repo: m[2] };
+    else {
+      var h = location.hostname.match(/^([a-z0-9-]+)\.github\.io$/i);
+      if (h){
+        var seg = location.pathname.split('/').filter(Boolean)[0];
+        info = { user: h[1], repo: seg && seg.indexOf('.') < 0 ? seg : h[1] + '.github.io' };
+      }
+    }
+    if (!info) return;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-gh]'), function(a){
+      var path = a.getAttribute('data-gh');
+      a.href = path === 'profile' ? 'https://github.com/' + info.user
+        : 'https://github.com/' + info.user + '/' + info.repo + '/tree/HEAD/' + path;
+      (a.closest('li') || a).hidden = false;
+    });
+  })();
+
 })();
 </script>
 </body>
