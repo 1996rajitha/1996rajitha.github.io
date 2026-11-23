@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rajitha Herath: bio-inspired robotics, soft bodies in flow and marine energy</title>
-<meta name="description" content="Rajitha Herath (H.M.R.L.B Herath), lecturer in mechanical engineering at General Sir John Kotelawala Defence University. MPhil research on an octopus-inspired, multi-modal underwater robot using CFD and tank experiments; seeking a PhD from 2027 in bio-inspired or soft robotics, fluid–structure interaction or marine energy.">
+<title>Rajitha Herath: bio-inspired engineering, robotics and marine energy</title>
+<meta name="description" content="Rajitha Herath (H.M.R.L.B Herath), lecturer in mechanical engineering at General Sir John Kotelawala Defence University. MPhil research on an octopus-inspired, multi-modal underwater robot using CFD and tank experiments; seeking a PhD from 2027 in bio-inspired engineering, including soft and underwater robotics, fluid–structure interaction and marine energy.">
 <meta name="author" content="H.M.R.L.B Herath">
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Rajitha Herath: bio-inspired robotics, soft bodies in flow and marine energy">
-<meta property="og:description" content="Octopus- and snake-inspired underwater robots studied with CFD and tank experiments, and a doctoral plan on how compliant, bio-inspired bodies move, sense and harvest energy in water.">
+<meta property="og:title" content="Rajitha Herath: bio-inspired engineering, robotics and marine energy">
+<meta property="og:description" content="Octopus- and snake-inspired underwater robots studied with CFD and tank experiments, and a doctoral plan in bio-inspired engineering: turning what living systems do well into machines that move, sense and harvest energy.">
 <meta name="theme-color" content="#F4F9F8">
 <!-- GitHub links fill in automatically on GitHub Pages. With a custom domain, set content to "username/repository". -->
 <meta name="github-repo" content="">
@@ -212,6 +212,12 @@ main>.sec:first-child{border-top:0}
 .rq dt{font-family:var(--sans);font-size:1rem;font-weight:600;color:var(--kelp)}
 .rq dd{margin:.3rem 0 0;line-height:1.55}
 .after{margin-top:2.2rem}
+.method{list-style:none;margin:.4rem 0 1.4rem;padding:0;counter-reset:m}
+.method li{position:relative;counter-increment:m;padding:.55rem 0 .55rem 2.6rem;border-top:1px solid var(--rule-soft)}
+.method li:first-child{border-top:0}
+.method li::before{content:counter(m);position:absolute;left:0;top:.5rem;display:grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;
+  background:var(--kelp-wash);border:1.5px solid var(--kelp-l);color:var(--kelp);font-family:var(--sans);font-size:.9rem;font-weight:600}
+.method b{color:var(--kelp);font-family:var(--sans);font-weight:600}
 @media (max-width:700px){.rq{grid-template-columns:1fr}}
 
 /* Publications */
@@ -466,8 +472,8 @@ footer{margin-top:1.5rem}
     <div class="hero__id">
       <h1 class="name">Rajitha Herath</h1>
       <p class="alias">H.M.R.L.B Herath, publishing as Herath Rajitha Lakmal Bandara</p>
-      <p class="role">Bio-inspired robotics and hydrodynamics: engineering systems that work with water rather than against it.</p>
-      <p class="pitch">I build robots that swim and study the water they push against. My MPhil produced an octopus-inspired, multi-arm robot that switches propulsion modes underwater, analysed with CFD and tank experiments. Next, I want to study how soft, bio-inspired bodies move, sense and draw energy from the sea, alone and in groups.</p>
+      <p class="role">Bio-inspired engineering: turning how living things move, sense and survive into machines that work.</p>
+      <p class="pitch">I build robots that swim and study the water they push against. My MPhil produced an octopus-inspired, multi-arm robot that switches propulsion modes underwater, analysed with CFD and tank experiments. Next, I want to work across bio-inspired engineering more broadly, carrying design principles from animals and plants into robots, compliant structures and energy systems, with water as the testing ground I know best.</p>
       <ul class="reach">
         <li><a class="btn btn--primary" href="mailto:herathrajitha@gmail.com">Email me</a></li>
         <li><a class="btn" href="cv.pdf">Download CV</a></li>
@@ -479,7 +485,7 @@ footer{margin-top:1.5rem}
     <dl class="now">
       <div><dt>Now</dt><dd>Lecturer, Department of Mechanical Engineering, General Sir John Kotelawala Defence University, Sri Lanka</dd></div>
       <div><dt>Writing</dt><dd>A critical review of bio-inspired adaptive systems for marine energy</dd></div>
-      <div><dt>Seeking</dt><dd>A doctoral position from 2027 in bio-inspired or soft robotics, fluid–structure interaction or marine energy</dd></div>
+      <div><dt>Seeking</dt><dd>A doctoral position from 2027 in bio-inspired engineering: soft and underwater robotics, fluid–structure interaction or marine energy</dd></div>
     </dl>
   </div>
   <figure class="hero__fig">
@@ -584,14 +590,21 @@ footer{margin-top:1.5rem}
     </header>
     <div class="sec__body">
       <div class="prose">
-        <p class="lede">The thread through my work is how compliant, bio-inspired bodies interact with the water around them: how they move through it, how they sense it, and how they can draw energy from it.</p>
-        <p>I want to take that further in a PhD. It has four strands, and each one stands on its own as a research question.</p>
+        <p class="lede">The thread through my work is bio-inspired engineering: taking solutions that living systems have evolved and turning them into machines that move efficiently, sense their surroundings and draw energy from them. Water is where I have tested that idea so far, and where I want to push it furthest.</p>
+        <p class="subhead">How I work</p>
+        <ol class="method">
+          <li><b>Observe</b> how a living system solves a problem, such as an octopus arm, a snake, kelp or a fish school in flow.</li>
+          <li><b>Extract</b> the principle behind it: a travelling wave, compliance, collective spacing.</li>
+          <li><b>Model</b> it with mechanism design, CFD and fluid–structure interaction.</li>
+          <li><b>Build and test</b> it as a working prototype, with embedded control and experiments.</li>
+        </ol>
+        <p>The method carries to any organism and any engineering problem. My MPhil took it through all four steps underwater, and I want to take it further in a PhD. In water, where my work is strongest, it has four strands, and each one stands on its own as a research question.</p>
       </div>
 
       <dl class="rq">
         <div><dt>Bio-inspired locomotion and control</dt><dd>How should a multi-arm or undulating body coordinate its segments to swim efficiently and switch between gaits? My octopus- and snake-inspired robots lead naturally to rhythm-generating controllers such as central pattern generators.</dd></div>
-        <div><dt>Soft and compliant bodies</dt><dd>How can soft, kelp- or fish-like structures reconfigure under waves and currents, and what can embedded strain or flow sensing tell them about the water around them?</dd></div>
-        <div><dt>Collective behaviour</dt><dd>When many bodies share the same flow, as in fish schools and kelp forests, can spacing and phasing them with intent make the group perform better than its members working alone?</dd></div>
+        <div><dt>Soft and compliant bodies</dt><dd>How can soft structures modelled on kelp, fish, tendons and muscle reconfigure under changing loads, and what can embedded strain or flow sensing tell them about their surroundings?</dd></div>
+        <div><dt>Collective behaviour</dt><dd>When many bodies share the same flow, as in fish schools, bird flocks and kelp forests, can spacing and phasing them with intent make the group perform better than its members working alone?</dd></div>
         <div><dt>Marine energy and coexistence</dt><dd>Can compliant, collective structures convert wave and current motion into useful energy while sharing the water with the ecosystem around them?</dd></div>
       </dl>
 
@@ -1044,7 +1057,7 @@ footer{margin-top:1.5rem}
       <div class="meet">
         <img class="portrait" src="me.jpg" alt="Rajitha Herath" loading="lazy" onerror="this.parentNode.classList.add('no-photo');this.remove()">
         <div>
-          <p class="lede">I am open to doctoral research and collaboration in bio-inspired and soft robotics, underwater robotics, fluid–structure interaction and marine energy systems, for a start in 2027. Write to me and I will reply.</p>
+          <p class="lede">I am open to doctoral research and collaboration in bio-inspired engineering, including soft and underwater robotics, fluid–structure interaction and marine energy systems, for a start in 2027. Write to me and I will reply.</p>
           <ul class="contact-links">
             <li><a class="btn btn--primary" href="mailto:herathrajitha@gmail.com">herathrajitha@gmail.com</a></li>
             <li><a class="btn" href="cv.pdf">Download the full CV</a></li>
